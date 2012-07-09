@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 
 namespace Lucene.Net.Orm.Helpers
@@ -26,7 +25,6 @@ namespace Lucene.Net.Orm.Helpers
             {
                 return Parse(values[0], conversionType);
             }
-            
         }
 
         public static Object Parse(string value, Type conversionType)

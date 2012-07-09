@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Reflection;
 using System.Linq.Expressions;
+using System.Reflection;
 
 
 namespace Lucene.Net.Orm.Helpers
@@ -28,7 +26,7 @@ namespace Lucene.Net.Orm.Helpers
 
             if (property == null)
             {
-                throw new InvalidOperationException("Lambda expression is invalid.");
+                throw new ArgumentException(Properties.Resources.EXC_INVALID_LAMBDA_EXPRESSION);
             }
 
             return property;

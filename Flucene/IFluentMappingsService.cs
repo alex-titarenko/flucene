@@ -1,8 +1,6 @@
 ﻿using System;
 
 using Lucene.Net.Documents;
-
-using Lucene.Net.Orm.Mapping;
 using Lucene.Net.Orm.Mappers;
 
 

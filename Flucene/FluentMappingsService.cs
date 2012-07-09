@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Reflection;
 
 using Lucene.Net.Documents;
@@ -37,7 +36,7 @@ namespace Lucene.Net.Orm
 
                  foreach (Type mapperType in mapTypes)
                  {
-                     AddMapper(mapperType);
+                     AddMapping(mapperType);
                  }
             }
         }
@@ -54,7 +53,7 @@ namespace Lucene.Net.Orm
             foreach (Type mapType in types)
             {
                 if (IsMappingProvider(mapType))
-                    AddMapper(mapType);
+                    AddMapping(mapType);
                 else
                     throw new ArgumentException(
                         String.Format("'{0}' type is not implement IDocumentMapper interface.", mapType));
@@ -62,7 +61,7 @@ namespace Lucene.Net.Orm
         }
 
 
-        private void AddMapper(Type mapType)
+        private void AddMapping(Type mapType)
         {
             Type modelType = mapType
                 .GetInterface(IDocumentMapperProviderInterfaceName)
@@ -92,7 +91,7 @@ namespace Lucene.Net.Orm
             }
 
             throw new InvalidOperationException(
-                String.Format("Mapping for the '{0}' model is not registered", typeof(T)));
+                String.Format(Properties.Resources.EXC_MAPPING_NOT_REGISTERED, typeof(T)));
         }
 
         public T GetModel<T>(Document doc) where T : new()
@@ -104,7 +103,7 @@ namespace Lucene.Net.Orm
             }
 
             throw new InvalidOperationException(
-                String.Format("Mapping for the '{0}' model is not registered", typeof(T)));
+                String.Format(Properties.Resources.EXC_MAPPING_NOT_REGISTERED, typeof(T)));
         }
 
         public object GetModel(Document doc, Type modelType)
@@ -116,7 +115,7 @@ namespace Lucene.Net.Orm
             }
 
             throw new InvalidOperationException(
-                String.Format("Mapping for the '{0}' model is not registered", modelType));
+                String.Format(Properties.Resources.EXC_MAPPING_NOT_REGISTERED, modelType));
         }
 
         #endregion
