@@ -12,8 +12,6 @@ namespace Lucene.Net.Orm
 {
     public class FluentMappingsService : IMappingsService
     {
-        private const string DocumentMapperProviderInterfaceName = "IMappingProvider`1";
-
         public IDocumentMapper Mapper { get; set; }
 
         protected IDictionary<Type, object> Mappings { get; set; }
@@ -34,9 +32,9 @@ namespace Lucene.Net.Orm
                      assembly.GetExportedTypes()
                      .Where(t => IsMappingProvider(t));
 
-                 foreach (Type mapperType in mapTypes)
+                 foreach (Type mapType in mapTypes)
                  {
-                     AddMapping(mapperType);
+                     AddMapping(mapType);
                  }
             }
         }
@@ -63,9 +61,7 @@ namespace Lucene.Net.Orm
 
         private void AddMapping(Type mapType)
         {
-            Type modelType = mapType
-                .GetInterface(DocumentMapperProviderInterfaceName)
-                .GetGenericArguments()[0];
+            Type modelType = GetMappingProviderType(mapType).GetGenericArguments()[0];
 
             object mappingProvider = Activator.CreateInstance(mapType);
             object mapping = mapType.InvokeMember("GetMapping",
@@ -76,7 +72,15 @@ namespace Lucene.Net.Orm
 
         private bool IsMappingProvider(Type type)
         {
-            return type.GetInterface(DocumentMapperProviderInterfaceName) != null;
+            return GetMappingProviderType(type) != null;
+        }
+
+        private Type GetMappingProviderType(Type mapType)
+        {
+            return mapType
+                .GetInterfaces()
+                .FirstOrDefault(x => x.IsGenericType &&
+                    x.GetGenericTypeDefinition() == (typeof(IMappingProvider<>)));
         }
 
 

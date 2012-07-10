@@ -114,28 +114,35 @@ namespace Lucene.Net.Orm.Mapping.Configuration
             }
             else
             {
-                NumericField numField = new NumericField(
-                    FieldName, DefaultPrecisionStep,
-                    _store, _index == Field.Index.ANALYZED);
-
-                if (value is int)
-                    numField.SetIntValue((int)value);
-                else if (value is long)
-                    numField.SetLongValue((long)value);
-                else if (value is float)
-                    numField.SetFloatValue((float)value);
-                else if (value is double)
-                    numField.SetDoubleValue((double)value);
-                else
-                    throw new Exception(String.Format("'{0}' data type is not supported", value));
-
-                field = numField;
+                field = CreateNumericField((ValueType)value);
             }
 
-            field.SetBoost(_boost);
+            //field.SetBoost(_boost);
             return new Fieldable[] { field };
         }
 
         #endregion
+
+        private AbstractField CreateNumericField(ValueType value)
+        {
+            NumericField numField = new NumericField(
+                    FieldName, DefaultPrecisionStep,
+                    _store, _index == Field.Index.ANALYZED);
+
+            if (value is int)
+                numField.SetIntValue((int)value);
+            else if (value is long)
+                numField.SetLongValue((long)value);
+            else if (value is float)
+                numField.SetFloatValue((float)value);
+            else if (value is double)
+                numField.SetDoubleValue((double)value);
+            else if (value is decimal)
+                numField.SetDoubleValue((double)(decimal)value);
+            else
+                throw new Exception(String.Format("'{0}' data type is not supported", value));
+
+            return numField;
+        }
     }
 }

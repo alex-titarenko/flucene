@@ -29,10 +29,23 @@ namespace Lucene.Net.Orm.Helpers
 
         public static Object Parse(string value, Type conversionType)
         {
-            if (conversionType.IsEnum)
-                return Enum.Parse(conversionType, value);
+            if (!String.IsNullOrEmpty(value))
+            {
+                if (conversionType.IsEnum)
+                    return Enum.Parse(conversionType, value);
+                else
+                {
+                    if (conversionType.IsGenericType &&
+                        typeof(Nullable<>) == conversionType.GetGenericTypeDefinition())
+                        conversionType = Nullable.GetUnderlyingType(conversionType);
+
+                    return Convert.ChangeType(value, conversionType);
+                }
+            }
             else
-                return Convert.ChangeType(value, conversionType);
+            {
+                return null;
+            }
         }
 
 
