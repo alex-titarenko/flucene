@@ -10,9 +10,9 @@ using Lucene.Net.Orm.Mappers;
 
 namespace Lucene.Net.Orm
 {
-    public class FluentMappingsService : IFluentMappingsService
+    public class FluentMappingsService : IMappingsService
     {
-        private const string IDocumentMapperProviderInterfaceName = "IMappingProvider`1";
+        private const string DocumentMapperProviderInterfaceName = "IMappingProvider`1";
 
         public IDocumentMapper Mapper { get; set; }
 
@@ -64,7 +64,7 @@ namespace Lucene.Net.Orm
         private void AddMapping(Type mapType)
         {
             Type modelType = mapType
-                .GetInterface(IDocumentMapperProviderInterfaceName)
+                .GetInterface(DocumentMapperProviderInterfaceName)
                 .GetGenericArguments()[0];
 
             object mappingProvider = Activator.CreateInstance(mapType);
@@ -76,7 +76,7 @@ namespace Lucene.Net.Orm
 
         private bool IsMappingProvider(Type type)
         {
-            return type.GetInterface(IDocumentMapperProviderInterfaceName) != null;
+            return type.GetInterface(DocumentMapperProviderInterfaceName) != null;
         }
 
 

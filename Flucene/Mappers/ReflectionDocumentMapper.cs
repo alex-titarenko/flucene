@@ -13,7 +13,7 @@ namespace Lucene.Net.Orm.Mappers
 {
     public class ReflectionDocumentMapper : IDocumentMapper
     {
-        public Document GetDocument<TModel>(DocumentMapping<TModel> mapping, TModel model, IFluentMappingsService mappingService)
+        public Document GetDocument<TModel>(DocumentMapping<TModel> mapping, TModel model, IMappingsService mappingService)
         {
             Document doc = new Document();
 
@@ -65,7 +65,7 @@ namespace Lucene.Net.Orm.Mappers
             return doc;
         }
 
-        public TModel GetModel<TModel>(DocumentMapping<TModel> mapping, Document document, IFluentMappingsService mappingService) where TModel : new()
+        public TModel GetModel<TModel>(DocumentMapping<TModel> mapping, Document document, IMappingsService mappingService) where TModel : new()
         {
             TModel model = new TModel();
 

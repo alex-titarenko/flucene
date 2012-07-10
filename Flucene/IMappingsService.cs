@@ -6,7 +6,7 @@ using Lucene.Net.Orm.Mappers;
 
 namespace Lucene.Net.Orm
 {
-    public interface IFluentMappingsService
+    public interface IMappingsService
     {
         IDocumentMapper Mapper { get; set; }
 

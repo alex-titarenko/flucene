@@ -13,7 +13,7 @@ namespace Lucene.Net.Orm.Mapping
 {
     public class DocumentMap<TModel> : DocumentMapBase<TModel>, IMappingProvider<TModel> where TModel : new()
     {
-        protected IMappingConfigurationFactory MappingConfigurationFactory;
+        protected IMappingConfigurationFactory MappingConfigurationFactory { get; set; }
 
         protected DocumentMapping<TModel> Mapping { get; set; }
 
