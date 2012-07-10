@@ -49,7 +49,7 @@
     <Compile Include="FluentMappingsService.cs" />
     <Compile Include="Helpers\DataHelper.cs" />
     <Compile Include="Helpers\ExpressionHelper.cs" />
-    <Compile Include="IFluentMappingsService.cs" />
+    <Compile Include="IMappingsService.cs" />
     <Compile Include="Mappers\IDocumentMapper.cs" />
     <Compile Include="Mappers\ReflectionDocumentMapper.cs" />
     <Compile Include="Mapping\Configuration\StandardMappingConfigurationFactory.cs" />
