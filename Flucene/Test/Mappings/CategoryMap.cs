@@ -13,7 +13,7 @@ namespace Lucene.Net.Orm.Test.Mappings
     {
         public CategoryMap()
         {
-            Map(x => x.ID);
+            //Map(x => x.ID);
             Map(x => x.Name, "ShopName").Store().Analyze().Boost(1.5f);
             Map(x => x.IsRoot).Store().NotIndex();
         }

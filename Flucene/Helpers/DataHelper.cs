@@ -15,9 +15,7 @@ namespace Lucene.Net.Orm.Helpers
                 Type elementType = conversionType.GetElementType();
                 return CreateArray(values, elementType);
             }
-            else if (typeof(string) != conversionType &&
-                typeof(IList).IsAssignableFrom(conversionType) &&
-                conversionType.IsGenericType)
+            else if (IsEnumerable(conversionType))
             {
                 return CreateCollection(values, conversionType);
             }
@@ -49,6 +47,13 @@ namespace Lucene.Net.Orm.Helpers
         }
 
 
+        private static bool IsEnumerable(Type type)
+        {
+            return typeof(string) != type &&
+                type.GetInterfaces()
+                .Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IEnumerable<>));
+        }
+
         private static Array CreateArray(string[] values, Type elementType)
         {
             Array array = Array.CreateInstance(elementType, values.Length);
@@ -64,8 +69,13 @@ namespace Lucene.Net.Orm.Helpers
             Type listType = targetType.GetGenericArguments()[0];
             IEnumerable<object> enumerable = values
                 .Select(x => Parse(x, listType));
-            
-            IList collection = (IList)Activator.CreateInstance(targetType);
+
+            IList collection = null;
+
+            if (targetType.IsInterface)
+                collection = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(listType));
+            else
+                collection = (IList)Activator.CreateInstance(targetType);
 
             foreach (var o in enumerable)
             {

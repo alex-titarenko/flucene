@@ -36,11 +36,13 @@ namespace Lucene.Net.Orm.Test
             expected.ID = 2;
             expected.Name = "Kaspersky Internet Security 2012";
             expected.Description = "Kaspersky Internet Security 2012 delivers premium protection from viruses, Trojans, spam, hackers and more.";
+            expected.Category = new Category() { IsRoot = true, Name = "Security" };
             expected.Version = "11.0";
             expected.ReleaseDate = DateTime.Today;
             expected.RegularPrice = 79.95m;
             expected.UpgradePrice = 59.95m;
             expected.Status = PublishStatus.Active;
+            expected.Tags = new List<string>() { "antivirus", "security", "anti-spam", "kaspersky" };
 
             Document actualDoc = _mappingService.GetDocument(expected);
             Application actual = _mappingService.GetModel<Application>(actualDoc);
