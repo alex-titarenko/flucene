@@ -123,4 +123,7 @@
   <data name="EXC_MAPPING_NOT_REGISTERED" xml:space="preserve">
     <value>Mapping for the '{0}' model is not registered</value>
   </data>
+  <data name="EXC_NOT_IMPL_DOCUMENT_MAPPER" xml:space="preserve">
+    <value>'{0}' type is not implement IDocumentMapper interface.</value>
+  </data>
 </root>

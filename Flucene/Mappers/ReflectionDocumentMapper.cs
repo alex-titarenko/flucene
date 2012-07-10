@@ -43,7 +43,7 @@ namespace Lucene.Net.Orm.Mappers
 
             if (mappingService != null)
             {
-                foreach (KeyValuePair<PropertyInfo, IReferenceConfiguration> item in mapping.References)
+                foreach (KeyValuePair<PropertyInfo, IReferenceConfiguration> item in mapping.ReferenceMaps)
                 {
                     dynamic propertyValue = item.Key.GetValue(model, null);
                     if (propertyValue != null)
@@ -96,7 +96,7 @@ namespace Lucene.Net.Orm.Mappers
 
             if (mappingService != null)
             {
-                foreach (KeyValuePair<PropertyInfo, IReferenceConfiguration> item in mapping.References)
+                foreach (KeyValuePair<PropertyInfo, IReferenceConfiguration> item in mapping.ReferenceMaps)
                 {
                     object subModel = mappingService.GetModel(document, item.Key.PropertyType);
                     item.Key.SetValue(model, subModel, null);

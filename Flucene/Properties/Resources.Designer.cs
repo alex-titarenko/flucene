@@ -77,5 +77,14 @@ namespace Lucene.Net.Orm.Properties {
                 return ResourceManager.GetString("EXC_MAPPING_NOT_REGISTERED", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; type is not implement IDocumentMapper interface..
+        /// </summary>
+        internal static string EXC_NOT_IMPL_DOCUMENT_MAPPER {
+            get {
+                return ResourceManager.GetString("EXC_NOT_IMPL_DOCUMENT_MAPPER", resourceCulture);
+            }
+        }
     }
 }

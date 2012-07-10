@@ -13,7 +13,7 @@ namespace Lucene.Net.Orm.Mapping
 
         public ICollection<KeyValuePair<CustomMap<TModel>, IFieldConfiguration>> CustomMaps { get; set; }
 
-        public ICollection<KeyValuePair<PropertyInfo, IReferenceConfiguration>> References { get; set; }
+        public ICollection<KeyValuePair<PropertyInfo, IReferenceConfiguration>> ReferenceMaps { get; set; }
 
 
         public Func<TModel, float> Boost { get; set; }
@@ -23,7 +23,7 @@ namespace Lucene.Net.Orm.Mapping
         {
             PropertyMaps = new List<KeyValuePair<PropertyInfo, IFieldConfiguration>>();
             CustomMaps = new List<KeyValuePair<CustomMap<TModel>, IFieldConfiguration>>();
-            References = new List<KeyValuePair<PropertyInfo, IReferenceConfiguration>>();
+            ReferenceMaps = new List<KeyValuePair<PropertyInfo, IReferenceConfiguration>>();
         }
     }
 }

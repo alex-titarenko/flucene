@@ -64,7 +64,7 @@ namespace Lucene.Net.Orm.Mapping
             IReferenceConfiguration reference = MappingConfigurationFactory.CreateReferenceConfiguration();
 
             PropertyInfo property = ExpressionHelper.ExtractPropertyInfo(selector);
-            Mapping.References.Add(new KeyValuePair<PropertyInfo, IReferenceConfiguration>(property, reference));
+            Mapping.ReferenceMaps.Add(new KeyValuePair<PropertyInfo, IReferenceConfiguration>(property, reference));
             
             return reference;
         }

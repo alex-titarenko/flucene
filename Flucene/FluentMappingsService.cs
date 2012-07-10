@@ -54,7 +54,7 @@ namespace Lucene.Net.Orm
                     AddMapping(mapType);
                 else
                     throw new ArgumentException(
-                        String.Format("'{0}' type is not implement IDocumentMapper interface.", mapType));
+                        String.Format(Properties.Resources.EXC_NOT_IMPL_DOCUMENT_MAPPER, mapType));
             }
         }
 

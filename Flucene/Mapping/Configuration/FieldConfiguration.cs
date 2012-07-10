@@ -116,7 +116,7 @@ namespace Lucene.Net.Orm.Mapping.Configuration
             {
                 field = CreateNumericField((ValueType)value);
             }
-
+            
             //field.SetBoost(_boost);
             return new Fieldable[] { field };
         }
