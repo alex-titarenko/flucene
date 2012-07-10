@@ -15,7 +15,14 @@ namespace Lucene.Net.Orm.Test.Mappings
         {
             Map(x => x.ID);
             Map(x => x.Name, "AppName").Store().Analyze().Boost(2);
-            Map(x => x.Version, "AppVersion").Store().NotAnalyze().Boost(0.3f);
+
+            CustomMap(
+                x => x.Version.ToString(),
+                (x, v) => x.Version = Version.Parse(v.FirstOrDefault()),
+                "AppVersion").Store().NotAnalyze().Boost(0.3f);
+
+            CustomField(x => x.Title.ToUpperInvariant(), "Title");
+
             Map(x => x.Description, "AppDescription").Store().Analyze().Boost(0.1f);
             Map(x => x.RegularPrice, "RegularPrice").Store().NotIndex();
             Map(x => x.UpgradePrice, "UpgradePrice").Store().NotIndex();
@@ -23,7 +30,7 @@ namespace Lucene.Net.Orm.Test.Mappings
             Map(x => x.Status, "Status").Store().NotIndex();
             Map(x => x.Tags, "tag").Store().Analyze().Boost(3);
 
-            Reference(x => x.Category);
+            Reference(x => x.Category).Prefix("Category");
         }
     }
 }

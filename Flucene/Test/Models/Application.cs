@@ -11,7 +11,7 @@ namespace Lucene.Net.Orm.Test.Models
 
         public virtual string Name { get; set; }
 
-        public virtual string Version { get; set; }
+        public virtual Version Version { get; set; }
 
         public string Title
         {

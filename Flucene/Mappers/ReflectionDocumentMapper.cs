@@ -18,7 +18,7 @@ namespace Lucene.Net.Orm.Mappers
             Document doc = new Document();
 
             // Adds mapped fields to document
-            foreach (KeyValuePair<PropertyInfo, IFieldConfiguration> item in mapping.MapFields)
+            foreach (KeyValuePair<PropertyInfo, IFieldConfiguration> item in mapping.PropertyMaps)
             {
                 object propertyValue = item.Key.GetValue(model, null);
                 if (propertyValue != null)
@@ -30,11 +30,11 @@ namespace Lucene.Net.Orm.Mappers
                     }
                 }
             }
-            
-            // Adds custom fields to document
-            foreach (KeyValuePair<Func<TModel, object>, IFieldConfiguration> item in mapping.CustomFields)
+
+            // Adds custom fields to document.
+            foreach (KeyValuePair<CustomMap<TModel>, IFieldConfiguration> item in mapping.CustomMaps)
             {
-                Func<TModel, object> selector = item.Key;
+                Func<TModel, object> selector = item.Key.Selector;
                 foreach (Fieldable field in item.Value.GetFields(selector(model)))
                 {
                     doc.Add(field);
@@ -69,7 +69,7 @@ namespace Lucene.Net.Orm.Mappers
         {
             TModel model = new TModel();
 
-            foreach (KeyValuePair<PropertyInfo, IFieldConfiguration> item in mapping.MapFields)
+            foreach (KeyValuePair<PropertyInfo, IFieldConfiguration> item in mapping.PropertyMaps)
             {
                 string fieldName = item.Value.FieldName;
                 string[] fieldValues = document.GetValues(fieldName);
@@ -77,6 +77,20 @@ namespace Lucene.Net.Orm.Mappers
                 if (fieldValues != null && fieldValues.Length > 0)
                 {
                     item.Key.SetValue(model, DataHelper.Parse(fieldValues, item.Key.PropertyType), null);
+                }
+            }
+
+            foreach (KeyValuePair<CustomMap<TModel>, IFieldConfiguration> item in mapping.CustomMaps)
+            {
+                Action<TModel, IEnumerable<string>> setter = item.Key.Setter;
+                if (setter != null)
+                {
+                    string fieldName = item.Value.FieldName;
+                    string[] fieldValues = document.GetValues(fieldName);
+                    if (fieldValues != null && fieldValues.Length > 0)
+                    {
+                        setter(model, fieldValues);
+                    }
                 }
             }
 

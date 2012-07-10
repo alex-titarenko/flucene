@@ -9,9 +9,7 @@ namespace Lucene.Net.Orm.Mapping
 {
     public class DocumentMapping<TModel>
     {
-        public ICollection<KeyValuePair<PropertyInfo, IFieldConfiguration>> MapFields { get; set; }
-
-        public ICollection<KeyValuePair<Func<TModel, Object>, IFieldConfiguration>> CustomFields { get; set; }
+        public ICollection<KeyValuePair<PropertyInfo, IFieldConfiguration>> PropertyMaps { get; set; }
 
         public ICollection<KeyValuePair<CustomMap<TModel>, IFieldConfiguration>> CustomMaps { get; set; }
 
@@ -23,8 +21,8 @@ namespace Lucene.Net.Orm.Mapping
 
         public DocumentMapping()
         {
-            MapFields = new List<KeyValuePair<PropertyInfo, IFieldConfiguration>>();
-            CustomFields = new List<KeyValuePair<Func<TModel, Object>, IFieldConfiguration>>();
+            PropertyMaps = new List<KeyValuePair<PropertyInfo, IFieldConfiguration>>();
+            CustomMaps = new List<KeyValuePair<CustomMap<TModel>, IFieldConfiguration>>();
             References = new List<KeyValuePair<PropertyInfo, IReferenceConfiguration>>();
         }
     }

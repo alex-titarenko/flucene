@@ -36,24 +36,23 @@ namespace Lucene.Net.Orm.Mapping
             IFieldConfiguration field = MappingConfigurationFactory.CreateFieldConfiguration(fieldName);
             
             PropertyInfo property = ExpressionHelper.ExtractPropertyInfo(selector);
-            Mapping.MapFields.Add(new KeyValuePair<PropertyInfo, IFieldConfiguration>(property, field));
+            Mapping.PropertyMaps.Add(new KeyValuePair<PropertyInfo, IFieldConfiguration>(property, field));
 
             return field;
         }
 
-        public override IFieldConfiguration  CustomMap(Func<TModel, object> selector, Action<TModel, IEnumerable<string>> setter, string fieldName)
+        public override IFieldConfiguration CustomMap(Func<TModel, object> selector, Action<TModel, IEnumerable<string>> setter, string fieldName)
         {
             IFieldConfiguration field = MappingConfigurationFactory.CreateFieldConfiguration(fieldName);
+            CustomMap<TModel> customMap = new CustomMap<TModel>(selector, setter);
 
-            return null;
+            Mapping.CustomMaps.Add(new KeyValuePair<CustomMap<TModel>, IFieldConfiguration>(customMap, field));
+            return field;
         }
 
         public override IFieldConfiguration CustomField(Func<TModel, object> selector, string fieldName)
         {
-            IFieldConfiguration field = MappingConfigurationFactory.CreateFieldConfiguration(fieldName);
-            Mapping.CustomFields.Add(new KeyValuePair<Func<TModel, object>, IFieldConfiguration>(selector, field));
-            
-            return field;
+            return CustomMap(selector, null, fieldName);
         }
 
         public override void CustomFields(Func<TModel, IEnumerable<KeyValuePair<string, object>>> selector)
