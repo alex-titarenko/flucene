@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
+using Lucene.Net.Orm.Mapping.Configuration;
+
 
 namespace Lucene.Net.Orm.Mapping
 {

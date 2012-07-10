@@ -6,6 +6,7 @@ using System.Reflection;
 using Lucene.Net.Documents;
 using Lucene.Net.Orm.Helpers;
 using Lucene.Net.Orm.Mapping;
+using Lucene.Net.Orm.Mapping.Configuration;
 
 
 namespace Lucene.Net.Orm.Mappers

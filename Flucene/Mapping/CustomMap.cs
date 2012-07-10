@@ -9,6 +9,6 @@ namespace Lucene.Net.Orm.Mapping
     {
         public Func<TModel, object> Selector { get; set; }
 
-        public Action<TModel, string[]> Setter { get; set; }
+        public Action<TModel, IEnumerable<string>> Setter { get; set; }
     }
 }

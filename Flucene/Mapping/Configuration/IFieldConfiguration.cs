@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Lucene.Net.Documents;
 
 
-namespace Lucene.Net.Orm.Mapping
+namespace Lucene.Net.Orm.Mapping.Configuration
 {
     public interface IFieldConfiguration
     {

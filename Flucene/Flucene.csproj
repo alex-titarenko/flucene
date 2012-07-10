@@ -52,15 +52,17 @@
     <Compile Include="IFluentMappingsService.cs" />
     <Compile Include="Mappers\IDocumentMapper.cs" />
     <Compile Include="Mappers\ReflectionDocumentMapper.cs" />
+    <Compile Include="Mapping\Configuration\StandardMappingConfigurationFactory.cs" />
     <Compile Include="Mapping\CustomMap.cs" />
     <Compile Include="Mapping\DocumentMap.cs" />
     <Compile Include="Mapping\DocumentMapBase.cs" />
     <Compile Include="Mapping\DocumentMapping.cs" />
-    <Compile Include="Mapping\FieldConfiguration.cs" />
-    <Compile Include="Mapping\IFieldConfiguration.cs" />
+    <Compile Include="Mapping\Configuration\FieldConfiguration.cs" />
+    <Compile Include="Mapping\Configuration\IFieldConfiguration.cs" />
+    <Compile Include="Mapping\Configuration\IMappingConfigurationFactory.cs" />
     <Compile Include="Mapping\IMappingProvider.cs" />
-    <Compile Include="Mapping\IReferenceConfiguration.cs" />
-    <Compile Include="Mapping\ReferenceConfiguration.cs" />
+    <Compile Include="Mapping\Configuration\IReferenceConfiguration.cs" />
+    <Compile Include="Mapping\Configuration\ReferenceConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
