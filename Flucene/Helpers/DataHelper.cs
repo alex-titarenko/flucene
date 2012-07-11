@@ -30,7 +30,17 @@ namespace Lucene.Net.Orm.Helpers
             if (!String.IsNullOrEmpty(value))
             {
                 if (conversionType.IsEnum)
+                {
                     return Enum.Parse(conversionType, value);
+                }
+                else if (conversionType == typeof(DateTime))
+                {
+                    long binaryDateTime;
+
+                    if (long.TryParse(value, out binaryDateTime))
+                        return DateTime.FromBinary(binaryDateTime);
+                    return DateTime.Parse(value);
+                }
                 else
                 {
                     if (conversionType.IsGenericType &&

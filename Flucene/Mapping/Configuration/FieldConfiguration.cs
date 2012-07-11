@@ -92,7 +92,6 @@ namespace Lucene.Net.Orm.Mapping.Configuration
             AbstractField field = null;
 
             if (value is String ||
-                value is DateTime ||
                 value is Enum ||
                 value is Boolean)
             {
@@ -139,8 +138,10 @@ namespace Lucene.Net.Orm.Mapping.Configuration
                 numField.SetDoubleValue((double)value);
             else if (value is decimal)
                 numField.SetDoubleValue((double)(decimal)value);
+            else if (value is DateTime)
+                numField.SetLongValue(((DateTime)value).ToBinary());
             else
-                throw new Exception(String.Format("'{0}' data type is not supported", value));
+                throw new Exception(String.Format(Properties.Resources.EXC_TYPE_NOT_SUPPORTED, value));
 
             return numField;
         }

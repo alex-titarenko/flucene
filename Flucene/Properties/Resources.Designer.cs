@@ -86,5 +86,14 @@ namespace Lucene.Net.Orm.Properties {
                 return ResourceManager.GetString("EXC_NOT_IMPL_DOCUMENT_MAPPER", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; data type is not supported..
+        /// </summary>
+        internal static string EXC_TYPE_NOT_SUPPORTED {
+            get {
+                return ResourceManager.GetString("EXC_TYPE_NOT_SUPPORTED", resourceCulture);
+            }
+        }
     }
 }

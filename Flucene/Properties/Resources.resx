@@ -126,4 +126,7 @@
   <data name="EXC_NOT_IMPL_DOCUMENT_MAPPER" xml:space="preserve">
     <value>'{0}' type is not implement IDocumentMapper interface.</value>
   </data>
+  <data name="EXC_TYPE_NOT_SUPPORTED" xml:space="preserve">
+    <value>'{0}' data type is not supported.</value>
+  </data>
 </root>

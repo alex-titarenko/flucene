@@ -63,11 +63,10 @@ namespace Lucene.Net.Orm
         {
             Type modelType = GetMappingProviderType(mapType).GetGenericArguments()[0];
 
-            object mappingProvider = Activator.CreateInstance(mapType);
-            object mapping = mapType.InvokeMember("GetMapping",
-                BindingFlags.InvokeMethod, null, mappingProvider, null);
+            dynamic mappingProvider = Activator.CreateInstance(mapType);
+            object mapping =  mappingProvider.GetMapping();
 
-            Mappings.Add(new KeyValuePair<Type,object>(modelType, mapping));
+            Mappings.Add(new KeyValuePair<Type, object>(modelType, mapping));
         }
 
         private bool IsMappingProvider(Type type)
