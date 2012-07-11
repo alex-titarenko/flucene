@@ -34,15 +34,18 @@ namespace Lucene.Net.Orm.Test
         {
             Application expected = new Application();
             expected.ID = 2;
-            expected.Name = "Kaspersky Internet Security 2012";
-            expected.Description = "Kaspersky Internet Security 2012 delivers premium protection from viruses, Trojans, spam, hackers and more.";
+            expected.Name = "Flucene";
+            expected.Description = 
+@"Flucene - ORM for lucene.net. This project based on the opened sources of Iveonik Systems ltd. 
+This library provide more fine mapping as compared with other existed libraries. Library's name 
+was created as acronym of ""FLUent luCENE"".";
             expected.Category = new Category() { IsRoot = true, Name = "Security" };
-            expected.Version = new Version(11, 0, 0, 0);
+            expected.Version = new Version(1, 0, 0, 0);
             expected.ReleaseDate = DateTime.Today;
-            expected.RegularPrice = 79.95m;
+            expected.RegularPrice = 0.00m;
             expected.UpgradePrice = 59.95m;
             expected.Status = PublishStatus.Active;
-            expected.Tags = new List<string>() { "antivirus", "security", "anti-spam", "kaspersky" };
+            expected.Tags = new List<string>() { "lucene", "search", "ORM", "mapping" };
 
             Document actualDoc = _mappingService.GetDocument(expected);
             Application actual = _mappingService.GetModel<Application>(actualDoc);
