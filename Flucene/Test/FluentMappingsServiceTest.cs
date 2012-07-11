@@ -9,6 +9,8 @@ using Lucene.Net.Documents;
 
 using Lucene.Net.Orm.Mappers;
 using Lucene.Net.Orm.Test.Models;
+using System.Globalization;
+using System.Threading;
 
 
 namespace Lucene.Net.Orm.Test
@@ -52,5 +54,22 @@ was created as acronym of ""FLUent luCENE"".";
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void DifferentDateTimeLocalizationTest()
+        {
+            CultureInfo usersCulture = Thread.CurrentThread.CurrentCulture;
+            
+            ModelWithDate original = new ModelWithDate { DateField = new DateTime(2012, 7, 11) };
+
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-us"); // MM/DD/YYYY
+            Document doc = _mappingService.GetDocument(original);
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-gb"); // DD/MM/YYYY
+            ModelWithDate restored = _mappingService.GetModel<ModelWithDate>(doc);
+            Thread.CurrentThread.CurrentCulture = usersCulture;
+
+            Assert.AreEqual(original.DateField, restored.DateField);
+        }
+
     }
 }
