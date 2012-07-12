@@ -13,7 +13,7 @@ namespace Lucene.Net.Orm.Mapping.Configuration
     {
         private const int DefaultPrecisionStep = 64;
 
-        protected Func<TInput, float> _boost;
+        protected Boosting<TInput> _boost;
         protected Field.Index _index = Field.Index.NOT_ANALYZED;
         protected Field.Store _store = Field.Store.YES;
 
@@ -71,7 +71,7 @@ namespace Lucene.Net.Orm.Mapping.Configuration
         }
 
 
-        IFieldConfiguration IFieldConfiguration.Boost(Func<object, float> boost)
+        IFieldConfiguration IFieldConfiguration.Boost(Boosting<object> boost)
         {
             return Boost((TInput input) => boost(input));
         }
@@ -180,7 +180,7 @@ namespace Lucene.Net.Orm.Mapping.Configuration
         }
 
 
-        public IFieldConfiguration<TInput> Boost(Func<TInput, float> boost)
+        public IFieldConfiguration<TInput> Boost(Boosting<TInput> boost)
         {
             _boost = boost;
             return this;

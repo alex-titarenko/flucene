@@ -7,6 +7,9 @@ using Lucene.Net.Orm.Mapping.Configuration;
 
 namespace Lucene.Net.Orm.Mapping
 {
+    public delegate float Boosting<T>(T model);
+
+
     public abstract class DocumentMapBase<TModel>
     {
         public abstract IFieldConfiguration<TProperty> Map<TProperty>(Expression<Func<TModel, TProperty>> selector);
@@ -21,6 +24,6 @@ namespace Lucene.Net.Orm.Mapping
 
         public abstract IReferenceConfiguration Reference<TProperty>(Expression<Func<TModel, TProperty>> selector);
 
-        public abstract void Boost(Func<TModel, float> boost);
+        public abstract void Boost(Boosting<TModel> boost);
     }
 }

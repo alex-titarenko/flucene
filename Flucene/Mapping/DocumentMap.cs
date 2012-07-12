@@ -80,7 +80,7 @@ namespace Lucene.Net.Orm.Mapping
             return reference;
         }
 
-        public override void Boost(Func<TModel, float> documentBoost)
+        public override void Boost(Boosting<TModel> documentBoost)
         {
             Mapping.Boost = documentBoost;
         }

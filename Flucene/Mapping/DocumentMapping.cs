@@ -15,8 +15,7 @@ namespace Lucene.Net.Orm.Mapping
 
         public ICollection<KeyValuePair<PropertyInfo, IReferenceConfiguration>> ReferenceMaps { get; set; }
 
-
-        public Func<TModel, float> Boost { get; set; }
+        public Boosting<TModel> Boost { get; set; }
 
 
         public DocumentMapping()

@@ -11,6 +11,8 @@ namespace Lucene.Net.Orm.Mapping.Configuration
 
     public class CompositeFieldConfiguration : IFieldConfiguration<IEnumerable<KeyValuePair<string, object>>>, IFieldConfiguration
     {
+        private Boosting<IEnumerable<KeyValuePair<string, object>>> _boost;
+
         private List<Action<IFieldConfiguration>> _actions =
             new List<Action<IFieldConfiguration>>();
 
@@ -77,7 +79,7 @@ namespace Lucene.Net.Orm.Mapping.Configuration
         }
 
 
-        IFieldConfiguration IFieldConfiguration.Boost(Func<Object, float> boost)
+        IFieldConfiguration IFieldConfiguration.Boost(Boosting<Object> boost)
         {
             return Boost(((IEnumerable<KeyValuePair<string, object>> input) => boost(input)));
         }
@@ -162,12 +164,9 @@ namespace Lucene.Net.Orm.Mapping.Configuration
             return this;
         }
 
-
-        Func<IEnumerable<KeyValuePair<string, object>>, float> _boost;
-        public IFieldConfiguration<IEnumerable<KeyValuePair<string, object>>> Boost(Func<IEnumerable<KeyValuePair<string, object>>, float> boost)
+        public IFieldConfiguration<IEnumerable<KeyValuePair<string, object>>> Boost(Boosting<IEnumerable<KeyValuePair<string, object>>> boost)
         {
             _boost = boost;
-            //_actions.Add(x => x.Boost((Object o) => boost((IEnumerable<KeyValuePair<string, object>>)o)));
             return this;
         }
 

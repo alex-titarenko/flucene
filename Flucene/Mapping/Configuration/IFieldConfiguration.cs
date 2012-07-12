@@ -29,7 +29,7 @@ namespace Lucene.Net.Orm.Mapping.Configuration
         IFieldConfiguration NotStore();
 
 
-        IFieldConfiguration Boost(Func<object, float> boost);
+        IFieldConfiguration Boost(Boosting<object> boost);
 
 
         IEnumerable<Fieldable> GetFields(object value);
@@ -56,6 +56,6 @@ namespace Lucene.Net.Orm.Mapping.Configuration
         new IFieldConfiguration<TInput> NotStore();
 
 
-        IFieldConfiguration<TInput> Boost(Func<TInput, float> boost);
+        IFieldConfiguration<TInput> Boost(Boosting<TInput> boost);
     }
 }
