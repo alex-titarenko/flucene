@@ -36,7 +36,7 @@ namespace Lucene.Net.Orm.Mapping
             IFieldConfiguration<TProperty> field = MappingConfigurationFactory.CreateFieldConfiguration<TProperty>(fieldName);
             
             PropertyInfo property = ExpressionHelper.ExtractPropertyInfo(selector);
-            Mapping.PropertyMaps.Add(new KeyValuePair<PropertyInfo, IFieldConfiguration>(property, field));
+            Mapping.PropertyMappings.Add(new PropertyMapping(property, field));
 
             return field;
         }
@@ -44,13 +44,14 @@ namespace Lucene.Net.Orm.Mapping
         public override IFieldConfiguration<TInput> CustomMap<TInput>(Func<TModel, TInput> selector, Action<TModel, IEnumerable<string>> setter, string fieldName)
         {
             IFieldConfiguration<TInput> field = MappingConfigurationFactory.CreateFieldConfiguration<TInput>(fieldName);
-            CustomMap<TModel> customMap = new CustomMap<TModel>()
+            CustomMapping<TModel> customMapping = new CustomMapping<TModel>()
             {
                 Selector = (x) => selector(x),
-                Setter = setter
+                Setter = setter,
+                FieldConfiguration = field
             };
             
-            Mapping.CustomMaps.Add(new KeyValuePair<CustomMap<TModel>, IFieldConfiguration>(customMap, field));
+            Mapping.CustomMappings.Add(customMapping);
             return field;
         }
 
@@ -63,9 +64,9 @@ namespace Lucene.Net.Orm.Mapping
         {
             IFieldConfiguration<IEnumerable<KeyValuePair<string, object>>> fields =
                 MappingConfigurationFactory.CreateFieldsConfiguration();
-            CustomMap<TModel> customMap = new CustomMap<TModel>(selector, null);
+            CustomMapping<TModel> customMapping = new CustomMapping<TModel>(selector, null) { FieldConfiguration = fields };
 
-            Mapping.CustomMaps.Add(new KeyValuePair<CustomMap<TModel>, IFieldConfiguration>(customMap, fields));
+            Mapping.CustomMappings.Add(customMapping);
             return fields;
         }
 

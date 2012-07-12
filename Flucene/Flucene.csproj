@@ -56,7 +56,7 @@
     <Compile Include="Mappers\ReflectionDocumentMapper.cs" />
     <Compile Include="Mapping\Configuration\CompositeFieldConfiguration.cs" />
     <Compile Include="Mapping\Configuration\StandardMappingConfigurationFactory.cs" />
-    <Compile Include="Mapping\CustomMap.cs" />
+    <Compile Include="Mapping\CustomMapping.cs" />
     <Compile Include="Mapping\DocumentMap.cs" />
     <Compile Include="Mapping\DocumentMapBase.cs" />
     <Compile Include="Mapping\DocumentMapping.cs" />
@@ -66,6 +66,7 @@
     <Compile Include="Mapping\IMappingProvider.cs" />
     <Compile Include="Mapping\Configuration\IReferenceConfiguration.cs" />
     <Compile Include="Mapping\Configuration\ReferenceConfiguration.cs" />
+    <Compile Include="Mapping\PropertyMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
