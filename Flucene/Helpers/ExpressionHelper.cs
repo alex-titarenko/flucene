@@ -8,7 +8,7 @@ namespace Lucene.Net.Orm.Helpers
 {
     public static class ExpressionHelper
     {
-        public static PropertyInfo ExtractPropertyInfo<TModel>(Expression<Func<TModel, object>> expression)
+        public static PropertyInfo ExtractPropertyInfo<TModel, TProperty>(Expression<Func<TModel, TProperty>> expression)
         {
             if (expression == null)
                 throw new ArgumentNullException();

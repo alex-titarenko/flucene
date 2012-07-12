@@ -25,15 +25,15 @@ namespace Lucene.Net.Orm.Mapping
         }
 
 
-        public override IFieldConfiguration Map(Expression<Func<TModel, object>> selector)
+        public override IFieldConfiguration<TProperty> Map<TProperty>(Expression<Func<TModel, TProperty>> selector)
         {
             PropertyInfo property = ExpressionHelper.ExtractPropertyInfo(selector);
             return Map(selector, property.Name);
         }
 
-        public override IFieldConfiguration Map(Expression<Func<TModel, object>> selector, string fieldName)
+        public override IFieldConfiguration<TProperty> Map<TProperty>(Expression<Func<TModel, TProperty>> selector, string fieldName)
         {
-            IFieldConfiguration field = MappingConfigurationFactory.CreateFieldConfiguration(fieldName);
+            IFieldConfiguration<TProperty> field = MappingConfigurationFactory.CreateFieldConfiguration<TProperty>(fieldName);
             
             PropertyInfo property = ExpressionHelper.ExtractPropertyInfo(selector);
             Mapping.PropertyMaps.Add(new KeyValuePair<PropertyInfo, IFieldConfiguration>(property, field));
@@ -41,25 +41,35 @@ namespace Lucene.Net.Orm.Mapping
             return field;
         }
 
-        public override IFieldConfiguration CustomMap(Func<TModel, object> selector, Action<TModel, IEnumerable<string>> setter, string fieldName)
+        public override IFieldConfiguration<TInput> CustomMap<TInput>(Func<TModel, TInput> selector, Action<TModel, IEnumerable<string>> setter, string fieldName)
         {
-            IFieldConfiguration field = MappingConfigurationFactory.CreateFieldConfiguration(fieldName);
-            CustomMap<TModel> customMap = new CustomMap<TModel>(selector, setter);
-
+            IFieldConfiguration<TInput> field = MappingConfigurationFactory.CreateFieldConfiguration<TInput>(fieldName);
+            CustomMap<TModel> customMap = new CustomMap<TModel>()
+            {
+                Selector = (x) => selector(x),
+                Setter = setter
+            };
+            
             Mapping.CustomMaps.Add(new KeyValuePair<CustomMap<TModel>, IFieldConfiguration>(customMap, field));
             return field;
         }
 
-        public override IFieldConfiguration CustomField(Func<TModel, object> selector, string fieldName)
+        public override IFieldConfiguration<TInput> CustomField<TInput>(Func<TModel, TInput> selector, string fieldName)
         {
             return CustomMap(selector, null, fieldName);
         }
 
-        public override void CustomFields(Func<TModel, IEnumerable<KeyValuePair<string, object>>> selector)
+        public override IFieldConfiguration<IEnumerable<KeyValuePair<string, object>>> CustomFields(Func<TModel, IEnumerable<KeyValuePair<string, object>>> selector)
         {
+            IFieldConfiguration<IEnumerable<KeyValuePair<string, object>>> fields =
+                MappingConfigurationFactory.CreateFieldsConfiguration();
+            CustomMap<TModel> customMap = new CustomMap<TModel>(selector, null);
+
+            Mapping.CustomMaps.Add(new KeyValuePair<CustomMap<TModel>, IFieldConfiguration>(customMap, fields));
+            return fields;
         }
 
-        public override IReferenceConfiguration Reference(Expression<Func<TModel, object>> selector)
+        public override IReferenceConfiguration Reference<TProperty>(Expression<Func<TModel, TProperty>> selector)
         {
             IReferenceConfiguration reference = MappingConfigurationFactory.CreateReferenceConfiguration();
 
@@ -69,7 +79,7 @@ namespace Lucene.Net.Orm.Mapping
             return reference;
         }
 
-        public override void SetBoost(Func<TModel, float> documentBoost)
+        public override void Boost(Func<TModel, float> documentBoost)
         {
             Mapping.Boost = documentBoost;
         }

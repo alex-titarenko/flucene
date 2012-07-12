@@ -9,18 +9,18 @@ namespace Lucene.Net.Orm.Mapping
 {
     public abstract class DocumentMapBase<TModel>
     {
-        public abstract IFieldConfiguration Map(Expression<Func<TModel, object>> selector);
+        public abstract IFieldConfiguration<TProperty> Map<TProperty>(Expression<Func<TModel, TProperty>> selector);
 
-        public abstract IFieldConfiguration Map(Expression<Func<TModel, object>> selector, string fieldName);
+        public abstract IFieldConfiguration<TProperty> Map<TProperty>(Expression<Func<TModel, TProperty>> selector, string fieldName);
 
-        public abstract IFieldConfiguration CustomMap(Func<TModel, object> selector, Action<TModel, IEnumerable<string>> setter, string fieldName);
+        public abstract IFieldConfiguration<TInput> CustomMap<TInput>(Func<TModel, TInput> selector, Action<TModel, IEnumerable<string>> setter, string fieldName);
 
-        public abstract IFieldConfiguration CustomField(Func<TModel, object> selector, string fieldName);
+        public abstract IFieldConfiguration<TInput> CustomField<TInput>(Func<TModel, TInput> selector, string fieldName);
 
-        public abstract void CustomFields(Func<TModel, IEnumerable<KeyValuePair<string, object>>> selector);
+        public abstract IFieldConfiguration<IEnumerable<KeyValuePair<string, object>>> CustomFields(Func<TModel, IEnumerable<KeyValuePair<string, object>>> selector);
 
-        public abstract IReferenceConfiguration Reference(Expression<Func<TModel, object>> selector);
+        public abstract IReferenceConfiguration Reference<TProperty>(Expression<Func<TModel, TProperty>> selector);
 
-        public abstract void SetBoost(Func<TModel, float> boost);
+        public abstract void Boost(Func<TModel, float> boost);
     }
 }

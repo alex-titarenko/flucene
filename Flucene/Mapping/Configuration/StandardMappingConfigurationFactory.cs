@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 
 
 namespace Lucene.Net.Orm.Mapping.Configuration
@@ -7,9 +9,19 @@ namespace Lucene.Net.Orm.Mapping.Configuration
     {
         #region IMappingConfigurationFactory Members
 
-        public IFieldConfiguration CreateFieldConfiguration(string fieldName)
+        public IFieldConfiguration CreateFieldConfiguration(string fieldName, Type fieldType)
         {
-            return new FieldConfiguration(fieldName);
+            return (IFieldConfiguration)Activator.CreateInstance((typeof(FieldConfiguration<>).MakeGenericType(fieldType)), fieldName);
+        }
+
+        public IFieldConfiguration<TInput> CreateFieldConfiguration<TInput>(string fieldName)
+        {
+            return new FieldConfiguration<TInput>(fieldName);
+        }
+
+        public IFieldConfiguration<IEnumerable<KeyValuePair<string, object>>> CreateFieldsConfiguration()
+        {
+            return new CompositeFieldConfiguration(this);
         }
 
         public IReferenceConfiguration CreateReferenceConfiguration()

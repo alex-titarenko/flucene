@@ -12,6 +12,8 @@
     <AssemblyName>Flucene</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -52,6 +54,7 @@
     <Compile Include="IMappingsService.cs" />
     <Compile Include="Mappers\IDocumentMapper.cs" />
     <Compile Include="Mappers\ReflectionDocumentMapper.cs" />
+    <Compile Include="Mapping\Configuration\CompositeFieldConfiguration.cs" />
     <Compile Include="Mapping\Configuration\StandardMappingConfigurationFactory.cs" />
     <Compile Include="Mapping\CustomMap.cs" />
     <Compile Include="Mapping\DocumentMap.cs" />
@@ -80,6 +83,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

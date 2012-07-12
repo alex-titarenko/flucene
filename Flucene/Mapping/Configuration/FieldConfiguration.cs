@@ -9,11 +9,11 @@ using Lucene.Net.Documents;
 
 namespace Lucene.Net.Orm.Mapping.Configuration
 {
-    public class FieldConfiguration : IFieldConfiguration
+    public class FieldConfiguration<TInput> : IFieldConfiguration<TInput>, IFieldConfiguration
     {
         private const int DefaultPrecisionStep = 64;
 
-        protected float _boost = 1.0f;
+        protected Func<TInput, float> _boost;
         protected Field.Index _index = Field.Index.NOT_ANALYZED;
         protected Field.Store _store = Field.Store.YES;
 
@@ -29,66 +29,73 @@ namespace Lucene.Net.Orm.Mapping.Configuration
         public string FieldName { get; set; }
 
 
-        public IFieldConfiguration Analyze()
+        IFieldConfiguration IFieldConfiguration.Analyze()
         {
-            _index = Field.Index.ANALYZED;
-            return this;
+            return Analyze();
         }
 
-        public IFieldConfiguration NoNormsAnalyze()
+        IFieldConfiguration IFieldConfiguration.NoNormsAnalyze()
         {
-            _index = Field.Index.ANALYZED_NO_NORMS;
-            return this;
+            return NoNormsAnalyze();
         }
 
-        public IFieldConfiguration NotIndex()
+        IFieldConfiguration IFieldConfiguration.NotIndex()
         {
-            _index = Field.Index.NO;
-            return this;
+            return NotIndex();
         }
 
-        public IFieldConfiguration NotAnalyze()
+        IFieldConfiguration IFieldConfiguration.NotAnalyze()
         {
-            _index = Field.Index.NOT_ANALYZED;
-            return this;
+            return NotAnalyze();
         }
 
-        public IFieldConfiguration NoNormsNotAnalyze()
+        IFieldConfiguration IFieldConfiguration.NoNormsNotAnalyze()
         {
-            _index = Field.Index.NOT_ANALYZED_NO_NORMS;
-            return this;
+            return NoNormsAnalyze();
         }
 
 
-        public IFieldConfiguration Store()
+        IFieldConfiguration IFieldConfiguration.Store()
         {
-            _store = Field.Store.YES;
-            return this;
+            return Store();
         }
 
-        public IFieldConfiguration Compress()
+        IFieldConfiguration IFieldConfiguration.Compress()
         {
-            _store = Field.Store.COMPRESS;
-            return this;
+            return Compress();
         }
 
-        public IFieldConfiguration NotStore()
+        IFieldConfiguration IFieldConfiguration.NotStore()
         {
-            _store = Field.Store.NO;
-            return this;
+            return NotStore();
         }
 
 
-        public IFieldConfiguration Boost(float boost)
+        IFieldConfiguration IFieldConfiguration.Boost(Func<object, float> boost)
         {
-            _boost = boost;
-            return this;
+            return Boost((TInput input) => boost(input));
         }
 
-        public IEnumerable<Fieldable> GetFields(object value)
+
+        public IEnumerable<Fieldable> GetFields(Object value)
         {
             if (value == null) return null;
 
+            IEnumerable<AbstractField> fields = GetFieldsInternal(value);
+
+            if (_boost != null)
+            {
+                foreach (AbstractField field in fields)
+                {
+                    field.SetBoost(_boost((TInput)value));
+                }
+            }
+
+            return fields;
+        }
+
+        internal IEnumerable<AbstractField> GetFieldsInternal(Object value)
+        {
             AbstractField field = null;
 
             if (value is String ||
@@ -103,10 +110,10 @@ namespace Lucene.Net.Orm.Mapping.Configuration
             else if (value is IEnumerable)
             {
                 IEnumerable values = value as IEnumerable;
-                List<Fieldable> fields = new List<Fieldable>();
+                List<AbstractField> fields = new List<AbstractField>();
                 foreach (object obj in values)
                 {
-                    fields.AddRange(GetFields(obj));
+                    fields.AddRange(GetFieldsInternal(obj));
                 }
 
                 return fields;
@@ -115,12 +122,72 @@ namespace Lucene.Net.Orm.Mapping.Configuration
             {
                 field = CreateNumericField((ValueType)value);
             }
-            
-            //field.SetBoost(_boost);
-            return new Fieldable[] { field };
+
+            return new AbstractField[] { field };
         }
 
         #endregion
+
+        #region IFieldConfigurationFluent<TInput> Members
+
+        public IFieldConfiguration<TInput> Analyze()
+        {
+            _index = Field.Index.ANALYZED;
+            return this;
+        }
+
+        public IFieldConfiguration<TInput> NoNormsAnalyze()
+        {
+            _index = Field.Index.ANALYZED_NO_NORMS;
+            return this;
+        }
+
+        public IFieldConfiguration<TInput> NotIndex()
+        {
+            _index = Field.Index.NO;
+            return this;
+        }
+
+        public IFieldConfiguration<TInput> NotAnalyze()
+        {
+            _index = Field.Index.NOT_ANALYZED;
+            return this;
+        }
+
+        public IFieldConfiguration<TInput> NoNormsNotAnalyze()
+        {
+            _index = Field.Index.NOT_ANALYZED_NO_NORMS;
+            return this;
+        }
+
+
+        public IFieldConfiguration<TInput> Store()
+        {
+            _store = Field.Store.YES;
+            return this;
+        }
+
+        public IFieldConfiguration<TInput> Compress()
+        {
+            _store = Field.Store.COMPRESS;
+            return this;
+        }
+
+        public IFieldConfiguration<TInput> NotStore()
+        {
+            _store = Field.Store.NO;
+            return this;
+        }
+
+
+        public IFieldConfiguration<TInput> Boost(Func<TInput, float> boost)
+        {
+            _boost = boost;
+            return this;
+        }
+
+        #endregion
+
 
         private AbstractField CreateNumericField(ValueType value)
         {

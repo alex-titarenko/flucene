@@ -12,6 +12,10 @@ namespace Lucene.Net.Orm.Mapping
         public Action<TModel, IEnumerable<string>> Setter { get; set; }
 
 
+        public CustomMap()
+        {
+        }
+
         public CustomMap(Func<TModel, object> selector)
             : this(selector, null)
         {
