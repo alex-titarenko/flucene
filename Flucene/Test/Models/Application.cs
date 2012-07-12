@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 
@@ -34,6 +35,8 @@ namespace Lucene.Net.Orm.Test.Models
         public virtual PublishStatus Status { get; set; }
 
         public virtual ICollection<string> Tags { get; set; }
+
+        public virtual IEnumerable<KeyValuePair<string, string>> AdditionalFields { get; set; }
 
 
         public override bool Equals(object obj)

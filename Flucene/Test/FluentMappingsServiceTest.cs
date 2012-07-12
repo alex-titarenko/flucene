@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -48,6 +49,12 @@ was created as acronym of ""FLUent luCENE"".";
             expected.UpgradePrice = 59.95m;
             expected.Status = PublishStatus.Active;
             expected.Tags = new List<string>() { "lucene", "search", "ORM", "mapping" };
+            expected.AdditionalFields = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("Publisher", "Iveonik Systems Ltd."),
+                new KeyValuePair<string, string>("License", "Apache License 2.0"),
+                new KeyValuePair<string, string>("Language", "English")
+            };
 
             Document actualDoc = _mappingService.GetDocument(expected);
             Application actual = _mappingService.GetModel<Application>(actualDoc);

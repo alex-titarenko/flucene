@@ -18,12 +18,12 @@ namespace Lucene.Net.Orm.Mappers
             Document doc = new Document();
 
             // Adds mapped fields to document
-            foreach (KeyValuePair<PropertyInfo, IFieldConfiguration> item in mapping.PropertyMaps)
+            foreach (PropertyMapping item in mapping.PropertyMappings)
             {
-                object propertyValue = item.Key.GetValue(model, null);
+                object propertyValue = item.PropertyInfo.GetValue(model, null);
                 if (propertyValue != null)
                 {
-                    IEnumerable<Fieldable> fields = item.Value.GetFields(propertyValue);
+                    IEnumerable<Fieldable> fields = item.FieldConfiguration.GetFields(propertyValue);
                     foreach (Fieldable field in fields)
                     {
                         doc.Add(field);
@@ -32,10 +32,10 @@ namespace Lucene.Net.Orm.Mappers
             }
 
             // Adds custom fields to document.
-            foreach (KeyValuePair<CustomMap<TModel>, IFieldConfiguration> item in mapping.CustomMaps)
+            foreach (CustomMapping<TModel> item in mapping.CustomMappings)
             {
-                Func<TModel, object> selector = item.Key.Selector;
-                foreach (Fieldable field in item.Value.GetFields(selector(model)))
+                Func<TModel, object> selector = item.Selector;
+                foreach (Fieldable field in item.FieldConfiguration.GetFields(selector(model)))
                 {
                     doc.Add(field);
                 }
@@ -69,23 +69,24 @@ namespace Lucene.Net.Orm.Mappers
         {
             TModel model = new TModel();
 
-            foreach (KeyValuePair<PropertyInfo, IFieldConfiguration> item in mapping.PropertyMaps)
+            foreach (PropertyMapping item in mapping.PropertyMappings)
             {
-                string fieldName = item.Value.FieldName;
+                string fieldName = item.FieldConfiguration.FieldName;
                 string[] fieldValues = document.GetValues(fieldName);
 
                 if (fieldValues != null && fieldValues.Length > 0)
                 {
-                    item.Key.SetValue(model, DataHelper.Parse(fieldValues, item.Key.PropertyType), null);
+                    item.PropertyInfo.SetValue(model, DataHelper.Parse(fieldValues, item.PropertyInfo.PropertyType), null);
                 }
             }
 
-            foreach (KeyValuePair<CustomMap<TModel>, IFieldConfiguration> item in mapping.CustomMaps)
+            foreach (CustomMapping<TModel> item in mapping.CustomMappings)
             {
-                Action<TModel, IEnumerable<string>> setter = item.Key.Setter;
+                Action<TModel, IEnumerable<string>> setter = item.Setter;
+                
                 if (setter != null)
                 {
-                    string fieldName = item.Value.FieldName;
+                    string fieldName = item.FieldConfiguration.FieldName;
                     string[] fieldValues = document.GetValues(fieldName);
                     if (fieldValues != null && fieldValues.Length > 0)
                     {
