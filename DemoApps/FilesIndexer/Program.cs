@@ -14,6 +14,9 @@ using Dir = Lucene.Net.Store.Directory;
 using FileDir = System.IO.Directory;
 using Lucene.Net.Index;
 using Lucene.Net.Analysis.Standard;
+using Lucene.Net.Search;
+using Lucene.Net.QueryParsers;
+using Lucene.Net.Documents;
 
 namespace FilesIndexer
 {
@@ -131,20 +134,46 @@ namespace FilesIndexer
         private static void SearchCycle()
         {
             Console.WriteLine("Indexing done. Please, enter search query. 'quit' or 'exit' - to finish application");
+
+            Dir dir = _container.Resolve<Dir>();
+            Searcher searcher = new IndexSearcher(dir);
+            IMappingsService mapper = _container.Resolve<IMappingsService>();
+
             bool exitFl = false;
             while (!exitFl)
             {
                 Console.Write(">");
-                string query = Console.ReadLine();
+                string queryString = Console.ReadLine();
                 foreach (string command in exitCommands)
                 {
-                    if (string.Compare(query, command, true) == 0)
+                    if (string.Compare(queryString, command, true) == 0)
                     {
                         exitFl = true;
                         break;
                     }
                 }
+                try
+                {
+                    QueryParser parser = new QueryParser("", new StandardAnalyzer());
+                    Query query = parser.Parse(queryString);
+                    TopDocs topDocs = searcher.Search(parser.Parse(queryString), 10);
+                    Console.WriteLine("Found {0} documents:", topDocs.TotalHits);
+                    foreach (var scoreDoc in topDocs.ScoreDocs)
+                    {
+                        Document doc = searcher.Doc(scoreDoc.doc);
+                        FileItem fileItem = mapper.GetModel<FileItem>(doc);
+                        Console.WriteLine("Name: "+fileItem.Filename);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Exception while processing query:");
+                    Console.WriteLine(ex);
+                }
             }
+
+            searcher.Close();
         }
     }
 }
