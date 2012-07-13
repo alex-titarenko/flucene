@@ -1,0 +1,31 @@
+﻿<#@ template language="C#" #>
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Lucene.Net.Documents;
+
+namespace Lucene.Net.Orm.Mappers
+{
+    public partial class <#= ShortModelName #>CompiledMapper : Lucene.Net.Orm.Mappers.ICompiledMapper<<#= ModelName #>>
+    {
+        public Document GetDocument(<#= ModelName #> model)
+        {
+            Document document = new Document();
+
+            return document;
+        }
+
+        public <#= ModelName #> GetModel(Document document)
+        {
+            <#= ModelName #> model = new <#= ModelName #>();
+
+            return model;
+        }
+    }
+}
+
+<#+
+    public string ShortModelName { get; set; }
+    public string ModelName { get; set; }
+#>

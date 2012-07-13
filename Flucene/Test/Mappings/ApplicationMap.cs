@@ -15,7 +15,7 @@ namespace Lucene.Net.Orm.Test.Mappings
         {
             Map(x => x.ID);
             Map(x => x.Name, "AppName").Store().Analyze().Boost(x => x.Length);
-
+            
             CustomMap(
                 x => x.Version.ToString(),
                 (x, v) => x.Version = Version.Parse(v.FirstOrDefault()),
