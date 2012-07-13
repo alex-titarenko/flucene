@@ -8,5 +8,11 @@ namespace FilesIndexer.Models
 {
     public class FileItemMap : DocumentMap<FileItem>
     {
+        public FileItemMap()
+        {
+            Map(p => p.Filename);
+            Reference(p => p.MetaInfo);
+            Map(p => p.Text);
+        }
     }
 }

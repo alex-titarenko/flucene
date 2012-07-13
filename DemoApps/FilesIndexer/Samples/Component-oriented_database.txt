@@ -1,0 +1,64 @@
+﻿http://en.wikipedia.org/wiki/Component-oriented_database
+Text is available under the Creative Commons Attribution-ShareAlike License
+
+Component-oriented database
+From Wikipedia, the free encyclopedia
+Component-oriented database (CODB) is a way of data administration and programming DBMS's using the paradigm of the component-orientation.[1]
+
+Contents 
+1 Concepts
+2 Implementation
+3 Advantages
+4 Bibliography
+5 See also
+6 References
+
+Concepts
+
+The paradigm of component-orientation (CO) is a development of the object-orientation (OO) in programming and data modeling, leading toward the extreme the possibilities of reuse.[2] In this model type, classes are aggregate in cells called components,[1] that execute a role similar to the function in the structured programming,[3] a way of processing information contemporary to the relational database model.[4]
+So the component-orientation mixes a set of features of its predecessor models. Understanding it is simpler while thinking of the visual component, that is an application[5] witch not being deployed into an executable or bytecode but otherwise turned to be linked by an icon inside another application, icon when one clicks on it implements certain tasks.[6] Then this concepts can be extended to non-visual components.[7]
+In database activities, the component, visual or not, is an aggragate of classes, in the sense of OO, that can be linked to other ones by adapters.[8]
+As after the OO model conception data and code programming code are mixed in a cohesive body,[9] there are some difficulties in conceiving where the CODB and CO programming are separate one from the other. Although this enigma is important in conceptual epistemological area, in practical data processing there isn't so importance in this question because of usage of mapping models to large scale used software, like the mappings called ORDBMS and CRDB (component-relational database), in witch the separation of data and code are still well defined.[10]
+
+Implementation
+
+In programming activity, the CO is often taken place with large-scale used OO languages (like C++, Java) with mapping adaptation. In designing the paradigm is supored by UML. In data modeling, data adminsitration and database administration, the mapping adaptation is alike the ORDBMS paradigm. The adapted paradigm to component-based models is known as component-relational database (CRDB).[11]
+
+Advantages
+
+The main advantage of the component-oriented thinking, as seen in early chapters, is the optimization of reusability of work. Going far away from the uses of OO models, the CO paradigm allows the use of ready to use applications as modules to new and bigger projects.[6]
+It's necessary to regard that these technical features are not achieved in traditional OO models, although the ideia of component came up naturally from OO thinking. The basis support notions of OO like encapsulation, inheritance and polymorphism not necessarily leads to the idea of reusing applications as modules of new works. The CO thinking also assures that components are fully tested, as a real application, and thus there is in this model the paroxism of reuse,[12] as well as the feature of understanability to end users, as corollary of the app->comp way of realizing the IT works.
+Even using the same software that are present in OO paradigm, there are many specific consequences in the world of data-oriented activities. In analogous way, whole models composed of classes can be treated as a part (component) of a new more comprehensive model[citation needed].
+
+Bibliography
+
+* Buschmann, Frank; Meunier, Regine; Rohnert, Hans; Sommerlad, peter. Pattern-Oriented Software Architecture, Volume 1. John Wiley & Sons, 1996, ISBN 047195869-7.
+* Cho, Eun-Sun ; Han, Sang-Yong; Kim, Hyoung-Joo. A New Data Abstraction Layer Required For OODBMS, Proceedings of 1997 International Database engineering and Applications Symposium (IDEAS’97).
+* Clemente, Pedro J.; Hernandez, Juan. Aspect Component Based Software Engineering, Proceedings of The Second AOSD Workshop on Aspects, Components, and Patterns for Infrastructure Software (ACP4IS), March 2003.
+* Clements, Paul. From subroutines to subsystems: Component-Based Software Development. Brown, Allen. Component-Based Software Engineering: Selected Papers from Software Institute, 1996.
+* Erich Gamma, Erich; Helm, Richerd; Johnson, Ralph; Vilssides, John. Design Patterns. Elements of Reusable Object-Oriented Software. Addison-Wesley, 1995, ISBN 0201633612.
+* Garcia-Molina, Hector; Ulman, Jeffrey D.; Widom, Jennifer, Database Systems – A complete book. Prentice Hall, 2002, ISBN 0131873253.
+* Pfister, C.;Szyperski, C.. Why Objects Are Not Enough, Proceedings of Component Users Conference, Munich, Germany, 1996.
+* Rotaru, Octavian Paul;Dobre, Marian;Petrescu, Mircea. Integrity and Consistency Aspects in Component-Oriented Databases, Proceedings of the International Symposium on Innovation in Information.
+* Stroustrup, Bjarne. Why C++ is not just an Object-Oriented Programming Language, Addendum to OOPSLA95 Proceedings, ACM OOPS Messenger, October 1995.
+* Szyperski, Clemens. Component Software – Beyond Object-Oriented Programming. ACM Press/Addison-Wesley, 1998, ISBN 0201178885.
+
+See also
+
+* Object Database
+* Relational model
+
+References
+
+1. a b Rotaruo, Octavian Paul b, Petrescu, Mircea, Dobre, Marian. "Towards a Component Based Model for Database Systems". Leonardo Journal of Sciences. Retrieved 25 March 2012.
+2. Cesare, Sergio de; Lycett, Mark; Macredie, Bobert. D. (2006). Development of Component-Based Information Systems (1 ed.). New York: M. E. Sharp. pp. 52. ISBN 0765612488. ISSN 15546152.
+3. Fröhlich, Peter Hans (2003). Component-Oriented Programming Languages: Why, What, and How (1 ed.). Irvine: University of California. p. 2.
+4. Sureau, Denis (27 March 2012). "History of Programming Languages and Their Evolution". Scriptol. Retrieved 29 March 2012.
+5. or even a small application or applet
+6. a b "The Benefits of Modular Programming". Netbeans Org.. 2007. Retrieved 29 march 2012.
+7. Piveta, Eduardo Kessler, Zancanella, Luiz Carlos. "Aurélia: Aspect Oriented Programming Using a Reflective Approach". IT Department of Santa Maria University. Retrieved 29 March 2012.
+8. "Components: Interfaces and Adapters". Twisted Matrix Labs. Retrieved 29 March 2012.
+9. Guthery, Scott (1 December 1989). "Are the Emperor's New Clothes Object Oriented?". Dr. Dobb's Journal. Retrieved 29 March 2012.
+10. "Introduction to Java in Oracle Database". Oracle docs. Retrieved 30 March 2012.
+11. Hameurlain, Abdelkader. Lecture Notes in Computer Science.
+12. Grundy, John; Patel, Rakesh (2000). "Developing Software Components with the UML, Enterprise Java Beans and Aspects". Faculty of Information and Communication Technologies of Swinburne Universe of Technology. Retrieved 30 March 2012.

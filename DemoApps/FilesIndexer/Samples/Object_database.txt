@@ -1,0 +1,191 @@
+﻿http://en.wikipedia.org/wiki/Object_database
+Text is available under the Creative Commons Attribution-ShareAlike License
+
+Object database
+From Wikipedia, the free encyclopedia
+
+The neutrality of this article is disputed. Relevant discussion may be found on the talk page. Please do not remove this message until the dispute is resolved. (September 2010)
+
+Example of an object-oriented model.[1]
+An object database (also object-oriented database management system) is a database management system in which information is represented in the form of objects as used in object-oriented programming. Object databases are different from relational databases and belongs together to the broader database management system.
+Object databases have been considered since the early 1980s and 1990s. Object databases' main usage is in object oriented areas.
+
+Contents  
+1 Overview
+2 History
+3 Timeline
+4 Adoption of object databases
+5 Technical features
+6 ODBMS Characteristics
+6.1 Mandatory
+6.2 Optional
+6.3 Open
+7 Standards
+8 Comparison with RDBMSs
+9 Object-Oriented Database Query
+10 See also
+11 References
+12 External links
+
+Overview
+
+When database capabilities are combined with object-oriented programming language capabilities, the result is an object-oriented database management system (OODBMS). OODBMS allow object-oriented programmers to develop the product, store them as objects, and replicate or modify existing objects to make new objects within the OODBMS. Because the database is integrated with the programming language, the programmer can maintain consistency within one environment, in that both the OODBMS and the programming language will use the same model of representation. Relational DBMS projects, by way of contrast, maintain a clearer division between the database model and the application.
+As the usage of web-based technology increases with the implementation of Intranets and extranets, companies have a vested interest in OODBMS to display their complex data. Using a DBMS that has been specifically designed to store data as objects gives an advantage to those companies that are geared towards multimedia presentation or organizations that utilize computer-aided design (CAD).[2]
+Some object-oriented databases are designed to work well with object-oriented programming languages such as Delphi, Ruby, Python, Perl, Java, C#, Visual Basic .NET, C++, Objective-C and Smalltalk; others have their own programming languages. OODBMSs use exactly the same model as object-oriented programming languages.
+
+History
+
+Object database management systems grew out of research during the early to mid-1970s into having intrinsic database management support for graph-structured objects. The term "object-oriented database system" first appeared around 1985.[3] Notable research projects included Encore-Ob/Server (Brown University), EXODUS (University of Wisconsin–Madison), IRIS (Hewlett-Packard), ODE (Bell Labs), ORION (Microelectronics and Computer Technology Corporation or MCC), Vodak (GMD-IPSI), and Zeitgeist (Texas Instruments). The ORION project had more published papers than any of the other efforts. Won Kim of MCC compiled the best of those papers in a book published by The MIT Press.[4]
+Early commercial products included Gemstone (Servio Logic, name changed to GemStone Systems), Gbase (Graphael), and Vbase (Ontologic). The early to mid-1990s saw additional commercial products enter the market. These included ITASCA (Itasca Systems), Jasmine (Fujitsu, marketed by Computer Associates), Matisse (Matisse Software), Objectivity/DB (Objectivity, Inc.), ObjectStore (Progress Software, acquired from eXcelon which was originally Object Design), ONTOS (Ontos, Inc., name changed from Ontologic), O2[5] (O2 Technology, merged with several companies, acquired by Informix, which was in turn acquired by IBM), POET (now FastObjects from Versant which acquired Poet Software), Versant Object Database (Versant Corporation), VOSS (Logic Arts) and JADE (Jade Software Corporation). Some of these products remain on the market and have been joined by new open source and commercial products such as InterSystems CACHÉ (see the product listings below).
+Object database management systems added the concept of persistence to object programming languages. The early commercial products were integrated with various languages: GemStone (Smalltalk), Gbase (LISP), Vbase (COP) and VOSS (Virtual Object Storage System for Smalltalk). For much of the 1990s, C++ dominated the commercial object database management market. Vendors added Java in the late 1990s and more recently, C#.
+Starting in 2004, object databases have seen a second growth period when open source object databases emerged that were widely affordable and easy to use, because they are entirely written in OOP languages like Smalltalk, Java or C#, such as Versant's db4o (db4objects), DTS/S1 from Obsidian Dynamics and Perst (McObject), available under dual open source and commercial licensing.
+
+Timeline
+
+1985 – Term Object Database first introduced
+1988
+Versant Corporation started (as Object Sciences Corp)
+Objectivity, Inc. founded
+Early 1990s
+Gemstone (Smalltalk)-(C++)-(Java)
+GBase (LISP)
+VBase (O2- ONTOS – INFORMIX)
+Objectivity/DB launched
+Mid 1990’s
+Versant Object Database
+ObjectStore
+ODABA
+Poet
+Jade
+Matisse
+2000’s
+ZODB
+Caché
+db4o project started by Carl Rosenberger
+ObjectDB
+2001
+IBM acquires Informix (Illustra) integrates with DB2
+db4o shipped to first pilot customer
+2004 - db4o's commercial launch as db4objects, Inc.
+2008 - db4o acquired by Versant Corporation
+2011
+Wakanda public Developer Preview & Beta verions
+Gemstone acquired by VMWare (at that time property of Springsource)
+2012 - VelocityDB
+
+Adoption of object databases
+
+Object databases based on persistent programming acquired a niche in application areas such as engineering and spatial databases, telecommunications, and scientific areas such as high energy physics and molecular biology.
+Another group of object databases focuses on embedded use in devices, packaged software, and real-time systems.
+
+Technical features
+
+Most object databases also offer some kind of query language, allowing objects to be found by a more declarative programming approach. It is in the area of object query languages, and the integration of the query and navigational interfaces, that the biggest differences between products are found. An attempt at standardization was made by the ODMG with the Object Query Language, OQL.
+Access to data can be faster because joins are often not needed (as in a tabular implementation of a relational database). This is because an object can be retrieved directly without a search, by following pointers. (It could, however, be argued that "joining" is a higher-level abstraction of pointer following.)
+Another area of variation between products is in the way that the schema of a database is defined. A general characteristic, however, is that the programming language and the database schema use the same type definitions.
+Multimedia applications are facilitated because the class methods associated with the data are responsible for its correct interpretation.
+Many object databases, for example VOSS, offer support for versioning. An object can be viewed as the set of all its versions. Also, object versions can be treated as objects in their own right. Some object databases also provide systematic support for triggers and constraints which are the basis of active databases.
+The efficiency of such a database is also greatly improved in areas which demand massive amounts of data about one item. For example, a banking institution could get the user's account information and provide them efficiently with extensive information such as transactions, account information entries etc. The Big O Notation for such a database paradigm drops from O(n) to O(1), greatly increasing efficiency in these specific cases.
+
+ODBMS Characteristics
+
+	This section may require cleanup to meet Wikipedia's quality standards. (October 2011)
+The characteristics of ODBMS are separated into three groups as follows:
+
+Mandatory
+These are the characteristics which system satisfies in order to be an object database. This includes the characteristics like:
+* Encapsulation: Encapsulation has two views: programming language view and the database adaptation of that view. Encapsulation is the representation of the data object by its attributes and the various methods specified to manipulate those data objects. In this, the operations performed on the data objects are visible but the data and the implementation are hidden in those objects.
+* Types and Classes: Type refers to the particular set of Objects in the system, which has two parts,interface and the implementations. Generally interfaces are visible to the user and the implementations are hidden. Class is a template for creating the objects of a particular types having their own implementations. The new objects can be created by performing new operation on the class.
+* Inheritance: Inheritance is the most important feature of the object database as it gives the hierarchical relationships between different objects at different levels and gives code reusability. It helps in factoring and out shared the implementations and specifications in system. There are different types of inheritance like substitution inheritance, constraint inheritance, inclusion inheritance and specialization inheritance.
+* Complex Objects: Complex objects are built by using the basic data objects like integers, strings, reals, and booleans. There are various complex data objects such as array, list, indices, tuples, etc. We can define methods to manipulate these new complex types.
+* Object Identity: It is important that each object is uniquely identified from the whole database or similar kinds of objects. Each object has a unique identity and we can access and edit the object by using the same. It can be variable name or from a physical address space in memory.
+* Extensibility: Database system has its own predefined set of data types, which we can use to write new types and there is no usage difference between the one which system has and the one we written, but there may be strong difference in the way two are supported.
+* Persistence: It is the ability of the system data to preserve or survive during execution so that it can be further used by another process. Persistency provides the reusability.
+* Overriding and overloading: The use the same name for implementation of the object methods or operations to represent the same data in different ways.
+* Computational completeness: This property says that we can define or implement any kind of computable function for the ODB, using DML of database system. Computational complete system almost gives all the operation implementation.
+* Secondary storage management: The data in system is managed, so as to get the quick and easier access. It is supported using different techniques, including data clustering, indexing, query optimization, data buffering and access path selection. These all are invisible to user. It has two levels of management: logical and physical.
+* Concurrency: A good system must have concurrency techniques. When number of users interacting with the user,the database system must provide same level of service to all the users. It should avoid the system failure, incomplete transactions.
+* Recovery: This feature also provides same level of service and should recover itself to original state if system suffers from the hardware or software failures.[6][7][8]
+
+Optional
+This category includes properties which are not mandatory but can be added to make the object database more efficient to achieve more functionalities. This includes:
+* Type checking and inferencing
+* Distribution
+* Design transactions
+* Versions
+
+Open
+This category deals with programming issues and system representation. Along with the mandatory and non-mandatory features of the ODMBS, designing such systems we still have a lot of design choices to improve our modelling to build a good system. This category includes:
+* System
+* Programming paradigm
+* Representation system
+* Uniformity.
+
+Standards
+
+The Object Data Management Group was a consortium of object database and object-relational mapping vendors, members of the academic community, and interested parties. Its goal was to create a set of specifications that would allow for portable applications that store objects in database management systems. It published several versions of its specification. The last release was ODMG 3.0. By 2001, most of the major object database and object-relational mapping vendors claimed conformance to the ODMG Java Language Binding. Compliance to the other components of the specification was mixed. In 2001, the ODMG Java Language Binding was submitted to the Java Community Process as a basis for the Java Data Objects specification. The ODMG member companies then decided to concentrate their efforts on the Java Data Objects specification. As a result, the ODMG disbanded in 2001.
+Many object database ideas were also absorbed into SQL:1999 and have been implemented in varying degrees in object-relational database products.
+In 2005 Cook, Rai, and Rosenberger proposed to drop all standardization efforts to introduce additional object-oriented query APIs but rather use the OO programming language itself, i.e., Java and .NET, to express queries. As a result, Native Queries emerged. Similarly, Microsoft announced Language Integrated Query (LINQ) and DLINQ, an implementation of LINQ, in September 2005, to provide close, language-integrated database query capabilities with its programming languages C# and VB.NET 9.
+In February 2006, the Object Management Group (OMG) announced that they had been granted the right to develop new specifications based on the ODMG 3.0 specification and the formation of the Object Database Technology Working Group (ODBT WG). The ODBT WG planned to create a set of standards that would incorporate advances in object database technology (e.g., replication), data management (e.g., spatial indexing), and data formats (e.g., XML) and to include new features into these standards that support domains where object databases are being adopted (e.g., real-time systems). The work of the ODBT WG was suspended in March 2009 when, subsequent to the economic turmoil in late 2008, the ODB vendors involved in this effort decided to focus their resources elsewhere.
+In January 2007 the World Wide Web Consortium gave final recommendation status to the XQuery language. XQuery uses XML as its data model. Some of the ideas developed originally for object databases found their way into XQuery, but XQuery is not intrinsically object-oriented. Because of the popularity of XML, XQuery engines compete with object databases as a vehicle for storage of data that is too complex or variable to hold conveniently in a relational database. XQuery also allows Modules to be written to provide Encapsulation features that have been provided by Object-Oriented systems.
+
+Comparison with RDBMSs
+
+An object database stores complex data and relationships between data directly, without mapping to relational rows and columns, and this makes them suitable for applications dealing with very complex data.[9] Objects have a many to many relationship and are accessed by the use of pointers. Pointers are linked to objects to establish relationships. Another benefit of an OODBMS is that it can be programmed with small procedural differences without affecting the entire system.[10] This is most helpful for those organizations that have data relationships that are not entirely clear or need to change these relations to satisfy the new business requirements.
+
+Potential advantages:
+* Objects don't require assembly and disassembly saving coding time and execution time to assemble or disassemble objects.
+* Reduced paging.
+* Easier navigation.
+* Better concurrency control - a hierarchy of objects may be locked.
+* Data model is based on the real world.
+* Works well for distributed architectures.
+* Less code required when applications are object oriented.
+
+Potential disadvantages:
+* Lower efficiency when data is simple and relationships are simple.
+* Relational tables are simpler.
+* Late binding may slow access speed.
+* More user tools exist for RDBMS.
+* Standards for RDBMS are more stable.
+* Support for RDBMS is more certain and change is less likely to be required.
+
+Object-Oriented Database Query
+
+Object oriented databases use SQL query language like notations to express the queries which is called as Object Query Language (OQL).[11] OQL supports all the mandatory features or characteristics of ODBMS to make efficient object database systems. It supports complex data objects, path expressions, operation invocation, inheritance, object extensions for object identity. OQL is a very efficient way of expressing object queries, it keeps object's integrity by using objects implemented methods, rather than its own operations. OQL can also be embedded in other languages like C++, Java,... "OQL is a functional (expression-oriented) language, in which each query is a typed expression (type can be atomic object,collection object, or literal)". OQL doesn't have explicit update operations, like insert, delete to update database.But as an alternative, it can invoke state-altering methods, create(), add(), and delete(), etc., to get similar functions. For example,
+Employee (name: ‘‘Ram Sharma", birth date: 11/26/1985, salary: 10000);
+creates a new Employee object with necessary attributes data. Like SQL we can write separate function to perform certain task.
+* Polymorphism : OQL supports the polymorphism feature of the object-oriented programming.The various classes can have same attributes and method implementations which are in same hierarchy.
+For example, the Employee class has an attribute named activities implemented as an array of Strings. Its subclass Manager also has a method named activities that overrides inheritance of the Employee attribute.
+
+See also
+
+* Zope Object Database
+* List of object database management systems
+* Comparison of object database management systems
+* Enterprise Objects Framework
+* Object Data Management Group
+* Persistence (computer science)
+* Relational model
+* EDA database
+* Component-oriented database
+
+References
+
+1. Data Integration Glossary, U.S. Department of Transportation, August 2001.
+2. O’Brien, J. A., & Marakas, G. M. (2009). Management Information Systems (9th ed.). New York, NY: McGraw-Hill/Irwin
+3. Three example references from 1985 that use the term: T. Atwood, "An Object-Oriented DBMS for Design Support Applications," Proceedings of the IEEE COMPINT 85, pp. 299-307, September 1985; N. Derrett, W. Kent, and P. Lyngbaek, "Some Aspects of Operations in an Object-Oriented Database," Database Engineering, vol. 8, no. 4, IEEE Computer Society, December 1985; D. Maier, A. Otis, and A. Purdy, "Object-Oriented Database Development at Servio Logic," Database Engineering, vol. 18, no.4, December 1985.
+4. Kim, Won. Introduction to Object-Oriented Databases. The MIT Press, 1990. ISBN 0-262-11124-1
+5. Bancilhon, Francois; Delobel,Claude; and Kanellakis, Paris. Building an Object-Oriented Database System: The Story of O2. Morgan Kaufmann Publishers, 1992. ISBN 1-55860-169-4.
+6. K.R. Dittrich, ``Object-Oriented Database System : The Notions and the issues, in : Dittrich, K.R. and Dayal, U. (eds): Proceedings of the 1986 International Workshop on Object-Oriented Database Systems, IEEE Computer Science Press
+7. K. R. Dittrich, ``Preface, In : Dittrich, K.R. (ed): Advances in Object-Oriented Database Systems, Lecture Notes in Computer Science, Vol, 334, Springer-Verlag, 1988
+8. W. Kim, ``A foundation for object-oriented databases, MCC Technical Report, 1988
+9. Radding, Alan (1995). "So what the Hell is ODBMS?". Computerworld 29 (45): 121–122, 129.
+10. Burleson, Donald. (1994). OODBMSs gaining MIS ground but RDBMSs still own the road. Software Magazine, 14(11), 63
+11. R. G. G. Cattell, Douglas K. Barry, Mark Berler, Jeff Eastman, David Jordan, Craig Russell, Olaf Schadow, Torsten Stanienda, and Fernando Velez. The Object Data Standard: ODMG 3.0. Morgan Kaufman, San Francisco, CA, 2000.
+
+External links
+
+* Object DBMS resource portal
+* Benchmark for Databases (open source)
+* Database Benchmark (open source)

@@ -1,0 +1,97 @@
+﻿http://en.wikipedia.org/wiki/Document-oriented_database
+Text is available under the Creative Commons Attribution-ShareAlike License
+
+Document-oriented database
+From Wikipedia, the free encyclopedia
+
+This article relies on references to primary sources or sources affiliated with the subject. Please add citations from reliable and independent sources. (May 2012)
+A document-oriented database is a computer program designed for storing, retrieving, and managing document-oriented, or semi structured data, information. Document-oriented databases are one of the main categories of so-called NoSQL databases and the popularity of the term "document-oriented database" (or "document store") has grown with the use of the term NoSQL itself. In contrast to well-known Relational databases and their notions of "Relations" (or "Tables"), these systems are designed around an abstract notion of a "Document".
+
+Contents  
+1 Documents
+1.1 Keys
+1.2 Retrieval
+1.3 Organization
+2 Implementations
+2.1 XML database implementations
+3 See also
+4 References
+5 Further reading
+6 External links
+
+Documents
+
+The central concept of a document-oriented database is the notion of a Document. While each document-oriented database implementation differs on the details of this definition, in general, they all assume documents encapsulate and encode data (or information) in some standard formats or encodings. Encodings in use include XML, YAML, JSON, and BSON, as well as binary forms like PDF and Microsoft Office documents (MS Word, Excel, and so on).
+Documents inside a document-oriented database are similar, in some ways, to records or rows, in relational databases, but they are less rigid. They are not required to adhere to a standard schema nor will they have all the same sections, slots, parts, keys, or the like. For example here's a document:
+FirstName:"Bob", Address:"5 Oak St.", Hobby:"sailing".
+Another document could be:
+FirstName:"Jonathan", Address:"15 Wanamassa Point Road", Children:[{Name:"Michael",Age:10}, {Name:"Jennifer", Age:8}, {Name:"Samantha", Age:5}, {Name:"Elena", Age:2}].
+Both documents have some similar information and some different. Unlike a relational database where each record would have the same set of fields and unused fields might be kept empty, there are no empty 'fields' in either document (record) in this case. This system allows new information to be added and it does not require explicitly stating if other pieces of information are left out.
+
+Keys
+Documents are addressed in the database via a unique key that represents that document. Often, this key is a simple string. In some cases, this string is a URI or path. Regardless, you can use this key to retrieve the document from the database. Typically, the database retains an index on the key such that document retrieval is fast.
+
+Retrieval
+One of the other defining characteristics of a document-oriented database is that, beyond the simple key-document (or key-value) lookup that you can use to retrieve a document, the database will offer an API or query language that will allow you to retrieve documents based on their contents. For example, you may want a query that gets you all the documents with a certain field set to a certain value. The set of query APIs or query language features available, as well as the expected performance of the queries, varies significantly from one implementation to the next.
+
+Organization
+Implementations offer a variety of ways of organizing documents, including notions of
+* Collections
+* Tags
+* Non-visible Metadata
+* Directory hierarchies
+
+Implementations
+
+* BaseX	
+* Clusterpoint
+* CouchDB	
+* eXist	
+* FleetDB	
+* Jackrabbit	
+* Lotus Notes	
+* MarkLogic	
+* MongoDB	
+* MUMPS Database[7]
+* OrientDB	
+* RavenDB	
+* Redis	
+* Rocket U2	
+* Terrastore	
+* ThruDB	
+
+XML database implementations
+Further information: XML database
+Most XML databases are document-oriented databases.
+
+See also
+
+* Internet Message Access Protocol (IMAP)
+* Database theory
+* In-memory database
+* NoSQL
+* Object database
+* Online database
+* Real time database
+* Relational database
+* Data hierarchy
+
+References
+
+1 Clusterpoint DBMS Licensing Options
+2 CouchDB Overview
+3 CouchDB Document API
+4 [1]
+5 MongoDB License
+6 MongoDB REST Interfaces
+7 Extreme Database programming with MUMPS Globals
+8 GTM MUMPS FOSS on SourceForge
+9 RavenDB HTTP API
+
+Further reading
+
+*Assaf Arkin. (2007, September 20). Read Consistency: Dumb Databases, Smart Services. Labnotes:Don’t let the bubble go to your head!
+
+External links
+
+http://solprovider.com/articles/20020612&cat=Lotus/IBM
