@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Lucene.Net.Orm.Mapping;
-using Lucene.Net.Orm.Test.Models;
+using Lucene.Net.Odm.Mapping;
+using Lucene.Net.Odm.Test.Models;
 
 
-namespace Lucene.Net.Orm.Test.Mappings
+namespace Lucene.Net.Odm.Test.Mappings
 {
     public class CategoryMap : DocumentMap<Category>
     {

@@ -6,11 +6,11 @@ using System.CodeDom.Compiler;
 using Microsoft.CSharp;
 
 using Lucene.Net.Documents;
-using Lucene.Net.Orm.Mapping;
+using Lucene.Net.Odm.Mapping;
 using System.Reflection;
 
 
-namespace Lucene.Net.Orm.Mappers
+namespace Lucene.Net.Odm.Mappers
 {
     public class CompiledDocumentMapper : IDocumentMapper
     {

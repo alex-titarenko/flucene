@@ -7,7 +7,7 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Lucene.Net.Orm.Mappers
+namespace Lucene.Net.Odm.Mappers
 {
     using System;
     
@@ -19,24 +19,24 @@ namespace Lucene.Net.Orm.Mappers
         public virtual string TransformText()
         {
             this.Write("\r\nusing System;\r\nusing System.Collections.Generic;\r\nusing System.Linq;\r\nusing Luc" +
-                    "ene.Net.Documents;\r\n\r\nnamespace Lucene.Net.Orm.Mappers\r\n{\r\n    public partial cl" +
-                    "ass ");
+                    "ene.Net.Documents;\r\n\r\n\r\nnamespace Lucene.Net.Odm.Mappers\r\n{\r\n    public partial " +
+                    "class ");
             
-            #line 10 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            #line 11 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ShortModelName));
             
             #line default
             #line hidden
-            this.Write("CompiledMapper : Lucene.Net.Orm.Mappers.ICompiledMapper<");
+            this.Write("CompiledMapper : Lucene.Net.Odm.Mappers.ICompiledMapper<");
             
-            #line 10 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            #line 11 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ModelName));
             
             #line default
             #line hidden
             this.Write(">\r\n    {\r\n        public Document GetDocument(");
             
-            #line 12 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            #line 13 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ModelName));
             
             #line default
@@ -44,21 +44,21 @@ namespace Lucene.Net.Orm.Mappers
             this.Write(" model)\r\n        {\r\n            Document document = new Document();\r\n\r\n          " +
                     "  return document;\r\n        }\r\n\r\n        public ");
             
-            #line 19 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            #line 20 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ModelName));
             
             #line default
             #line hidden
             this.Write(" GetModel(Document document)\r\n        {\r\n            ");
             
-            #line 21 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            #line 22 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ModelName));
             
             #line default
             #line hidden
             this.Write(" model = new ");
             
-            #line 21 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            #line 22 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ModelName));
             
             #line default
@@ -67,7 +67,7 @@ namespace Lucene.Net.Orm.Mappers
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 28 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+        #line 29 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
 
     public string ShortModelName { get; set; }
     public string ModelName { get; set; }

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Reflection;
 
 using Lucene.Net.Documents;
-using Lucene.Net.Orm.Mapping;
-using Lucene.Net.Orm.Mappers;
+using Lucene.Net.Odm.Mapping;
+using Lucene.Net.Odm.Mappers;
 
 
-namespace Lucene.Net.Orm
+namespace Lucene.Net.Odm
 {
     public class FluentMappingsService : IMappingsService
     {

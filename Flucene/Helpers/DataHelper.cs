@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-namespace Lucene.Net.Orm.Helpers
+namespace Lucene.Net.Odm.Helpers
 {
     public static class DataHelper
     {

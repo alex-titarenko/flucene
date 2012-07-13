@@ -6,7 +6,7 @@ using System.Text;
 using Lucene.Net.Documents;
 
 
-namespace Lucene.Net.Orm.Mapping.Configuration
+namespace Lucene.Net.Odm.Mapping.Configuration
 {
 
     public class CompositeFieldConfiguration : IFieldConfiguration<IEnumerable<KeyValuePair<string, object>>>, IFieldConfiguration

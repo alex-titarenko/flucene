@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-using Lucene.Net.Orm.Mapping.Configuration;
+using Lucene.Net.Odm.Mapping.Configuration;
 
 
-namespace Lucene.Net.Orm.Mapping
+namespace Lucene.Net.Odm.Mapping
 {
     public delegate float Boosting<T>(T model);
 

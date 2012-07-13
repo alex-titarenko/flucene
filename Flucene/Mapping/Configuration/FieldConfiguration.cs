@@ -7,7 +7,7 @@ using System.Globalization;
 using Lucene.Net.Documents;
 
 
-namespace Lucene.Net.Orm.Mapping.Configuration
+namespace Lucene.Net.Odm.Mapping.Configuration
 {
     public class FieldConfiguration<TInput> : IFieldConfiguration<TInput>, IFieldConfiguration
     {

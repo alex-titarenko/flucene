@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using Autofac;
 using System.Reflection;
-using Lucene.Net.Orm;
-using Lucene.Net.Orm.Mappers;
+using Lucene.Net.Odm;
+using Lucene.Net.Odm.Mappers;
 using System.IO;
 using FilesIndexer.Models;
 
@@ -40,7 +40,7 @@ namespace FilesIndexer
         {
             ContainerBuilder builder = new ContainerBuilder();
 
-            builder.Register(c => new Lucene.Net.Orm.FluentMappingsService(Assembly.GetExecutingAssembly()))
+            builder.Register(c => new Lucene.Net.Odm.FluentMappingsService(Assembly.GetExecutingAssembly()))
                 .As<IMappingsService>().SingleInstance();
 
             _container = builder.Build();

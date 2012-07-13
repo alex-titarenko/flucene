@@ -8,7 +8,7 @@
     <ProjectGuid>{3034591D-AA48-4FB4-B07B-51BCB1EB226F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Lucene.Net.Orm</RootNamespace>
+    <RootNamespace>Lucene.Net.Odm</RootNamespace>
     <AssemblyName>Flucene</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

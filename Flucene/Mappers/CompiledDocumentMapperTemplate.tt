@@ -5,9 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Lucene.Net.Documents;
 
-namespace Lucene.Net.Orm.Mappers
+
+namespace Lucene.Net.Odm.Mappers
 {
-    public partial class <#= ShortModelName #>CompiledMapper : Lucene.Net.Orm.Mappers.ICompiledMapper<<#= ModelName #>>
+    public partial class <#= ShortModelName #>CompiledMapper : Lucene.Net.Odm.Mappers.ICompiledMapper<<#= ModelName #>>
     {
         public Document GetDocument(<#= ModelName #> model)
         {

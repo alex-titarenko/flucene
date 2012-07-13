@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 
 using System.Reflection;
-using Lucene.Net.Orm.Mapping.Configuration;
+using Lucene.Net.Odm.Mapping.Configuration;
 
 
-namespace Lucene.Net.Orm.Mapping
+namespace Lucene.Net.Odm.Mapping
 {
     public class PropertyMapping
     {

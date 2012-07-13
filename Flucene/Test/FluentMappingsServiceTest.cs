@@ -8,13 +8,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using Lucene.Net.Documents;
 
-using Lucene.Net.Orm.Mappers;
-using Lucene.Net.Orm.Test.Models;
+using Lucene.Net.Odm.Mappers;
+using Lucene.Net.Odm.Test.Models;
 using System.Globalization;
 using System.Threading;
 
 
-namespace Lucene.Net.Orm.Test
+namespace Lucene.Net.Odm.Test
 {
     /// <summary>
     /// Summary description for UnitTest1

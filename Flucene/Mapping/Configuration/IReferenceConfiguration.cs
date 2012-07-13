@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace Lucene.Net.Orm.Mapping.Configuration
+namespace Lucene.Net.Odm.Mapping.Configuration
 {
     public interface IReferenceConfiguration
     {

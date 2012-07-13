@@ -6,7 +6,7 @@ using System.Text;
 using Lucene.Net.Documents;
 
 
-namespace Lucene.Net.Orm.Mappers
+namespace Lucene.Net.Odm.Mappers
 {
     public interface ICompiledMapper<TModel>
     {

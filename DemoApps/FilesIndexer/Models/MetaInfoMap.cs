@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Lucene.Net.Orm.Mapping;
+using Lucene.Net.Odm.Mapping;
 
 namespace FilesIndexer.Models
 {
