@@ -102,7 +102,7 @@ namespace Lucene.Net.Odm.Mappers
             this.Write(" = ");
             
             #line 34 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(GetPropertyText(propMapping)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(GetPropertyRaw(propMapping)));
             
             #line default
             #line hidden
@@ -119,35 +119,50 @@ namespace Lucene.Net.Odm.Mappers
         
         #line 42 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
 
+    const string enumFormat = "({0})Enum.Parse(typeof({0}), document.Get(\"{1}\"), true)";
+    const string convertFormat = "({0})Convert.ChangeType(document.Get(\"{1}\"), typeof({2}), CultureInfo.InvariantCulture)";
+
     public string ShortModelName { get; set; }
     public string ModelName { get; set; }
     public dynamic DocumentMapping {get; set; }
 
-    private string GetPropertyText(PropertyMapping propMapping)
+    private string GetPropertyRaw(PropertyMapping propMapping)
     {
         string fieldName = propMapping.FieldConfiguration.FieldName;
         Type propertyType = propMapping.PropertyInfo.PropertyType;
 
-        const string numericFormat = ".Parse(document.Get(\"{0}\"), CultureInfo.InvariantCulture)";
-        const string enumFormat = "({0})Enum.Parse(typeof({0}), document.Get(\"{1}\"), true)";
-        const string convertFormat= "({0})Convert.ChangeType(document.Get(\"{1}\"), typeof({2}), CultureInfo.InvariantCulture)";
-
         if (propertyType == typeof(string))
+        {
             return String.Format("document.Get(\"{0}\")", fieldName);
-        if (propertyType.IsEnum)
+        }
+        else if (propertyType.IsEnum)
+        {
             return String.Format(enumFormat, propertyType, fieldName);
+        }
+        else if (propertyType == typeof(DateTime))
+        {
+            return String.Format("DataHelper.ParseDateTime(document.Get(\"{0}\"))", fieldName);
+        }
         else if (DataHelper.IsConvertibleType(propertyType))
+        {
             return String.Format(convertFormat, propertyType.Name, fieldName, propertyType.Name);
+        }
         else if (DataHelper.IsNullableType(propertyType))
         {
             Type baseType = Nullable.GetUnderlyingType(propertyType);
-            if (baseType.IsPrimitive)
-                return String.Format(convertFormat, baseType.Name, fieldName, propertyType.Name);
+            if (DataHelper.IsConvertibleType(baseType))
+                return String.Format(convertFormat, baseType.Name + "?", fieldName, baseType.Name);
             else
-                return "";
+                throw new ArgumentException("This type is not supported.");
+        }
+        else if(DataHelper.IsGenericEnumerable(propertyType))
+        {
+            return null;
         }
         else
+        {
             return String.Empty;
+        }
     }
 
         

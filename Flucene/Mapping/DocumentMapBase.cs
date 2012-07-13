@@ -24,8 +24,21 @@ namespace Lucene.Net.Odm.Mapping
     /// <typeparam name="TModel">The type of the model for which to build a mapping for lucene document.</typeparam>
     public abstract class DocumentMapBase<TModel>
     {
+        /// <summary>
+        /// Creates a property mapping and sets the field name equal to the property name.
+        /// </summary>
+        /// <typeparam name="TProperty">The type of property to mapping.</typeparam>
+        /// <param name="selector">A property selector to map.</param>
+        /// <returns>fluent interface to configure the field to mapping.</returns>
         public abstract IFieldConfiguration<TProperty> Map<TProperty>(Expression<Func<TModel, TProperty>> selector);
 
+        /// <summary>
+        /// Creates a property mapping.
+        /// </summary>
+        /// <typeparam name="TProperty">The type of property to mapping.</typeparam>
+        /// <param name="selector">A property selector to map.</param>
+        /// <param name="fieldName">The string representing the name of the field.</param>
+        /// <returns>fluent interface to configure the field to mapping.</returns>
         public abstract IFieldConfiguration<TProperty> Map<TProperty>(Expression<Func<TModel, TProperty>> selector, string fieldName);
 
         public abstract IFieldConfiguration<TInput> CustomMap<TInput>(Func<TModel, TInput> selector, Action<TModel, IEnumerable<string>> setter, string fieldName);

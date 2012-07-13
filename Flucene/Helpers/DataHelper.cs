@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Globalization;
 
 
 namespace Lucene.Net.Odm.Helpers
@@ -15,7 +16,7 @@ namespace Lucene.Net.Odm.Helpers
                 Type elementType = conversionType.GetElementType();
                 return CreateArray(values, elementType);
             }
-            else if (IsEnumerable(conversionType))
+            else if (IsGenericEnumerable(conversionType))
             {
                 return CreateCollection(values, conversionType);
             }
@@ -30,17 +31,9 @@ namespace Lucene.Net.Odm.Helpers
             if (!String.IsNullOrEmpty(value))
             {
                 if (conversionType.IsEnum)
-                {
                     return Enum.Parse(conversionType, value);
-                }
                 else if (conversionType == typeof(DateTime))
-                {
-                    long binaryDateTime;
-
-                    if (long.TryParse(value, out binaryDateTime))
-                        return DateTime.FromBinary(binaryDateTime);
-                    return DateTime.Parse(value);
-                }
+                    return ParseDateTime(value);
                 else
                 {
                     if (IsNullableType(conversionType))
@@ -55,6 +48,17 @@ namespace Lucene.Net.Odm.Helpers
             }
         }
 
+
+        public static DateTime ParseDateTime(string source)
+        {
+            long binaryDateTime;
+
+            if (long.TryParse(source, out binaryDateTime))
+                return DateTime.FromBinary(binaryDateTime);
+            return DateTime.Parse(source, CultureInfo.InvariantCulture);
+        }
+
+
         public static bool IsNullableType(Type type)
         {
             return type.IsGenericType && typeof(Nullable<>) == type.GetGenericTypeDefinition();
@@ -66,7 +70,7 @@ namespace Lucene.Net.Odm.Helpers
         }
 
 
-        private static bool IsEnumerable(Type type)
+        public static bool IsGenericEnumerable(Type type)
         {
             return typeof(string) != type &&
                 type.GetInterfaces()

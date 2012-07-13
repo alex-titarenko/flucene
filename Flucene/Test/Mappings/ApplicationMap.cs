@@ -14,7 +14,7 @@ namespace Lucene.Net.Odm.Test.Mappings
         public ApplicationMap()
         {
             Map(x => x.ID);
-            Map(x => x.Name, "AppName").Store().Analyze().Boost(x => x.Length);
+            Map(x => x.Name, "AppName").Store().Analyze().Required().Boost(x => x.Length);
             
             CustomMap(
                 x => x.Version.ToString(),
@@ -28,7 +28,7 @@ namespace Lucene.Net.Odm.Test.Mappings
                 .Boost(d => d.Count()).Store().Analyze();
 
 
-            Map(x => x.Description, "AppDescription").Store().Analyze().Boost(x => 0.1f);
+            Map(x => x.Description, "AppDescription").Store().Analyze().Boost(x => 0.1f).Optional();
             Map(x => x.RegularPrice, "RegularPrice").Store().NotIndex();
             Map(x => x.UpgradePrice, "UpgradePrice").Store().NotIndex();
             Map(x => x.ReleaseDate, "ReleaseDate").Store().NotIndex();

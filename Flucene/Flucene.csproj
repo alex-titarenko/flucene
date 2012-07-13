@@ -52,6 +52,7 @@
     <Compile Include="Helpers\DataHelper.cs" />
     <Compile Include="Helpers\ExpressionHelper.cs" />
     <Compile Include="IIndexRepository.cs" />
+    <Compile Include="IIndexRepositoryFactory.cs" />
     <Compile Include="IMappingsService.cs" />
     <Compile Include="Mappers\CompiledDocumentMapper.cs" />
     <Compile Include="Mappers\ICompiledMapper.cs" />
