@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-namespace Lucene.Net.Orm.Helpers
+namespace Lucene.Net.Odm.Helpers
 {
     public static class DataHelper
     {
@@ -43,8 +43,7 @@ namespace Lucene.Net.Orm.Helpers
                 }
                 else
                 {
-                    if (conversionType.IsGenericType &&
-                        typeof(Nullable<>) == conversionType.GetGenericTypeDefinition())
+                    if (IsNullableType(conversionType))
                         conversionType = Nullable.GetUnderlyingType(conversionType);
 
                     return Convert.ChangeType(value, conversionType);
@@ -54,6 +53,16 @@ namespace Lucene.Net.Orm.Helpers
             {
                 return null;
             }
+        }
+
+        public static bool IsNullableType(Type type)
+        {
+            return type.IsGenericType && typeof(Nullable<>) == type.GetGenericTypeDefinition();
+        }
+
+        public static bool IsConvertibleType(Type type)
+        {
+            return typeof(IConvertible).IsAssignableFrom(type);
         }
 
 

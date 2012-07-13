@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace Lucene.Net.Orm.Mapping
+namespace Lucene.Net.Odm.Mapping
 {
     public interface IMappingProvider<TModel>
     {

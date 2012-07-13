@@ -4,19 +4,19 @@ using System.Linq;
 using System.Reflection;
 
 using Lucene.Net.Documents;
-using Lucene.Net.Orm.Helpers;
-using Lucene.Net.Orm.Mapping;
-using Lucene.Net.Orm.Mapping.Configuration;
+using Lucene.Net.Odm.Helpers;
+using Lucene.Net.Odm.Mapping;
+using Lucene.Net.Odm.Mapping.Configuration;
 
 
-namespace Lucene.Net.Orm.Mappers
+namespace Lucene.Net.Odm.Mappers
 {
     public class ReflectionDocumentMapper : IDocumentMapper
     {
         public Document GetDocument<TModel>(DocumentMapping<TModel> mapping, TModel model, IMappingsService mappingService)
         {
             Document doc = new Document();
-
+            
             // Adds mapped fields to document
             foreach (PropertyMapping item in mapping.PropertyMappings)
             {

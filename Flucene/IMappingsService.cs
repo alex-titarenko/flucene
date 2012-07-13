@@ -1,10 +1,10 @@
 ﻿using System;
 
 using Lucene.Net.Documents;
-using Lucene.Net.Orm.Mappers;
+using Lucene.Net.Odm.Mappers;
 
 
-namespace Lucene.Net.Orm
+namespace Lucene.Net.Odm
 {
     public interface IMappingsService
     {

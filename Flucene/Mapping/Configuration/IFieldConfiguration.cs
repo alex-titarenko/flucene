@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using Lucene.Net.Documents;
 
 
-namespace Lucene.Net.Orm.Mapping.Configuration
+namespace Lucene.Net.Odm.Mapping.Configuration
 {
     public interface IFieldConfiguration
     {
         string FieldName { get; }
+
+        bool IsRequired { get; }
 
 
         IFieldConfiguration Analyze();
@@ -27,6 +29,11 @@ namespace Lucene.Net.Orm.Mapping.Configuration
         IFieldConfiguration Compress();
 
         IFieldConfiguration NotStore();
+
+
+        IFieldConfiguration Required();
+
+        IFieldConfiguration Optional();
 
 
         IFieldConfiguration Boost(Boosting<object> boost);
@@ -54,6 +61,11 @@ namespace Lucene.Net.Orm.Mapping.Configuration
         new IFieldConfiguration<TInput> Compress();
 
         new IFieldConfiguration<TInput> NotStore();
+
+
+        new IFieldConfiguration<TInput> Required();
+
+        new IFieldConfiguration<TInput> Optional();
 
 
         IFieldConfiguration<TInput> Boost(Boosting<TInput> boost);

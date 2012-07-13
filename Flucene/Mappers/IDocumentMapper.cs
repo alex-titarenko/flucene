@@ -1,10 +1,10 @@
 ﻿using System;
 
 using Lucene.Net.Documents;
-using Lucene.Net.Orm.Mapping;
+using Lucene.Net.Odm.Mapping;
 
 
-namespace Lucene.Net.Orm.Mappers
+namespace Lucene.Net.Odm.Mappers
 {
     public interface IDocumentMapper
     {

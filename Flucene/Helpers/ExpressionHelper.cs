@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 
 
-namespace Lucene.Net.Orm.Helpers
+namespace Lucene.Net.Odm.Helpers
 {
     public static class ExpressionHelper
     {

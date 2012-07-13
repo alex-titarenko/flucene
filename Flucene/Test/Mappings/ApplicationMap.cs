@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Lucene.Net.Orm.Mapping;
-using Lucene.Net.Orm.Test.Models;
+using Lucene.Net.Odm.Mapping;
+using Lucene.Net.Odm.Test.Models;
 
 
-namespace Lucene.Net.Orm.Test.Mappings
+namespace Lucene.Net.Odm.Test.Mappings
 {
     public class ApplicationMap : DocumentMap<Application>
     {
@@ -15,7 +15,7 @@ namespace Lucene.Net.Orm.Test.Mappings
         {
             Map(x => x.ID);
             Map(x => x.Name, "AppName").Store().Analyze().Boost(x => x.Length);
-
+            
             CustomMap(
                 x => x.Version.ToString(),
                 (x, v) => x.Version = Version.Parse(v.FirstOrDefault()),

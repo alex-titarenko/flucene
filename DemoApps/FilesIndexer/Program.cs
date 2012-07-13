@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using Autofac;
 using System.Reflection;
-using Lucene.Net.Orm;
-using Lucene.Net.Orm.Mappers;
+using Lucene.Net.Odm;
+using Lucene.Net.Odm.Mappers;
 using System.IO;
 using FilesIndexer.Models;
 using Lucene.Net.Store;
@@ -51,7 +51,7 @@ namespace FilesIndexer
 
             builder.RegisterType<ReflectionDocumentMapper>().As<IDocumentMapper>().SingleInstance();
 
-            builder.Register(c => new Lucene.Net.Orm.FluentMappingsService(Assembly.GetExecutingAssembly()) 
+            builder.Register(c => new FluentMappingsService(Assembly.GetExecutingAssembly()) 
                 { Mapper = c.Resolve<IDocumentMapper>() })
                 .As<IMappingsService>().SingleInstance();
             builder.Register(c => new RAMDirectory()).As<Dir>().SingleInstance();

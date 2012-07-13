@@ -5,11 +5,11 @@ using System.Linq.Expressions;
 using System.Reflection;
 
 using Lucene.Net.Documents;
-using Lucene.Net.Orm.Helpers;
-using Lucene.Net.Orm.Mapping.Configuration;
+using Lucene.Net.Odm.Helpers;
+using Lucene.Net.Odm.Mapping.Configuration;
 
 
-namespace Lucene.Net.Orm.Mapping
+namespace Lucene.Net.Odm.Mapping
 {
     public class DocumentMap<TModel> : DocumentMapBase<TModel>, IMappingProvider<TModel> where TModel : new()
     {
@@ -78,6 +78,11 @@ namespace Lucene.Net.Orm.Mapping
             Mapping.ReferenceMaps.Add(new KeyValuePair<PropertyInfo, IReferenceConfiguration>(property, reference));
             
             return reference;
+        }
+
+        public override void CustomAction(Action<TModel, Document> toDocument, Action<Document, TModel> toModel)
+        {
+            throw new NotImplementedException();
         }
 
         public override void Boost(Boosting<TModel> documentBoost)
