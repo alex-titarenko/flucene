@@ -1,9 +1,14 @@
 ﻿<#@ template language="C#" #>
+<#@ import namespace="Lucene.Net.Odm.Mapping" #>
+<#@ import namespace="Lucene.Net.Odm.Helpers" #>
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Globalization;
+
 using Lucene.Net.Documents;
+using Lucene.Net.Odm.Mapping;
 
 
 namespace Lucene.Net.Odm.Mappers
@@ -14,12 +19,20 @@ namespace Lucene.Net.Odm.Mappers
         {
             Document document = new Document();
 
+        <# foreach (PropertyMapping propMapping in DocumentMapping.PropertyMappings) { #>
+            document.Add(model.<#= propMapping.PropertyInfo.Name #>);
+        <# } #>
+
             return document;
         }
 
         public <#= ModelName #> GetModel(Document document)
         {
             <#= ModelName #> model = new <#= ModelName #>();
+
+        <# foreach (PropertyMapping propMapping in DocumentMapping.PropertyMappings) { #>
+            model.<#= propMapping.PropertyInfo.Name #> = <#= GetPropertyText(propMapping) #>;     
+        <# } #>
 
             return model;
         }
@@ -29,4 +42,32 @@ namespace Lucene.Net.Odm.Mappers
 <#+
     public string ShortModelName { get; set; }
     public string ModelName { get; set; }
+    public dynamic DocumentMapping {get; set; }
+
+    private string GetPropertyText(PropertyMapping propMapping)
+    {
+        string fieldName = propMapping.FieldConfiguration.FieldName;
+        Type propertyType = propMapping.PropertyInfo.PropertyType;
+
+        const string numericFormat = ".Parse(document.Get(\"{0}\"), CultureInfo.InvariantCulture)";
+        const string enumFormat = "({0})Enum.Parse(typeof({0}), document.Get(\"{1}\"), true)";
+        const string convertFormat= "({0})Convert.ChangeType(document.Get(\"{1}\"), typeof({2}), CultureInfo.InvariantCulture)";
+
+        if (propertyType == typeof(string))
+            return String.Format("document.Get(\"{0}\")", fieldName);
+        if (propertyType.IsEnum)
+            return String.Format(enumFormat, propertyType, fieldName);
+        else if (DataHelper.IsConvertibleType(propertyType))
+            return String.Format(convertFormat, propertyType.Name, fieldName, propertyType.Name);
+        else if (DataHelper.IsNullableType(propertyType))
+        {
+            Type baseType = Nullable.GetUnderlyingType(propertyType);
+            if (baseType.IsPrimitive)
+                return String.Format(convertFormat, baseType.Name, fieldName, propertyType.Name);
+            else
+                return "";
+        }
+        else
+            return String.Empty;
+    }
 #>

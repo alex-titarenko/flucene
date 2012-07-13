@@ -9,6 +9,8 @@
 // ------------------------------------------------------------------------------
 namespace Lucene.Net.Odm.Mappers
 {
+    using Lucene.Net.Odm.Mapping;
+    using Lucene.Net.Odm.Helpers;
     using System;
     
     
@@ -18,59 +20,135 @@ namespace Lucene.Net.Odm.Mappers
     {
         public virtual string TransformText()
         {
-            this.Write("\r\nusing System;\r\nusing System.Collections.Generic;\r\nusing System.Linq;\r\nusing Luc" +
-                    "ene.Net.Documents;\r\n\r\n\r\nnamespace Lucene.Net.Odm.Mappers\r\n{\r\n    public partial " +
-                    "class ");
+            this.Write("\r\nusing System;\r\nusing System.Collections.Generic;\r\nusing System.Linq;\r\nusing Sys" +
+                    "tem.Globalization;\r\n\r\nusing Lucene.Net.Documents;\r\nusing Lucene.Net.Odm.Mapping;" +
+                    "\r\n\r\n\r\nnamespace Lucene.Net.Odm.Mappers\r\n{\r\n    public partial class ");
             
-            #line 11 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            #line 16 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ShortModelName));
             
             #line default
             #line hidden
             this.Write("CompiledMapper : Lucene.Net.Odm.Mappers.ICompiledMapper<");
             
-            #line 11 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            #line 16 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ModelName));
             
             #line default
             #line hidden
             this.Write(">\r\n    {\r\n        public Document GetDocument(");
             
-            #line 13 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            #line 18 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ModelName));
             
             #line default
             #line hidden
-            this.Write(" model)\r\n        {\r\n            Document document = new Document();\r\n\r\n          " +
-                    "  return document;\r\n        }\r\n\r\n        public ");
+            this.Write(" model)\r\n        {\r\n            Document document = new Document();\r\n\r\n        ");
             
-            #line 20 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            #line 22 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+ foreach (PropertyMapping propMapping in DocumentMapping.PropertyMappings) { 
+            
+            #line default
+            #line hidden
+            this.Write("            document.Add(model.");
+            
+            #line 23 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propMapping.PropertyInfo.Name));
+            
+            #line default
+            #line hidden
+            this.Write(");\r\n        ");
+            
+            #line 24 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("\r\n            return document;\r\n        }\r\n\r\n        public ");
+            
+            #line 29 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ModelName));
             
             #line default
             #line hidden
             this.Write(" GetModel(Document document)\r\n        {\r\n            ");
             
-            #line 22 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            #line 31 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ModelName));
             
             #line default
             #line hidden
             this.Write(" model = new ");
             
-            #line 22 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            #line 31 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ModelName));
             
             #line default
             #line hidden
-            this.Write("();\r\n\r\n            return model;\r\n        }\r\n    }\r\n}\r\n\r\n");
+            this.Write("();\r\n\r\n        ");
+            
+            #line 33 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+ foreach (PropertyMapping propMapping in DocumentMapping.PropertyMappings) { 
+            
+            #line default
+            #line hidden
+            this.Write("            model.");
+            
+            #line 34 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propMapping.PropertyInfo.Name));
+            
+            #line default
+            #line hidden
+            this.Write(" = ");
+            
+            #line 34 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(GetPropertyText(propMapping)));
+            
+            #line default
+            #line hidden
+            this.Write(";     \r\n        ");
+            
+            #line 35 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("\r\n            return model;\r\n        }\r\n    }\r\n}\r\n\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 29 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+        #line 42 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
 
     public string ShortModelName { get; set; }
     public string ModelName { get; set; }
+    public dynamic DocumentMapping {get; set; }
+
+    private string GetPropertyText(PropertyMapping propMapping)
+    {
+        string fieldName = propMapping.FieldConfiguration.FieldName;
+        Type propertyType = propMapping.PropertyInfo.PropertyType;
+
+        const string numericFormat = ".Parse(document.Get(\"{0}\"), CultureInfo.InvariantCulture)";
+        const string enumFormat = "({0})Enum.Parse(typeof({0}), document.Get(\"{1}\"), true)";
+        const string convertFormat= "({0})Convert.ChangeType(document.Get(\"{1}\"), typeof({2}), CultureInfo.InvariantCulture)";
+
+        if (propertyType == typeof(string))
+            return String.Format("document.Get(\"{0}\")", fieldName);
+        if (propertyType.IsEnum)
+            return String.Format(enumFormat, propertyType, fieldName);
+        else if (DataHelper.IsConvertibleType(propertyType))
+            return String.Format(convertFormat, propertyType.Name, fieldName, propertyType.Name);
+        else if (DataHelper.IsNullableType(propertyType))
+        {
+            Type baseType = Nullable.GetUnderlyingType(propertyType);
+            if (baseType.IsPrimitive)
+                return String.Format(convertFormat, baseType.Name, fieldName, propertyType.Name);
+            else
+                return "";
+        }
+        else
+            return String.Empty;
+    }
 
         
         #line default

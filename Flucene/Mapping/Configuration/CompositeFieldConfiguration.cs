@@ -36,6 +36,8 @@ namespace Lucene.Net.Odm.Mapping.Configuration
             }
         }
 
+        public bool IsRequired { get; private set; }
+
 
         IFieldConfiguration IFieldConfiguration.Analyze()
         {
@@ -76,6 +78,17 @@ namespace Lucene.Net.Odm.Mapping.Configuration
         IFieldConfiguration IFieldConfiguration.NotStore()
         {
             return NotStore();
+        }
+
+
+        IFieldConfiguration IFieldConfiguration.Required()
+        {
+            return Required();
+        }
+
+        IFieldConfiguration IFieldConfiguration.Optional()
+        {
+            return Optional();
         }
 
 
@@ -163,6 +176,22 @@ namespace Lucene.Net.Odm.Mapping.Configuration
             _actions.Add((x) => x.NotStore());
             return this;
         }
+
+
+        public IFieldConfiguration<IEnumerable<KeyValuePair<string, object>>> Required()
+        {
+            IsRequired = true;
+            _actions.Add((x) => x.Required());
+            return this;
+        }
+
+        public IFieldConfiguration<IEnumerable<KeyValuePair<string, object>>> Optional()
+        {
+            IsRequired = false;
+            _actions.Add((x) => x.Optional());
+            return this;
+        }
+
 
         public IFieldConfiguration<IEnumerable<KeyValuePair<string, object>>> Boost(Boosting<IEnumerable<KeyValuePair<string, object>>> boost)
         {

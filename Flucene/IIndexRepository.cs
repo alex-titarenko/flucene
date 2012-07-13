@@ -16,6 +16,6 @@ namespace Lucene.Net.Odm
 
         void Rollback();
 
-        IEnumerable<TModel> Search(string query);
+        IEnumerable<TModel> Search(string query, int page, int count);
     }
 }

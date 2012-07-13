@@ -80,6 +80,11 @@ namespace Lucene.Net.Odm.Mapping
             return reference;
         }
 
+        public override void CustomAction(Action<TModel, Document> toDocument, Action<Document, TModel> toModel)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void Boost(Boosting<TModel> documentBoost)
         {
             Mapping.Boost = documentBoost;

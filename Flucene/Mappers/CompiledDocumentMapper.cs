@@ -14,40 +14,46 @@ namespace Lucene.Net.Odm.Mappers
 {
     public class CompiledDocumentMapper : IDocumentMapper
     {
-        IDictionary<Type, dynamic> _compiledMappings = new Dictionary<Type, dynamic>();
+        private IDictionary<Type, dynamic> _compiledMappers = new Dictionary<Type, dynamic>();
+
 
         #region IDocumentMapper Members
 
         public Document GetDocument<TModel>(DocumentMapping<TModel> mapping, TModel model, IMappingsService mappingService)
         {
-            dynamic compiledMapper;
-            if (!_compiledMappings.TryGetValue(typeof(TModel), out compiledMapper))
-            {
-                compiledMapper = GenerateMapperType(typeof(TModel));
-                _compiledMappings.Add(typeof(TModel), compiledMapper);
-            }
-
+            ICompiledMapper<TModel> compiledMapper = GetCompiledMapper(mapping, mappingService);
             return compiledMapper.GetDocument(model);
         }
 
         public TModel GetModel<TModel>(DocumentMapping<TModel> mapping, Document document, IMappingsService mappingService) where TModel : new()
         {
-            dynamic compiledMapper;
-            if (!_compiledMappings.TryGetValue(typeof(TModel), out compiledMapper))
-            {
-                compiledMapper = GenerateMapperType(typeof(TModel));
-            }
-
+            ICompiledMapper<TModel> compiledMapper = GetCompiledMapper(mapping, mappingService);
             return compiledMapper.GetModel(document);
         }
 
         #endregion
 
-        public object GenerateMapperType(Type modelType)
+
+        private ICompiledMapper<TModel> GetCompiledMapper<TModel>(DocumentMapping<TModel> mapping, IMappingsService mappingService)
+        {
+            dynamic compiledMapper;
+            if (!_compiledMappers.TryGetValue(typeof(TModel), out compiledMapper))
+            {
+                compiledMapper = GenerateMapperType(mapping, mappingService);
+            }
+
+            return compiledMapper;
+        }
+
+        private object GenerateMapperType<TModel>(DocumentMapping<TModel> mapping, IMappingsService mappingService)
         {
             CompiledDocumentMapperTemplate template = new CompiledDocumentMapperTemplate();
+            
+            Type modelType = typeof(TModel);
             template.ModelName = modelType.FullName;
             template.ShortModelName = modelType.Name;
+            template.DocumentMapping = mapping;
+
             string source = template.TransformText();
 
             CompilerParameters options = new CompilerParameters();

@@ -43,8 +43,7 @@ namespace Lucene.Net.Odm.Helpers
                 }
                 else
                 {
-                    if (conversionType.IsGenericType &&
-                        typeof(Nullable<>) == conversionType.GetGenericTypeDefinition())
+                    if (IsNullableType(conversionType))
                         conversionType = Nullable.GetUnderlyingType(conversionType);
 
                     return Convert.ChangeType(value, conversionType);
@@ -54,6 +53,16 @@ namespace Lucene.Net.Odm.Helpers
             {
                 return null;
             }
+        }
+
+        public static bool IsNullableType(Type type)
+        {
+            return type.IsGenericType && typeof(Nullable<>) == type.GetGenericTypeDefinition();
+        }
+
+        public static bool IsConvertibleType(Type type)
+        {
+            return typeof(IConvertible).IsAssignableFrom(type);
         }
 
 

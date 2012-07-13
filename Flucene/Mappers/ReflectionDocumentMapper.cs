@@ -16,7 +16,7 @@ namespace Lucene.Net.Odm.Mappers
         public Document GetDocument<TModel>(DocumentMapping<TModel> mapping, TModel model, IMappingsService mappingService)
         {
             Document doc = new Document();
-
+            
             // Adds mapped fields to document
             foreach (PropertyMapping item in mapping.PropertyMappings)
             {

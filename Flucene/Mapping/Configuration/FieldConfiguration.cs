@@ -20,13 +20,16 @@ namespace Lucene.Net.Odm.Mapping.Configuration
 
         public FieldConfiguration(string fieldName)
         {
+            IsRequired = true;
             FieldName = fieldName;
         }
 
 
         #region IFieldConfigurationFluent Members
 
-        public string FieldName { get; set; }
+        public string FieldName { get; private set; }
+
+        public bool IsRequired { get; private set; }
 
 
         IFieldConfiguration IFieldConfiguration.Analyze()
@@ -68,6 +71,17 @@ namespace Lucene.Net.Odm.Mapping.Configuration
         IFieldConfiguration IFieldConfiguration.NotStore()
         {
             return NotStore();
+        }
+
+
+        IFieldConfiguration IFieldConfiguration.Required()
+        {
+            return Required();
+        }
+
+        IFieldConfiguration IFieldConfiguration.Optional()
+        {
+            return Optional();
         }
 
 
@@ -176,6 +190,19 @@ namespace Lucene.Net.Odm.Mapping.Configuration
         public IFieldConfiguration<TInput> NotStore()
         {
             _store = Field.Store.NO;
+            return this;
+        }
+
+
+        public IFieldConfiguration<TInput> Required()
+        {
+            IsRequired = true;
+            return this;
+        }
+
+        public IFieldConfiguration<TInput> Optional()
+        {
+            IsRequired = false;
             return this;
         }
 

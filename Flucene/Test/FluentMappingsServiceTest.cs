@@ -28,6 +28,7 @@ namespace Lucene.Net.Odm.Test
         public FluentMappingsServiceTest()
         {
             _mappingService = new FluentMappingsService(Assembly.GetExecutingAssembly());
+            //_mappingService.Mapper = new CompiledDocumentMapper();
             _mappingService.Mapper = new ReflectionDocumentMapper();
         }
 
