@@ -75,14 +75,14 @@ namespace Lucene.Net.Odm.Mapping
             IReferenceConfiguration reference = MappingConfigurationFactory.CreateReferenceConfiguration();
 
             PropertyInfo property = ExpressionHelper.ExtractPropertyInfo(selector);
-            Mapping.ReferenceMaps.Add(new KeyValuePair<PropertyInfo, IReferenceConfiguration>(property, reference));
+            Mapping.ReferenceMappings.Add(new KeyValuePair<PropertyInfo, IReferenceConfiguration>(property, reference));
             
             return reference;
         }
 
         public override void CustomAction(Action<TModel, Document> toDocument, Action<Document, TModel> toModel)
         {
-            throw new NotImplementedException();
+            Mapping.CustomActions.Add(new CustomAction<TModel>(toDocument, toModel));
         }
 
         public override void Boost(Boosting<TModel> documentBoost)

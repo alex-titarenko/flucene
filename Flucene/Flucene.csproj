@@ -64,6 +64,7 @@
     <Compile Include="Mappers\ReflectionDocumentMapper.cs" />
     <Compile Include="Mapping\Configuration\CompositeFieldConfiguration.cs" />
     <Compile Include="Mapping\Configuration\StandardMappingConfigurationFactory.cs" />
+    <Compile Include="Mapping\CustomAction.cs" />
     <Compile Include="Mapping\CustomMapping.cs" />
     <Compile Include="Mapping\DocumentMap.cs" />
     <Compile Include="Mapping\DocumentMapBase.cs" />
