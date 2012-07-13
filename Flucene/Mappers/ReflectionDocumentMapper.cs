@@ -43,7 +43,7 @@ namespace Lucene.Net.Odm.Mappers
 
             if (mappingService != null)
             {
-                foreach (KeyValuePair<PropertyInfo, IReferenceConfiguration> item in mapping.ReferenceMaps)
+                foreach (KeyValuePair<PropertyInfo, IReferenceConfiguration> item in mapping.ReferenceMappings)
                 {
                     dynamic propertyValue = item.Key.GetValue(model, null);
                     if (propertyValue != null)
@@ -55,6 +55,12 @@ namespace Lucene.Net.Odm.Mappers
                         }
                     }
                 }
+            }
+
+            // Custom actions
+            foreach (CustomAction<TModel> customAction in mapping.CustomActions)
+            {
+                customAction.ToDocument(model, doc);
             }
 
             // Sets the document boosting
@@ -97,10 +103,19 @@ namespace Lucene.Net.Odm.Mappers
 
             if (mappingService != null)
             {
-                foreach (KeyValuePair<PropertyInfo, IReferenceConfiguration> item in mapping.ReferenceMaps)
+                foreach (KeyValuePair<PropertyInfo, IReferenceConfiguration> item in mapping.ReferenceMappings)
                 {
                     object subModel = mappingService.GetModel(document, item.Key.PropertyType);
                     item.Key.SetValue(model, subModel, null);
+                }
+            }
+
+            // Custom actions
+            foreach (CustomAction<TModel> customAction in mapping.CustomActions)
+            {
+                if (customAction.ToModel != null)
+                {
+                    customAction.ToModel(document, model);
                 }
             }
 

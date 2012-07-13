@@ -13,7 +13,9 @@ namespace Lucene.Net.Odm.Mapping
 
         public ICollection<CustomMapping<TModel>> CustomMappings { get; set; }
 
-        public ICollection<KeyValuePair<PropertyInfo, IReferenceConfiguration>> ReferenceMaps { get; set; }
+        public ICollection<KeyValuePair<PropertyInfo, IReferenceConfiguration>> ReferenceMappings { get; set; }
+
+        public ICollection<CustomAction<TModel>> CustomActions { get; set; }
 
         public Boosting<TModel> Boost { get; set; }
 
@@ -22,7 +24,8 @@ namespace Lucene.Net.Odm.Mapping
         {
             PropertyMappings = new List<PropertyMapping>();
             CustomMappings = new List<CustomMapping<TModel>>();
-            ReferenceMaps = new List<KeyValuePair<PropertyInfo, IReferenceConfiguration>>();
+            ReferenceMappings = new List<KeyValuePair<PropertyInfo, IReferenceConfiguration>>();
+            CustomActions = new List<CustomAction<TModel>>();
         }
     }
 }
