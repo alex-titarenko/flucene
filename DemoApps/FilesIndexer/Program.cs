@@ -17,6 +17,7 @@ using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Search;
 using Lucene.Net.QueryParsers;
 using Lucene.Net.Documents;
+using Lucene.Net.Analysis;
 
 namespace FilesIndexer
 {
@@ -35,8 +36,11 @@ namespace FilesIndexer
         /// Maximal size of text in single file (in characters).
         /// </summary>
         const int MaxTextSize = 1024 * 1024;
+
+        static readonly Lucene.Net.Util.Version _usedLuceneVersion = Lucene.Net.Util.Version.LUCENE_29;
         
         static IContainer _container;
+        private static Analyzer _standardAnalizer = new StandardAnalyzer(_usedLuceneVersion);
 
         static void Main(string[] args)
         {
@@ -69,8 +73,8 @@ namespace FilesIndexer
         {
             string pathForIndexing = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
             pathForIndexing = Path.Combine(Path.GetDirectoryName(pathForIndexing), "Samples");
-            IndexWriter writer = new IndexWriter(_container.Resolve<Dir>(), 
-                new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_29),
+            IndexWriter writer = new IndexWriter(_container.Resolve<Dir>(),
+                _standardAnalizer,
                  IndexWriter.MaxFieldLength.UNLIMITED);
             IMappingsService mapper = _container.Resolve<IMappingsService>();
 
@@ -106,9 +110,10 @@ namespace FilesIndexer
                         Size = fi.Length,
                     };
                     string[] lines = null;
-                    if (string.Compare(Path.GetExtension(name), "txt", true) == 0)
+                    if (string.Compare(Path.GetExtension(name), ".txt", true) == 0)
                     {
-                        string text = File.ReadAllText(name).Substring(0, MaxTextSize);
+                        string text = File.ReadAllText(name);
+                        text = text.Substring(0, Math.Min(text.Length, MaxTextSize));
                         lines = text.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
                     }
                     item = new FileItem
@@ -136,8 +141,12 @@ namespace FilesIndexer
             Console.WriteLine("Indexing done. Please, enter search query. 'quit' or 'exit' - to finish application");
 
             Dir dir = _container.Resolve<Dir>();
-            Searcher searcher = new IndexSearcher(dir);
+            IndexSearcher searcher = new IndexSearcher(dir, true);
             IMappingsService mapper = _container.Resolve<IMappingsService>();
+            Console.WriteLine("Indexed {0} documents", searcher.GetIndexReader().NumDocs());
+
+            var docum = searcher.GetIndexReader().Document(1);
+            var d = docum.ToString();
 
             bool exitFl = false;
             while (!exitFl)
@@ -154,8 +163,8 @@ namespace FilesIndexer
                 }
                 try
                 {
-                    QueryParser parser = new QueryParser("", new StandardAnalyzer());
-                    Query query = parser.Parse(queryString);
+                    QueryParser parser = new QueryParser(_usedLuceneVersion, "Text", _standardAnalizer);
+                    //QueryParser parser = new MultiFieldQueryParser(new string[] {"Filename", "Text" }, new StandardAnalyzer());
                     TopDocs topDocs = searcher.Search(parser.Parse(queryString), 10);
                     Console.WriteLine("Found {0} documents:", topDocs.TotalHits);
                     foreach (var scoreDoc in topDocs.ScoreDocs)
