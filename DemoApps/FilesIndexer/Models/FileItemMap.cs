@@ -12,7 +12,7 @@ namespace FilesIndexer.Models
         {
             Map(p => p.Filename);
             Reference(p => p.MetaInfo);
-            Map(p => p.Text);
+            Map(p => p.Text).Analyze();
         }
     }
 }

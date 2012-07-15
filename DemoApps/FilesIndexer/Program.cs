@@ -145,9 +145,6 @@ namespace FilesIndexer
             IMappingsService mapper = _container.Resolve<IMappingsService>();
             Console.WriteLine("Indexed {0} documents", searcher.GetIndexReader().NumDocs());
 
-            var docum = searcher.GetIndexReader().Document(1);
-            var d = docum.ToString();
-
             bool exitFl = false;
             while (!exitFl)
             {
@@ -161,6 +158,7 @@ namespace FilesIndexer
                         break;
                     }
                 }
+
                 try
                 {
                     QueryParser parser = new QueryParser(_usedLuceneVersion, "Text", _standardAnalizer);
@@ -171,8 +169,9 @@ namespace FilesIndexer
                     {
                         Document doc = searcher.Doc(scoreDoc.doc);
                         FileItem fileItem = mapper.GetModel<FileItem>(doc);
-                        Console.WriteLine("Name: "+fileItem.Filename);
+                        Console.WriteLine("Name: " + fileItem.Filename);
                     }
+                    Console.WriteLine();
 
                 }
                 catch (Exception ex)
