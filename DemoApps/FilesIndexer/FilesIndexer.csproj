@@ -99,6 +99,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="ReadMe.txt" />
     <Content Include="Samples\Document-orientired_database.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -10,10 +10,10 @@ namespace FilesIndexer.Models
     {
         public MetaInfoMap()
         {
-            Map(p => p.CreationTime);
-            Map(p => p.ModificationTime);
+            Map(p => p.CreationTime).Analyze();
+            Map(p => p.ModificationTime).Analyze();
             Map(p => p.Readonly);
-            Map(p => p.Size);
+            Map(p => p.Size).Analyze();
         }
     }
 }

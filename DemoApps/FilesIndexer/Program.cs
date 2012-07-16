@@ -37,6 +37,9 @@ namespace FilesIndexer
         /// </summary>
         const int MaxTextSize = 1024 * 1024;
 
+        /// <summary>
+        /// Constant for some Lucene methods for preventing obsolete warnings.
+        /// </summary>
         static readonly Lucene.Net.Util.Version _usedLuceneVersion = Lucene.Net.Util.Version.LUCENE_29;
         
         static IContainer _container;
