@@ -9,15 +9,15 @@ using Lucene.Net.Odm.Mappers;
 using System.IO;
 using FilesIndexer.Models;
 using Lucene.Net.Store;
-using System.Monads;
-using Dir = Lucene.Net.Store.Directory;
-using FileDir = System.IO.Directory;
 using Lucene.Net.Index;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Search;
 using Lucene.Net.QueryParsers;
 using Lucene.Net.Documents;
 using Lucene.Net.Analysis;
+
+using Dir = Lucene.Net.Store.Directory;
+using FileDir = System.IO.Directory;
 
 namespace FilesIndexer
 {
@@ -81,7 +81,10 @@ namespace FilesIndexer
             IEnumerable<FileItem> itemsToIndexing = ItemsInPath(pathForIndexing);
             foreach (FileItem fi in itemsToIndexing)
             {
-                fi.Do(ii => writer.AddDocument(mapper.GetDocument(ii)));
+                if (fi != null)
+                {
+                    writer.AddDocument(mapper.GetDocument(fi));
+                }
             }
             writer.Commit();
             writer.Close();
@@ -148,7 +151,7 @@ namespace FilesIndexer
             bool exitFl = false;
             while (!exitFl)
             {
-                Console.Write(">");
+                Console.Write("query>");
                 string queryString = Console.ReadLine();
                 foreach (string command in exitCommands)
                 {

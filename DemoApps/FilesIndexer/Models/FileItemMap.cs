@@ -10,7 +10,7 @@ namespace FilesIndexer.Models
     {
         public FileItemMap()
         {
-            Map(p => p.Filename);
+            Map(p => p.Filename).Analyze().Boost(f => 10);
             Reference(p => p.MetaInfo);
             Map(p => p.Text).Analyze();
         }
