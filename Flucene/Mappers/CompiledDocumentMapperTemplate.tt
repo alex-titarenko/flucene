@@ -30,9 +30,22 @@ namespace Lucene.Net.Odm.Mappers
         {
             <#= ModelName #> model = new <#= ModelName #>();
 
-        <# foreach (PropertyMapping propMapping in DocumentMapping.PropertyMappings) { #>
-            model.<#= propMapping.PropertyInfo.Name #> = <#= GetPropertyRaw(propMapping) #>;     
-        <# } #>
+            <# foreach (PropertyMapping propMapping in DocumentMapping.PropertyMappings) { #>
+                <# if (DataHelper.IsGenericEnumerable(propMapping.PropertyInfo.PropertyType)) { #>
+                    <# if (propMapping.FieldConfiguration.IsRequired) { #>
+                    <# } else { #>
+                    <# } #>
+                <# } else { #>
+                    <# if (propMapping.FieldConfiguration.IsRequired) { #>
+                        model.<#= propMapping.PropertyInfo.Name #> = <#= GetPropertyRaw(propMapping.PropertyInfo.PropertyType, String.Format("document.Get(\"{0}\")", propMapping.FieldConfiguration.FieldName)) #>;
+                    <# } else { #>
+                        string <#= propMapping.PropertyInfo.Name #>value = document.Get("<#= propMapping.FieldConfiguration.FieldName #>");
+                        if (!String.IsNullOrEmpty(<#= propMapping.PropertyInfo.Name #>value)) {
+                            model.<#= propMapping.PropertyInfo.Name #> = <#= GetPropertyRaw(propMapping.PropertyInfo.PropertyType, propMapping.PropertyInfo.Name + "value") #>;
+                        }
+                    <# } #>
+                <# } #>
+            <# } #>
 
             return model;
         }
@@ -40,49 +53,42 @@ namespace Lucene.Net.Odm.Mappers
 }
 
 <#+
-    const string enumFormat = "({0})Enum.Parse(typeof({0}), document.Get(\"{1}\"), true)";
-    const string convertFormat = "({0})Convert.ChangeType(document.Get(\"{1}\"), typeof({2}), CultureInfo.InvariantCulture)";
+    const string enumFormat = "({0})Enum.Parse(typeof({0}), {1}, true)";
+    const string convertFormat = "({0})Convert.ChangeType({1}, typeof({2}), CultureInfo.InvariantCulture)";
 
     public string ShortModelName { get; set; }
     public string ModelName { get; set; }
     public dynamic DocumentMapping {get; set; }
 
-    private string GetPropertyRaw(PropertyMapping propMapping)
+    private string GetPropertyRaw(Type propertyType, string stringPropValue)
     {
-        string fieldName = propMapping.FieldConfiguration.FieldName;
-        Type propertyType = propMapping.PropertyInfo.PropertyType;
-
         if (propertyType == typeof(string))
         {
-            return String.Format("document.Get(\"{0}\")", fieldName);
+            return stringPropValue;
         }
         else if (propertyType.IsEnum)
         {
-            return String.Format(enumFormat, propertyType, fieldName);
+            return String.Format(enumFormat, propertyType, stringPropValue);
         }
         else if (propertyType == typeof(DateTime))
         {
-            return String.Format("DataHelper.ParseDateTime(document.Get(\"{0}\"))", fieldName);
+            return String.Format("DataHelper.ParseDateTime({0})", stringPropValue);
         }
         else if (DataHelper.IsConvertibleType(propertyType))
         {
-            return String.Format(convertFormat, propertyType.Name, fieldName, propertyType.Name);
+            return String.Format(convertFormat, propertyType.Name, stringPropValue, propertyType.Name);
         }
         else if (DataHelper.IsNullableType(propertyType))
         {
             Type baseType = Nullable.GetUnderlyingType(propertyType);
             if (DataHelper.IsConvertibleType(baseType))
-                return String.Format(convertFormat, baseType.Name + "?", fieldName, baseType.Name);
+                return String.Format(convertFormat, baseType.Name + "?", stringPropValue, baseType.Name);
             else
                 throw new ArgumentException("This type is not supported.");
         }
-        else if(DataHelper.IsGenericEnumerable(propertyType))
-        {
-            return null;
-        }
         else
         {
-            return String.Empty;
+            throw new ArgumentException("propertyType");
         }
     }
 #>

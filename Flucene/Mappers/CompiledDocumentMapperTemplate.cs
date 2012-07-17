@@ -85,30 +85,128 @@ namespace Lucene.Net.Odm.Mappers
             
             #line default
             #line hidden
-            this.Write("();\r\n\r\n        ");
+            this.Write("();\r\n\r\n            ");
             
             #line 33 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
  foreach (PropertyMapping propMapping in DocumentMapping.PropertyMappings) { 
             
             #line default
             #line hidden
-            this.Write("            model.");
+            this.Write("                ");
             
             #line 34 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+ if (DataHelper.IsGenericEnumerable(propMapping.PropertyInfo.PropertyType)) { 
+            
+            #line default
+            #line hidden
+            this.Write("                    ");
+            
+            #line 35 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+ if (propMapping.FieldConfiguration.IsRequired) { 
+            
+            #line default
+            #line hidden
+            this.Write("                    ");
+            
+            #line 36 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+ } else { 
+            
+            #line default
+            #line hidden
+            this.Write("                    ");
+            
+            #line 37 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("                ");
+            
+            #line 38 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+ } else { 
+            
+            #line default
+            #line hidden
+            this.Write("                    ");
+            
+            #line 39 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+ if (propMapping.FieldConfiguration.IsRequired) { 
+            
+            #line default
+            #line hidden
+            this.Write("                        model.");
+            
+            #line 40 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propMapping.PropertyInfo.Name));
             
             #line default
             #line hidden
             this.Write(" = ");
             
-            #line 34 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(GetPropertyRaw(propMapping)));
+            #line 40 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(GetPropertyRaw(propMapping.PropertyInfo.PropertyType, String.Format("document.Get(\"{0}\")", propMapping.FieldConfiguration.FieldName))));
             
             #line default
             #line hidden
-            this.Write(";     \r\n        ");
+            this.Write(";\r\n                    ");
             
-            #line 35 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            #line 41 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+ } else { 
+            
+            #line default
+            #line hidden
+            this.Write("                        string ");
+            
+            #line 42 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propMapping.PropertyInfo.Name));
+            
+            #line default
+            #line hidden
+            this.Write("value = document.Get(\"");
+            
+            #line 42 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propMapping.FieldConfiguration.FieldName));
+            
+            #line default
+            #line hidden
+            this.Write("\");\r\n                        if (!String.IsNullOrEmpty(");
+            
+            #line 43 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propMapping.PropertyInfo.Name));
+            
+            #line default
+            #line hidden
+            this.Write("value)) {\r\n                            model.");
+            
+            #line 44 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propMapping.PropertyInfo.Name));
+            
+            #line default
+            #line hidden
+            this.Write(" = ");
+            
+            #line 44 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(GetPropertyRaw(propMapping.PropertyInfo.PropertyType, propMapping.PropertyInfo.Name + "value")));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\n                        }\r\n                    ");
+            
+            #line 46 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("                ");
+            
+            #line 47 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("            ");
+            
+            #line 48 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
  } 
             
             #line default
@@ -117,51 +215,44 @@ namespace Lucene.Net.Odm.Mappers
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 42 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+        #line 55 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
 
-    const string enumFormat = "({0})Enum.Parse(typeof({0}), document.Get(\"{1}\"), true)";
-    const string convertFormat = "({0})Convert.ChangeType(document.Get(\"{1}\"), typeof({2}), CultureInfo.InvariantCulture)";
+    const string enumFormat = "({0})Enum.Parse(typeof({0}), {1}, true)";
+    const string convertFormat = "({0})Convert.ChangeType({1}, typeof({2}), CultureInfo.InvariantCulture)";
 
     public string ShortModelName { get; set; }
     public string ModelName { get; set; }
     public dynamic DocumentMapping {get; set; }
 
-    private string GetPropertyRaw(PropertyMapping propMapping)
+    private string GetPropertyRaw(Type propertyType, string stringPropValue)
     {
-        string fieldName = propMapping.FieldConfiguration.FieldName;
-        Type propertyType = propMapping.PropertyInfo.PropertyType;
-
         if (propertyType == typeof(string))
         {
-            return String.Format("document.Get(\"{0}\")", fieldName);
+            return stringPropValue;
         }
         else if (propertyType.IsEnum)
         {
-            return String.Format(enumFormat, propertyType, fieldName);
+            return String.Format(enumFormat, propertyType, stringPropValue);
         }
         else if (propertyType == typeof(DateTime))
         {
-            return String.Format("DataHelper.ParseDateTime(document.Get(\"{0}\"))", fieldName);
+            return String.Format("DataHelper.ParseDateTime({0})", stringPropValue);
         }
         else if (DataHelper.IsConvertibleType(propertyType))
         {
-            return String.Format(convertFormat, propertyType.Name, fieldName, propertyType.Name);
+            return String.Format(convertFormat, propertyType.Name, stringPropValue, propertyType.Name);
         }
         else if (DataHelper.IsNullableType(propertyType))
         {
             Type baseType = Nullable.GetUnderlyingType(propertyType);
             if (DataHelper.IsConvertibleType(baseType))
-                return String.Format(convertFormat, baseType.Name + "?", fieldName, baseType.Name);
+                return String.Format(convertFormat, baseType.Name + "?", stringPropValue, baseType.Name);
             else
                 throw new ArgumentException("This type is not supported.");
         }
-        else if(DataHelper.IsGenericEnumerable(propertyType))
-        {
-            return null;
-        }
         else
         {
-            return String.Empty;
+            throw new ArgumentException("propertyType");
         }
     }
 

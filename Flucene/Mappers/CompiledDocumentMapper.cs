@@ -59,7 +59,7 @@ namespace Lucene.Net.Odm.Mappers
             CompilerParameters options = new CompilerParameters();
             options.GenerateExecutable = false;
             options.GenerateInMemory = true;
-            options.OutputAssembly = "TempModule";
+            options.OutputAssembly = "TempModule" + modelType.Name;
 
             // Adds needed references
             Assembly mainAssembly = GetType().Assembly;
