@@ -1,0 +1,96 @@
+﻿<#@ template language="C#" #>
+<#@ import namespace="Lucene.Net.Odm.Mapping" #>
+<#@ import namespace="Lucene.Net.Odm.Helpers" #>
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Globalization;
+
+using Lucene.Net.Documents;
+using Lucene.Net.Odm.Mapping;
+
+
+namespace Lucene.Net.Odm.Mappers
+{
+    public partial class <#= ShortModelName #>CompiledMapper : Lucene.Net.Odm.Mappers.ICompiledMapper<<#= ModelName #>>
+    {
+        public Document GetDocument(<#= ModelName #> model)
+        {
+            Document document = new Document();
+
+        <# foreach (PropertyMapping propMapping in DocumentMapping.PropertyMappings) { #>
+            document.Add(model.<#= propMapping.PropertyInfo.Name #>);
+        <# } #>
+
+            return document;
+        }
+
+        public <#= ModelName #> GetModel(Document document)
+        {
+            <#= ModelName #> model = new <#= ModelName #>();
+
+            <# foreach (PropertyMapping propMapping in DocumentMapping.PropertyMappings) { #>
+                <# if (DataHelper.IsGenericEnumerable(propMapping.PropertyInfo.PropertyType)) { #>
+                    string[] <#= propMapping.PropertyInfo.Name #>Values = document.GetValues();
+                    <# if (propMapping.FieldConfiguration.IsRequired) { #>
+                        
+                    <# } else { #>
+                    <# } #>
+                <# } else { #>
+                    <# if (propMapping.FieldConfiguration.IsRequired) { #>
+                        model.<#= propMapping.PropertyInfo.Name #> = <#= GetPropertyRaw(propMapping.PropertyInfo.PropertyType, String.Format("document.Get(\"{0}\")", propMapping.FieldConfiguration.FieldName)) #>;
+                    <# } else { #>
+                        string <#= propMapping.PropertyInfo.Name #>Value = document.Get("<#= propMapping.FieldConfiguration.FieldName #>");
+                        if (!String.IsNullOrEmpty(<#= propMapping.PropertyInfo.Name #>Value)) {
+                            model.<#= propMapping.PropertyInfo.Name #> = <#= GetPropertyRaw(propMapping.PropertyInfo.PropertyType, propMapping.PropertyInfo.Name + "value") #>;
+                        }
+                    <# } #>
+                <# } #>
+            <# } #>
+
+            return model;
+        }
+    }
+}
+
+<#+
+    const string enumFormat = "({0})Enum.Parse(typeof({0}), {1}, true)";
+    const string convertFormat = "({0})Convert.ChangeType({1}, typeof({2}), CultureInfo.InvariantCulture)";
+
+    public string ShortModelName { get; set; }
+    public string ModelName { get; set; }
+    public dynamic DocumentMapping {get; set; }
+
+    private string GetPropertyRaw(Type propertyType, string stringPropValue)
+    {
+        if (propertyType == typeof(string))
+        {
+            return stringPropValue;
+        }
+        else if (propertyType.IsEnum)
+        {
+            return String.Format(enumFormat, propertyType, stringPropValue);
+        }
+        else if (propertyType == typeof(DateTime))
+        {
+            return String.Format("DataHelper.ParseDateTime({0})", stringPropValue);
+        }
+        else if (DataHelper.IsConvertibleType(propertyType))
+        {
+            return String.Format(convertFormat, propertyType.Name, stringPropValue, propertyType.Name);
+        }
+        else if (DataHelper.IsNullableType(propertyType))
+        {
+            Type baseType = Nullable.GetUnderlyingType(propertyType);
+            if (DataHelper.IsConvertibleType(baseType))
+                return String.Format(convertFormat, baseType.Name + "?", stringPropValue, baseType.Name);
+            else
+                throw new ArgumentException("This type is not supported.");
+        }
+        else
+        {
+            throw new ArgumentException("propertyType");
+        }
+    }
+#>
