@@ -19,9 +19,9 @@ namespace Lucene.Net.Odm.Mappers
         {
             Document document = new Document();
 
-        <# foreach (PropertyMapping propMapping in DocumentMapping.PropertyMappings) { #>
-            document.Add(model.<#= propMapping.PropertyInfo.Name #>);
-        <# } #>
+<# //        <# foreach (FieldMapping fieldMapping in DocumentMapping.Fields) { #>
+<# //            document.Add(model.<#= fieldMapping.FieldName #>);
+<# //        <# } #>
 
             return document;
         }
@@ -30,17 +30,19 @@ namespace Lucene.Net.Odm.Mappers
         {
             <#= ModelName #> model = new <#= ModelName #>();
 
-            <# foreach (PropertyMapping propMapping in DocumentMapping.PropertyMappings) { #>
+<#+ /*            <# foreach (FieldMapping fieldMapping in DocumentMapping.Fields) { #>
                 <# if (DataHelper.IsGenericEnumerable(propMapping.PropertyInfo.PropertyType)) { #>
+                    string[] <#= fieldMapping.PropertyInfo.Name #>Values = document.GetValues();
                     <# if (propMapping.FieldConfiguration.IsRequired) { #>
+                        
                     <# } else { #>
                     <# } #>
                 <# } else { #>
                     <# if (propMapping.FieldConfiguration.IsRequired) { #>
                         model.<#= propMapping.PropertyInfo.Name #> = <#= GetPropertyRaw(propMapping.PropertyInfo.PropertyType, String.Format("document.Get(\"{0}\")", propMapping.FieldConfiguration.FieldName)) #>;
                     <# } else { #>
-                        string <#= propMapping.PropertyInfo.Name #>value = document.Get("<#= propMapping.FieldConfiguration.FieldName #>");
-                        if (!String.IsNullOrEmpty(<#= propMapping.PropertyInfo.Name #>value)) {
+                        string <#= propMapping.PropertyInfo.Name #>Value = document.Get("<#= propMapping.FieldConfiguration.FieldName #>");
+                        if (!String.IsNullOrEmpty(<#= propMapping.PropertyInfo.Name #>Value)) {
                             model.<#= propMapping.PropertyInfo.Name #> = <#= GetPropertyRaw(propMapping.PropertyInfo.PropertyType, propMapping.PropertyInfo.Name + "value") #>;
                         }
                     <# } #>
@@ -48,6 +50,7 @@ namespace Lucene.Net.Odm.Mappers
             <# } #>
 
             return model;
+*/ #>
         }
     }
 }

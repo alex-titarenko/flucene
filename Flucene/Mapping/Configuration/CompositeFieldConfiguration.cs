@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 
 using Lucene.Net.Documents;
+using Lucene.Net.Analysis;
 
 
 namespace Lucene.Net.Odm.Mapping.Configuration
 {
-
     public class CompositeFieldConfiguration : IFieldConfiguration<IEnumerable<KeyValuePair<string, object>>>, IFieldConfiguration
     {
         private Boosting<IEnumerable<KeyValuePair<string, object>>> _boost;
@@ -89,6 +89,17 @@ namespace Lucene.Net.Odm.Mapping.Configuration
         IFieldConfiguration IFieldConfiguration.Optional()
         {
             return Optional();
+        }
+
+
+        IFieldConfiguration IFieldConfiguration.AnalyzerType<TAnalyzer>()
+        {
+            return AnalyzerType<TAnalyzer>();
+        }
+
+        IFieldConfiguration IFieldConfiguration.AnalyzerType(Type analyzerType)
+        {
+            return AnalyzerType(analyzerType);
         }
 
 
@@ -189,6 +200,19 @@ namespace Lucene.Net.Odm.Mapping.Configuration
         {
             IsRequired = false;
             _actions.Add((x) => x.Optional());
+            return this;
+        }
+
+
+        public IFieldConfiguration<IEnumerable<KeyValuePair<string, object>>> AnalyzerType<TAnalyzer>() where TAnalyzer : Analyzer
+        {
+            _actions.Add(x => x.AnalyzerType<TAnalyzer>());
+            return this;
+        }
+
+        public IFieldConfiguration<IEnumerable<KeyValuePair<string, object>>> AnalyzerType(Type analyzerType)
+        {
+            _actions.Add(x => x.AnalyzerType(analyzerType));
             return this;
         }
 

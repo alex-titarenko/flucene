@@ -99,28 +99,21 @@ namespace Lucene.Net.Odm.Mappers
             
             #line default
             #line hidden
-            this.Write("                    ");
+            this.Write("                    string[] ");
             
             #line 35 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propMapping.PropertyInfo.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Values = document.GetValues();\r\n                    ");
+            
+            #line 36 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
  if (propMapping.FieldConfiguration.IsRequired) { 
             
             #line default
             #line hidden
-            this.Write("                    ");
-            
-            #line 36 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
- } else { 
-            
-            #line default
-            #line hidden
-            this.Write("                    ");
-            
-            #line 37 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("                ");
+            this.Write("                        \r\n                    ");
             
             #line 38 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
  } else { 
@@ -130,83 +123,97 @@ namespace Lucene.Net.Odm.Mappers
             this.Write("                    ");
             
             #line 39 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
- if (propMapping.FieldConfiguration.IsRequired) { 
-            
-            #line default
-            #line hidden
-            this.Write("                        model.");
-            
-            #line 40 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(propMapping.PropertyInfo.Name));
-            
-            #line default
-            #line hidden
-            this.Write(" = ");
-            
-            #line 40 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(GetPropertyRaw(propMapping.PropertyInfo.PropertyType, String.Format("document.Get(\"{0}\")", propMapping.FieldConfiguration.FieldName))));
-            
-            #line default
-            #line hidden
-            this.Write(";\r\n                    ");
-            
-            #line 41 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
- } else { 
-            
-            #line default
-            #line hidden
-            this.Write("                        string ");
-            
-            #line 42 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(propMapping.PropertyInfo.Name));
-            
-            #line default
-            #line hidden
-            this.Write("value = document.Get(\"");
-            
-            #line 42 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(propMapping.FieldConfiguration.FieldName));
-            
-            #line default
-            #line hidden
-            this.Write("\");\r\n                        if (!String.IsNullOrEmpty(");
-            
-            #line 43 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(propMapping.PropertyInfo.Name));
-            
-            #line default
-            #line hidden
-            this.Write("value)) {\r\n                            model.");
-            
-            #line 44 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(propMapping.PropertyInfo.Name));
-            
-            #line default
-            #line hidden
-            this.Write(" = ");
-            
-            #line 44 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(GetPropertyRaw(propMapping.PropertyInfo.PropertyType, propMapping.PropertyInfo.Name + "value")));
-            
-            #line default
-            #line hidden
-            this.Write(";\r\n                        }\r\n                    ");
-            
-            #line 46 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("                ");
             
-            #line 47 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            #line 40 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+ } else { 
+            
+            #line default
+            #line hidden
+            this.Write("                    ");
+            
+            #line 41 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+ if (propMapping.FieldConfiguration.IsRequired) { 
+            
+            #line default
+            #line hidden
+            this.Write("                        model.");
+            
+            #line 42 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propMapping.PropertyInfo.Name));
+            
+            #line default
+            #line hidden
+            this.Write(" = ");
+            
+            #line 42 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(GetPropertyRaw(propMapping.PropertyInfo.PropertyType, String.Format("document.Get(\"{0}\")", propMapping.FieldConfiguration.FieldName))));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\n                    ");
+            
+            #line 43 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+ } else { 
+            
+            #line default
+            #line hidden
+            this.Write("                        string ");
+            
+            #line 44 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propMapping.PropertyInfo.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Value = document.Get(\"");
+            
+            #line 44 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propMapping.FieldConfiguration.FieldName));
+            
+            #line default
+            #line hidden
+            this.Write("\");\r\n                        if (!String.IsNullOrEmpty(");
+            
+            #line 45 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propMapping.PropertyInfo.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Value)) {\r\n                            model.");
+            
+            #line 46 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(propMapping.PropertyInfo.Name));
+            
+            #line default
+            #line hidden
+            this.Write(" = ");
+            
+            #line 46 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(GetPropertyRaw(propMapping.PropertyInfo.PropertyType, propMapping.PropertyInfo.Name + "value")));
+            
+            #line default
+            #line hidden
+            this.Write(";\r\n                        }\r\n                    ");
+            
+            #line 48 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("                ");
+            
+            #line 49 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("            ");
             
-            #line 48 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+            #line 50 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
  } 
             
             #line default
@@ -215,7 +222,7 @@ namespace Lucene.Net.Odm.Mappers
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 55 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
+        #line 57 "D:\Git\DSS\flucene\Flucene\Mappers\CompiledDocumentMapperTemplate.tt"
 
     const string enumFormat = "({0})Enum.Parse(typeof({0}), {1}, true)";
     const string convertFormat = "({0})Convert.ChangeType({1}, typeof({2}), CultureInfo.InvariantCulture)";

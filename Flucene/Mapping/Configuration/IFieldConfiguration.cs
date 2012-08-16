@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using Lucene.Net.Documents;
+using Lucene.Net.Analysis;
 
 
 namespace Lucene.Net.Odm.Mapping.Configuration
@@ -36,6 +37,11 @@ namespace Lucene.Net.Odm.Mapping.Configuration
         IFieldConfiguration Optional();
 
 
+        IFieldConfiguration AnalyzerType<TAnalyzer>() where TAnalyzer : Analyzer;
+
+        IFieldConfiguration AnalyzerType(Type analyzerType);
+
+
         IFieldConfiguration Boost(Boosting<object> boost);
 
 
@@ -66,6 +72,11 @@ namespace Lucene.Net.Odm.Mapping.Configuration
         new IFieldConfiguration<TInput> Required();
 
         new IFieldConfiguration<TInput> Optional();
+
+
+        new IFieldConfiguration<TInput> AnalyzerType<TAnalyzer>() where TAnalyzer : Analyzer;
+
+        new IFieldConfiguration<TInput> AnalyzerType(Type analyzerType);
 
 
         IFieldConfiguration<TInput> Boost(Boosting<TInput> boost);

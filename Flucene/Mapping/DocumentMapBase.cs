@@ -41,16 +41,51 @@ namespace Lucene.Net.Odm.Mapping
         /// <returns>fluent interface to configure the field to mapping.</returns>
         public abstract IFieldConfiguration<TProperty> Map<TProperty>(Expression<Func<TModel, TProperty>> selector, string fieldName);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TInput">The type of object to mapping.</typeparam>
+        /// <param name="selector">A selector function for mapping model to document.</param>
+        /// <param name="setter">An action that performed at the moment of the mapping document to model.</param>
+        /// <param name="fieldName">The string representing the name of the field.</param>
+        /// <returns>fluent interface to configure the field to mapping.</returns>
         public abstract IFieldConfiguration<TInput> CustomMap<TInput>(Func<TModel, TInput> selector, Action<TModel, IEnumerable<string>> setter, string fieldName);
 
+        /// <summary>
+        /// Creates the custom field.
+        /// </summary>
+        /// <typeparam name="TInput">The type of object to mapping.</typeparam>
+        /// <param name="selector"></param>
+        /// <param name="fieldName">The string representing the name of the field.</param>
+        /// <returns>fluent interface to configure the field to mapping.</returns>
         public abstract IFieldConfiguration<TInput> CustomField<TInput>(Func<TModel, TInput> selector, string fieldName);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="selector"></param>
+        /// <returns>fluent interface to configure the field to mapping.</returns>
         public abstract IFieldConfiguration<IEnumerable<KeyValuePair<string, object>>> CustomFields(Func<TModel, IEnumerable<KeyValuePair<string, object>>> selector);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TProperty"></typeparam>
+        /// <param name="selector"></param>
+        /// <returns></returns>
         public abstract IReferenceConfiguration Reference<TProperty>(Expression<Func<TModel, TProperty>> selector);
 
+        /// <summary>
+        /// Adds a custom actions that performed for forward and reverse mapping.
+        /// </summary>
+        /// <param name="toDocument">Action that performed at the moment of the mapping model to document.</param>
+        /// <param name="toModel">Action that performed at the moment of the mapping document to model.</param>
         public abstract void CustomAction(Action<TModel, Document> toDocument, Action<Document, TModel> toModel);
 
+        /// <summary>
+        /// Sets the boost function for the target document.
+        /// </summary>
+        /// <param name="boost">A boost function for the target document.</param>
         public abstract void Boost(Boosting<TModel> boost);
     }
 }

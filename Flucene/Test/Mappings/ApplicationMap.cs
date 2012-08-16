@@ -36,6 +36,8 @@ namespace Lucene.Net.Odm.Test.Mappings
             Map(x => x.Tags, "tag").Store().Analyze().Boost(x => 3);
 
             Reference(x => x.Category).Prefix("Category");
+
+            Boost(x => x.Name.Length);
         }
     }
 }

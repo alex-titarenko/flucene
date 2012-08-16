@@ -5,6 +5,7 @@ using System.Linq;
 using System.Globalization;
 
 using Lucene.Net.Documents;
+using Lucene.Net.Analysis;
 
 
 namespace Lucene.Net.Odm.Mapping.Configuration
@@ -30,6 +31,8 @@ namespace Lucene.Net.Odm.Mapping.Configuration
         public string FieldName { get; private set; }
 
         public bool IsRequired { get; private set; }
+
+        public Type Analyzer { get; private set; }
 
 
         IFieldConfiguration IFieldConfiguration.Analyze()
@@ -82,6 +85,17 @@ namespace Lucene.Net.Odm.Mapping.Configuration
         IFieldConfiguration IFieldConfiguration.Optional()
         {
             return Optional();
+        }
+
+
+        IFieldConfiguration IFieldConfiguration.AnalyzerType<TAnalyzer>()
+        {
+            return AnalyzerType<TAnalyzer>();
+        }
+
+        IFieldConfiguration IFieldConfiguration.AnalyzerType(Type analyzerType)
+        {
+            return AnalyzerType(analyzerType);
         }
 
 
@@ -203,6 +217,19 @@ namespace Lucene.Net.Odm.Mapping.Configuration
         public IFieldConfiguration<TInput> Optional()
         {
             IsRequired = false;
+            return this;
+        }
+
+
+        public IFieldConfiguration<TInput> AnalyzerType<TAnalyzer>() where TAnalyzer : Analyzer
+        {
+            Analyzer = typeof(TAnalyzer);
+            return this;
+        }
+
+        public IFieldConfiguration<TInput> AnalyzerType(Type analyzerType)
+        {
+            Analyzer = analyzerType;
             return this;
         }
 
