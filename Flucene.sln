@@ -12,6 +12,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DemoApps", "DemoApps", "{AC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilesIndexer", "DemoApps\FilesIndexer\FilesIndexer.csproj", "{DC523A60-9474-406B-AA46-0C8D2248193F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F24E86A7-F610-43CD-BA09-10A0D8732967}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flucene", "Flucene\Flucene.csproj", "{3034591D-AA48-4FB4-B07B-51BCB1EB226F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flucene.Test", "Flucene\Test\Flucene.Test.csproj", "{90BAED0D-9E3F-4C49-95CC-15C027CBE22D}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Flucene.vsmdi
@@ -36,11 +42,32 @@ Global
 		{DC523A60-9474-406B-AA46-0C8D2248193F}.Release|Mixed Platforms.Build.0 = Release|x86
 		{DC523A60-9474-406B-AA46-0C8D2248193F}.Release|x86.ActiveCfg = Release|x86
 		{DC523A60-9474-406B-AA46-0C8D2248193F}.Release|x86.Build.0 = Release|x86
+		{3034591D-AA48-4FB4-B07B-51BCB1EB226F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3034591D-AA48-4FB4-B07B-51BCB1EB226F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3034591D-AA48-4FB4-B07B-51BCB1EB226F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3034591D-AA48-4FB4-B07B-51BCB1EB226F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3034591D-AA48-4FB4-B07B-51BCB1EB226F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3034591D-AA48-4FB4-B07B-51BCB1EB226F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3034591D-AA48-4FB4-B07B-51BCB1EB226F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3034591D-AA48-4FB4-B07B-51BCB1EB226F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3034591D-AA48-4FB4-B07B-51BCB1EB226F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{3034591D-AA48-4FB4-B07B-51BCB1EB226F}.Release|x86.ActiveCfg = Release|Any CPU
+		{90BAED0D-9E3F-4C49-95CC-15C027CBE22D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90BAED0D-9E3F-4C49-95CC-15C027CBE22D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90BAED0D-9E3F-4C49-95CC-15C027CBE22D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{90BAED0D-9E3F-4C49-95CC-15C027CBE22D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{90BAED0D-9E3F-4C49-95CC-15C027CBE22D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{90BAED0D-9E3F-4C49-95CC-15C027CBE22D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90BAED0D-9E3F-4C49-95CC-15C027CBE22D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90BAED0D-9E3F-4C49-95CC-15C027CBE22D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{90BAED0D-9E3F-4C49-95CC-15C027CBE22D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{90BAED0D-9E3F-4C49-95CC-15C027CBE22D}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DC523A60-9474-406B-AA46-0C8D2248193F} = {AC396ACF-9442-4FB0-9581-518CA633F80D}
+		{90BAED0D-9E3F-4C49-95CC-15C027CBE22D} = {F24E86A7-F610-43CD-BA09-10A0D8732967}
 	EndGlobalSection
 EndGlobal

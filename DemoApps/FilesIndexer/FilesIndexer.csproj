@@ -91,7 +91,12 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Flucene\Flucene.csproj">
+      <Project>{3034591D-AA48-4FB4-B07B-51BCB1EB226F}</Project>
+      <Name>Flucene</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="ReadMe.txt" />
     <Content Include="Samples\Document-orientired_database.txt">
