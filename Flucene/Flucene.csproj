@@ -57,14 +57,7 @@
     <Compile Include="IIndexRepository.cs" />
     <Compile Include="IIndexRepositoryFactory.cs" />
     <Compile Include="IMappingsService.cs" />
-    <Compile Include="Mappers\CompiledDocumentMapper.cs" />
-    <Compile Include="Mappers\ICompiledMapper.cs" />
     <Compile Include="Mappers\IDocumentMapper.cs" />
-    <Compile Include="Mappers\CompiledDocumentMapperTemplate.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CompiledDocumentMapperTemplate.tt</DependentUpon>
-    </Compile>
     <Compile Include="Mappers\ReflectionDocumentMapper.cs" />
     <Compile Include="Mapping\Configuration\AnalyzerConfiguration.cs" />
     <Compile Include="Mapping\Configuration\EmbeddedCollectionConfiguration.cs" />
@@ -101,10 +94,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Mappers\CompiledDocumentMapperTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>CompiledDocumentMapperTemplate.cs</LastGenOutput>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

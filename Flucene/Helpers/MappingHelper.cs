@@ -1,24 +1,39 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Globalization;
 
 using Lucene.Net.Documents;
 using Lucene.Net.Odm.Mapping;
-using System.Globalization;
-using System.Collections;
 using Lucene.Net.Odm.Mapping.Configuration;
 
 
 namespace Lucene.Net.Odm.Helpers
 {
+    /// <summary>
+    /// Represents the helper methods for the document mapping operations.
+    /// </summary>
     public static class MappingHelper
     {
+        /// <summary>
+        /// Gets the default string format for the document mapping.
+        /// </summary>
         public static readonly CultureInfo StringFormat = CultureInfo.InvariantCulture;
 
+        private const bool DefautlAnalyzed = false;
+        private const bool DefaultStored = true;
         private const int DefaultPrecisionStep = 64;
 
 
+        /// <summary>
+        /// Returns the field collection by the specified field mapping and object.
+        /// </summary>
+        /// <param name="mapping">The field mapping to convert an object into a set of fields.</param>
+        /// <param name="value">An object for which to get a set of fields.</param>
+        /// <param name="prefix">A <see cref="System.String"/> representing the prefix for the all field names.</param>
+        /// <returns>set of fields for document.</returns>
         public static IEnumerable<Fieldable> GetFields(FieldMapping mapping, Object value, string prefix)
         {
             if (value == null) return null;
@@ -106,41 +121,86 @@ namespace Lucene.Net.Odm.Helpers
         }
 
 
-
-        public static Field GetField(string data, string fieldName, Field.Index indexField, bool storeData = true)
+        /// <summary>
+        /// Returns the field by the specified name and value.
+        /// </summary>
+        /// <param name="name">A <see cref="System.String"/> represents the field name.</param>
+        /// <param name="value">A field value.</param>
+        /// <param name="index">An object that indicates how want a field should be indexing.</param>
+        /// <param name="stored">A boolean value that indicates whether to store the field in the index.</param>
+        /// <returns>field by the <paramref name="name"/> and <paramref name="value"/>.</returns>
+        public static Field GetField(string name, string value, Field.Index index, bool stored = DefaultStored)
         {
-            var store = storeData ? Field.Store.YES : Field.Store.NO;
-            return new Field(fieldName, String.IsNullOrEmpty(data) ? String.Empty : data, store, indexField);
+            var fieldStore = stored ? Field.Store.YES : Field.Store.NO;
+            return new Field(name, String.IsNullOrEmpty(value) ? String.Empty : value, fieldStore, index);
         }
 
-        public static Field GetField(double data, string fieldName, bool analyzeInIndex = false, bool storeData = true)
+        /// <summary>
+        /// Returns the field by the specified name and value.
+        /// </summary>
+        /// <param name="name">A <see cref="System.String"/> represents the field name.</param>
+        /// <param name="value">A field value.</param>
+        /// <param name="analyzed">A boolean value that indicates whether to analyze the field in the index.</param>
+        /// <param name="stored">A boolean value that indicates whether to store the field in the index.</param>
+        /// <returns>field by the <paramref name="name"/> and <paramref name="value"/>.</returns>
+        public static Field GetField(string name, double value, bool analyzed = DefautlAnalyzed, bool stored = DefaultStored)
         {
-            return GetField(data.ToString(StringFormat), fieldName, analyzeInIndex, storeData);
+            return GetField(name, value.ToString(StringFormat), analyzed, stored);
         }
 
-        public static Field GetField(int data, string fieldName, bool analyzeInIndex = false, bool storeData = true)
+        /// <summary>
+        /// Returns the field by the specified name and value.
+        /// </summary>
+        /// <param name="name">A <see cref="System.String"/> represents the field name.</param>
+        /// <param name="value">A field value.</param>
+        /// <param name="analyzed">A boolean value that indicates whether to analyze the field in the index.</param>
+        /// <param name="stored">A boolean value that indicates whether to store the field in the index.</param>
+        /// <returns>field by the <paramref name="name"/> and <paramref name="value"/>.</returns>
+        public static Field GetField(string name, int value, bool analyzed = DefautlAnalyzed, bool stored = DefaultStored)
         {
-            return GetField(data.ToString(StringFormat), fieldName, analyzeInIndex, storeData);
+            return GetField(name, value.ToString(StringFormat), analyzed, stored);
         }
 
-        public static Field GetField(DateTime date, string fieldName, bool analyzeInIndex = false, bool storeData = true)
+        /// <summary>
+        /// Returns the field by the specified name and value.
+        /// </summary>
+        /// <param name="name">A <see cref="System.String"/> represents the field name.</param>
+        /// <param name="value">A field value.</param>
+        /// <param name="analyzed">A boolean value that indicates whether to analyze the field in the index.</param>
+        /// <param name="stored">A boolean value that indicates whether to store the field in the index.</param>
+        /// <returns>field by the <paramref name="name"/> and <paramref name="value"/>.</returns>
+        public static Field GetField(string name, DateTime value, bool analyzed = DefautlAnalyzed, bool stored = DefaultStored)
         {
-            return GetField(DateTools.DateToString(date, DateTools.Resolution.SECOND), fieldName, analyzeInIndex, storeData);
+            return GetField(name, DateTools.DateToString(value, DateTools.Resolution.SECOND), analyzed, stored);
         }
 
-        public static Field GetField(bool data, string fieldName, bool analyzeInIndex = false, bool storeData = true)
+        /// <summary>
+        /// Returns the field by the specified name and value.
+        /// </summary>
+        /// <param name="name">A <see cref="System.String"/> represents the field name.</param>
+        /// <param name="value">A field value.</param>
+        /// <param name="analyzed">A boolean value that indicates whether to analyze the field in the index.</param>
+        /// <param name="stored">A boolean value that indicates whether to store the field in the index.</param>
+        /// <returns>field by the <paramref name="name"/> and <paramref name="value"/>.</returns>
+        public static Field GetField(string name, bool value, bool analyzed = DefautlAnalyzed, bool stored = DefaultStored)
         {
-            return GetField(data.ToString(StringFormat), fieldName, analyzeInIndex, storeData);
+            return GetField(name, value.ToString(StringFormat), analyzed, stored);
         }
 
-        public static Field GetField(string data, string fieldName, bool analyzeInIndex = false, bool storeData = true)
+        /// <summary>
+        /// Returns the field by the specified name and value.
+        /// </summary>
+        /// <param name="name">A <see cref="System.String"/> represents the field name.</param>
+        /// <param name="value">A field value.</param>
+        /// <param name="analyzed">A boolean value that indicates whether to analyze the field in the index.</param>
+        /// <param name="stored">A boolean value that indicates whether to store the field in the index.</param>
+        /// <returns>field by the <paramref name="name"/> and <paramref name="value"/>.</returns>
+        public static Field GetField(string name, string value, bool analyzed = DefautlAnalyzed, bool stored = DefaultStored)
         {
-            var store = storeData ? Field.Store.YES : Field.Store.NO;
-            var analyze = analyzeInIndex ? Field.Index.ANALYZED : Field.Index.NOT_ANALYZED;
-            return new Field(fieldName, String.IsNullOrEmpty(data) ? String.Empty : data, store, analyze);
+            var fieldStore = stored ? Field.Store.YES : Field.Store.NO;
+            var fieldAnalyze = analyzed ? Field.Index.ANALYZED : Field.Index.NOT_ANALYZED;
+            return new Field(name, String.IsNullOrEmpty(value) ? String.Empty : value, fieldStore, fieldAnalyze);
         }
-
-
 
 
         private static bool IsPrimitive(Object value)
@@ -156,6 +216,5 @@ namespace Lucene.Net.Odm.Helpers
                 value is decimal ||
                 value is DateTime;
         }
-
     }
 }
