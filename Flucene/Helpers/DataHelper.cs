@@ -7,8 +7,17 @@ using System.Globalization;
 
 namespace Lucene.Net.Odm.Helpers
 {
+    /// <summary>
+    /// Represents the helper class for data operations such as parsing, determining the type of data, etc.
+    /// </summary>
     public static class DataHelper
     {
+        /// <summary>
+        /// Converts the string representations of a specified conversion type to its equivalent.
+        /// </summary>
+        /// <param name="values">A collection of strings that contains object to convert.</param>
+        /// <param name="conversionType">The target type.</param>
+        /// <returns>object that is equivalent to the target type in <paramref name="values"/>.</returns>
         public static Object Parse(ICollection<string> values, Type conversionType)
         {
             if (conversionType.IsArray)
@@ -26,6 +35,12 @@ namespace Lucene.Net.Odm.Helpers
             }
         }
 
+        /// <summary>
+        /// Converts the string representation of a specified conversion type to its equivalent.
+        /// </summary>
+        /// <param name="value">A string that contains object to convert.</param>
+        /// <param name="conversionType">The target type.</param>
+        /// <returns>object that is equivalent to the target type in <paramref name="value"/>.</returns>
         public static Object Parse(string value, Type conversionType)
         {
             if (!String.IsNullOrEmpty(value))
@@ -48,8 +63,58 @@ namespace Lucene.Net.Odm.Helpers
             }
         }
 
+        /// <summary>
+        /// Create instance for the specified generic list type.
+        /// </summary>
+        /// <param name="targetType">The type of generic list.</param>
+        /// <param name="elementType">The element type of generic list.</param>
+        /// <returns>instance of generic list.</returns>
+        public static IList MakeGenericList(Type targetType, Type elementType)
+        {
+            if (targetType.IsInterface)
+                return (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(elementType));
+            else
+                return (IList)Activator.CreateInstance(targetType);
+        }
 
-        public static DateTime DateTimeParse(string source)
+        /// <summary>
+        /// Returns a value that indicates the specified type is nullable.
+        /// </summary>
+        /// <param name="type">The target type.</param>
+        /// <returns>true if <paramref name="type"/> is nullable; otherwise false.</returns>
+        public static bool IsNullableType(Type type)
+        {
+            return type.IsGenericType && typeof(Nullable<>) == type.GetGenericTypeDefinition();
+        }
+
+        /// <summary>
+        /// Returns a value that indicates the specified type implement <see cref="System.IConvertible"/> interface.
+        /// </summary>
+        /// <param name="type">The target type.</param>
+        /// <returns>true if <paramref name="type"/> is convertible; otherwise false.</returns>
+        public static bool IsConvertibleType(Type type)
+        {
+            return typeof(IConvertible).IsAssignableFrom(type);
+        }
+
+        /// <summary>
+        /// Returns a value that indicates whether the specified type is generic enumerable.
+        /// </summary>
+        /// <param name="type">The target type.</param>
+        /// <returns>true if <paramref name="type"/> is generic enumerable; otherwise false.</returns>
+        public static bool IsGenericEnumerable(Type type)
+        {
+            if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+                return true;
+
+            return typeof(string) != type &&
+                type.GetInterfaces()
+                .Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IEnumerable<>));
+        }
+
+
+
+        private static DateTime DateTimeParse(string source)
         {
             long binaryDateTime;
 
@@ -84,35 +149,6 @@ namespace Lucene.Net.Odm.Helpers
                 collection.Add(o);
             }
             return collection;
-        }
-
-        public static IList MakeGenericList(Type targetType, Type elementType)
-        {
-            if (targetType.IsInterface)
-                return (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(elementType));
-            else
-                return (IList)Activator.CreateInstance(targetType);
-        }
-
-
-        public static bool IsNullableType(Type type)
-        {
-            return type.IsGenericType && typeof(Nullable<>) == type.GetGenericTypeDefinition();
-        }
-
-        public static bool IsConvertibleType(Type type)
-        {
-            return typeof(IConvertible).IsAssignableFrom(type);
-        }
-
-        public static bool IsGenericEnumerable(Type type)
-        {
-            if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IEnumerable<>))
-                return true;
-
-            return typeof(string) != type &&
-                type.GetInterfaces()
-                .Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IEnumerable<>));
         }
     }
 }

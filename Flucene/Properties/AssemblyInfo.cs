@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Flucene")]
-[assembly: AssemblyDescription("ODM for lucene.Net")]
+[assembly: AssemblyDescription("Object Document Mapping for lucene.Net")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Iveonik Systems Ltd.")]
 [assembly: AssemblyProduct("Flucene")]

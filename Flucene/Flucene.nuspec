@@ -7,12 +7,12 @@
     <authors>$author$</authors>
     <owners>$author$</owners>
     <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
-    <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl>
-    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <projectUrl>http://flucene.codeplex.com</projectUrl>
+    <!--<iconUrl></iconUrl>-->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <releaseNotes>First public release.</releaseNotes>
     <copyright>Copyright 2012 Iveonik Systems Ltd.</copyright>
-    <tags>Lucene.NET Fluent ODM Search Library</tags>
+    <tags>Lucene Lucene.NET Fluent ODM Search Library Text Information Retrieval Index</tags>
   </metadata>
 </package>
