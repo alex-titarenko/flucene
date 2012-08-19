@@ -126,7 +126,7 @@ namespace Lucene.Net.Odm.Helpers
 
             if (field != null)
             {
-                int count = (int)((NumericField)field).GetNumericValue();
+                int count = int.Parse(field.StringValue());
                 source.RemoveField(numFieldName);
                 return count;
             }
