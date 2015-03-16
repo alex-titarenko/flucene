@@ -1,4 +1,5 @@
 # Flucene
+[![NuGet Version](http://img.shields.io/nuget/v/Flucene.svg?style=flat)](https://www.nuget.org/packages/Flucene/) [![NuGet Downloads](http://img.shields.io/nuget/dt/Flucene.svg?style=flat)](https://www.nuget.org/packages/Flucene/)
 
 Object Document Mapper for Lucene.Net
 
