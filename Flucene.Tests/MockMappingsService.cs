@@ -7,7 +7,7 @@ using Lucene.Net.Odm;
 using Lucene.Net.Odm.Mapping;
 
 
-namespace Lucene.Net.Orm.Test
+namespace Lucene.Net.Orm.Tests
 {
     public class MockMappingsService : IMappingsService
     {

@@ -2,18 +2,17 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using Lucene.Net.Odm.Mapping;
+using NUnit.Framework;
 
 
-namespace Lucene.Net.Orm.Test.DocumentMapTests
+namespace Lucene.Net.Orm.Tests.DocumentMapTests
 {
-    [TestClass]
-    public class InvalidCustomFieldDocumentMapTest
-        : DocumentMapTestBase<InvalidCustomFieldDocumentMapTest.ModelMap, InvalidCustomFieldDocumentMapTest.Model>
+    [TestFixture]
+    public class InvalidCustomFieldDocumentMapTests
+        : DocumentMapTestBase<InvalidCustomFieldDocumentMapTests.ModelMap, InvalidCustomFieldDocumentMapTests.Model>
     {
-        [TestMethod]
+        [Test]
         //[ExpectedException(typeof(InvalidOperationException))]
         public override void GetMappingTest()
         {

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Lucene.Net.Odm.Mapping;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using Lucene.Net.Odm.Mapping.Members;
+using NUnit.Framework;
 
-namespace Lucene.Net.Orm.Test.Helpers
+
+namespace Lucene.Net.Orm.Tests.Helpers
 {
     public static class AssertHelper
     {

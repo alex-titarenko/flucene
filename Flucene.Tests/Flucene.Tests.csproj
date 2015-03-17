@@ -42,7 +42,9 @@
       <HintPath>..\packages\Lucene.Net.2.9.4.1\lib\net40\Lucene.Net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -54,15 +56,15 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DocumentMapTests\CustomFieldDocumentMapTest.cs" />
-    <Compile Include="DocumentMapTests\CustomMapDocumentMapTest.cs" />
-    <Compile Include="DocumentMapTests\EmbededDocumentMapTest.cs" />
-    <Compile Include="DocumentMapTests\InvalidCustomFieldDocumentMapTest.cs" />
+    <Compile Include="DocumentMapTests\CustomFieldDocumentMapTests.cs" />
+    <Compile Include="DocumentMapTests\CustomMapDocumentMapTests.cs" />
+    <Compile Include="DocumentMapTests\EmbededDocumentMapTests.cs" />
+    <Compile Include="DocumentMapTests\InvalidCustomFieldDocumentMapTests.cs" />
     <Compile Include="DocumentMapTests\MemberMock.cs" />
-    <Compile Include="DocumentMapTests\PropertyCustomNameMapDocumentMapTest.cs" />
-    <Compile Include="DocumentMapTests\PropertyMapDocumentMapTest.cs" />
+    <Compile Include="DocumentMapTests\PropertyCustomNameMapDocumentMapTests.cs" />
+    <Compile Include="DocumentMapTests\PropertyMapDocumentMapTests.cs" />
     <Compile Include="DocumentMapTests\DocumentMapTestBase.cs" />
-    <Compile Include="FieldConfigurationTest.cs" />
+    <Compile Include="Mapping\Configuration\FieldConfigurationTests.cs" />
     <Compile Include="Helpers\AssertHelper.cs" />
     <Compile Include="Mappings\ApplicationMap.cs" />
     <Compile Include="Mappings\CategoryMap.cs" />
@@ -73,8 +75,8 @@
     <Compile Include="Models\ModelWithDate.cs" />
     <Compile Include="Models\PublishStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FluentMappingsServiceTest.cs" />
-    <Compile Include="ReflectionDocumentMapperTest.cs" />
+    <Compile Include="FluentMappingsServiceTests.cs" />
+    <Compile Include="Mappers\ReflectionDocumentMapperTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

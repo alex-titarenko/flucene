@@ -2,17 +2,16 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using Lucene.Net.Odm.Mapping;
 using Lucene.Net.Odm.Mapping.Members;
+using NUnit.Framework;
 
 
-namespace Lucene.Net.Orm.Test.DocumentMapTests
+namespace Lucene.Net.Orm.Tests.DocumentMapTests
 {
-    [TestClass]
-    public class PropertyCustomNameMapDocumentMapTest
-        : DocumentMapTestBase<PropertyCustomNameMapDocumentMapTest.ModelMap, PropertyCustomNameMapDocumentMapTest.Model>
+    [TestFixture]
+    public class PropertyCustomNameMapDocumentMapTests
+        : DocumentMapTestBase<PropertyCustomNameMapDocumentMapTests.ModelMap, PropertyCustomNameMapDocumentMapTests.Model>
     {
         protected override void BuildExpectedModelMapping(DocumentMapping<Model> mapping)
         {

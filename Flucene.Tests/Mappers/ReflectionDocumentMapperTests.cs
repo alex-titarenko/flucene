@@ -2,19 +2,18 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using Lucene.Net.Odm;
 using Lucene.Net.Odm.Mappers;
 using Lucene.Net.Odm.Mapping;
 using Lucene.Net.Odm.Mapping.Members;
 using Lucene.Net.Documents;
+using NUnit.Framework;
 
 
-namespace Lucene.Net.Orm.Test
+namespace Lucene.Net.Orm.Tests.Mappers
 {
-    [TestClass]
-    public class ReflectionDocumentMapperTest
+    [TestFixture]
+    public class ReflectionDocumentMapperTests
     {
         private IDocumentMapper _mapper = new ReflectionDocumentMapper();
         private DocumentMapping<TestModel> _mappingWithOptionalField;
@@ -24,7 +23,8 @@ namespace Lucene.Net.Orm.Test
         private IMappingsService _mappingService;
         private IMappingsService _fullMappingService;
 
-        [TestInitialize]
+
+        [SetUp]
         public void Initialize()
         {
             _mappingWithOptionalField = GetMappingBasedOnField<TestModel>(TestModel.TextFieldName);
@@ -62,7 +62,7 @@ namespace Lucene.Net.Orm.Test
         }
 
 
-        [TestMethod]
+        [Test]
         public void GetDocumentTest_OptionalField()
         {
             TestModel model = new TestModel();
@@ -79,7 +79,7 @@ namespace Lucene.Net.Orm.Test
             Assert.AreEqual(model.Text, doc.Get(TestModel.TextFieldName));
         }
 
-        [TestMethod]
+        [Test]
         public void GetModelTest_OptionalField()
         {
             Document doc = new Document();
@@ -94,7 +94,7 @@ namespace Lucene.Net.Orm.Test
         }
 
 
-        [TestMethod]
+        [Test]
         public void GetDocumentTest_RequiredField()
         {
             TestModel model = new TestModel();
@@ -104,7 +104,7 @@ namespace Lucene.Net.Orm.Test
             Assert.AreEqual(1, doc.GetFields().Count);
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void GetDocumentTest_RequiredField_Fail()
         {
@@ -115,7 +115,7 @@ namespace Lucene.Net.Orm.Test
             Assert.AreEqual(0, doc.GetFields().Count);
         }
 
-        [TestMethod]
+        [Test]
         public void GetModelTest_RequiredField()
         {
             Document doc = new Document();
@@ -125,7 +125,7 @@ namespace Lucene.Net.Orm.Test
             Assert.IsNotNull(model.Text);
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentException))]
         public void GetModelTest_RequiredField_Fail()
         {
@@ -136,7 +136,7 @@ namespace Lucene.Net.Orm.Test
         }
 
 
-        [TestMethod]
+        [Test]
         public void GetDocumentTest_NumericField()
         {
             TestModel model = new TestModel();
@@ -145,10 +145,10 @@ namespace Lucene.Net.Orm.Test
             Document doc = _mapper.GetDocument(_mappingWithNumericField, model, null);
 
             Fieldable numericField = doc.GetFieldable(TestModel.NumericFieldName);
-            Assert.IsInstanceOfType(numericField, typeof(NumericField));
+            Assert.IsInstanceOf<NumericField>(numericField);
         }
 
-        [TestMethod]
+        [Test]
         public void GetDocumentTest_NumericFieldAsText()
         {
             DocumentMapping<TestModel> mapping = GetMappingBasedOnField<TestModel>(TestModel.NumericFieldName);
@@ -159,11 +159,11 @@ namespace Lucene.Net.Orm.Test
             Document doc = _mapper.GetDocument(mapping, model, null);
 
             Fieldable numericField = doc.GetFieldable(TestModel.NumericFieldName);
-            Assert.IsNotInstanceOfType(numericField, typeof(NumericField));
+            Assert.IsNotInstanceOf<NumericField>(numericField);
         }
 
 
-        [TestMethod]
+        [Test]
         public void GetModelTest_NumericField()
         {
             Document doc = new Document();
@@ -175,7 +175,7 @@ namespace Lucene.Net.Orm.Test
             Assert.AreEqual(3.5, model.Numeric);
         }
 
-        [TestMethod]
+        [Test]
         public void GetModelTest_NumericFieldAsText()
         {
             DocumentMapping<TestModel> mapping = GetMappingBasedOnField<TestModel>(TestModel.NumericFieldName);
@@ -187,7 +187,7 @@ namespace Lucene.Net.Orm.Test
         }
 
 
-        [TestMethod]
+        [Test]
         public void GetDocumentTest_DefaultPrefixForEmbedded()
         {
             DocumentMapping<TestModel> mapping = GetMappingBasedOnEmbedded<TestModel>(TestModel.SubModelFieldName);
@@ -202,7 +202,7 @@ namespace Lucene.Net.Orm.Test
             Assert.IsNotNull(field);
         }
 
-        [TestMethod]
+        [Test]
         public void GetDocumentTest_CustomPrefixForEmbedded()
         {
             DocumentMapping<TestModel> mapping = GetMappingBasedOnEmbedded<TestModel>(TestModel.SubModelFieldName);
@@ -220,7 +220,7 @@ namespace Lucene.Net.Orm.Test
         }
 
 
-        [TestMethod]
+        [Test]
         public void GetModelTest_DefaultPrefixForEmbedded()
         {
             DocumentMapping<TestModel> mapping = GetMappingBasedOnEmbedded<TestModel>(TestModel.SubModelFieldName);
@@ -236,7 +236,7 @@ namespace Lucene.Net.Orm.Test
             Assert.AreEqual(5, model.SubModel.ID);
         }
 
-        [TestMethod]
+        [Test]
         public void GetModelTest_CustomPrefixForEmbedded()
         {
             DocumentMapping<TestModel> mapping = GetMappingBasedOnEmbedded<TestModel>(TestModel.SubModelFieldName);
@@ -254,7 +254,7 @@ namespace Lucene.Net.Orm.Test
             Assert.AreEqual(5, model.SubModel.ID);
         }
 
-        [TestMethod]
+        [Test]
         public void GetDocumentTest_DefaultPrefixForSubEmbedded()
         {
             DocumentMapping<TestModel> mapping = GetMappingBasedOnEmbedded<TestModel>(TestModel.SubModelFieldName);
@@ -275,7 +275,7 @@ namespace Lucene.Net.Orm.Test
             Assert.AreEqual("9", field2.StringValue());
         }
 
-        [TestMethod]
+        [Test]
         public void GetModelTest_DefaultPrefixForSubEmbedded()
         {
             DocumentMapping<TestModel> mapping = GetMappingBasedOnEmbedded<TestModel>(TestModel.SubModelFieldName);

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Lucene.Net.Odm.Mapping.Members;
 
-namespace Lucene.Net.Orm.Test.DocumentMapTests
+namespace Lucene.Net.Orm.Tests.DocumentMapTests
 {
     public class MemberMock : Member
     {

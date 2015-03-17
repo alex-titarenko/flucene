@@ -4,22 +4,17 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using Lucene.Net.Documents;
-
 using Lucene.Net.Odm.Mappers;
 using Lucene.Net.Odm.Test.Models;
 using System.Globalization;
 using System.Threading;
+using NUnit.Framework;
 
 
-namespace Lucene.Net.Odm.Test
+namespace Lucene.Net.Odm.Tests
 {
-    /// <summary>
-    /// Summary description for UnitTest1
-    /// </summary>
-    [TestClass]
+    [TestFixture]
     public class FluentMappingsServiceTest
     {
         private IMappingsService _mappingService;
@@ -33,7 +28,7 @@ namespace Lucene.Net.Odm.Test
         }
 
 
-        [TestMethod]
+        [Test]
         public void TwoWayMappingTest()
         {
             Application expected = new Application();
@@ -63,7 +58,7 @@ was created as acronym of ""FLUent luCENE"".";
             Assert.AreEqual(expected, actual);
         }
 
-        [TestMethod]
+        [Test]
         public void DifferentDateTimeLocalizationTest()
         {
             CultureInfo usersCulture = Thread.CurrentThread.CurrentCulture;

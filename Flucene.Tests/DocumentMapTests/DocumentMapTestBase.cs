@@ -2,21 +2,21 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Lucene.Net.Odm.Mapping;
 using System.Reflection;
 using Lucene.Net.Odm.Mapping.Members;
-using Lucene.Net.Orm.Test.Helpers;
+using Lucene.Net.Orm.Tests.Helpers;
+using NUnit.Framework;
 
 
-namespace Lucene.Net.Orm.Test.DocumentMapTests
+namespace Lucene.Net.Orm.Tests.DocumentMapTests
 {
-    [TestClass]
+    [TestFixture]
     public abstract class DocumentMapTestBase<TMap, TModel>
         where TMap : DocumentMap<TModel>, new()
         where TModel : new() 
     {
-        [TestMethod]
+        [Test]
         public virtual void GetMappingTest()
         {
             TMap map = new TMap();

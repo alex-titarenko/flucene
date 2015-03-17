@@ -2,20 +2,19 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Lucene.Net.Odm.Mapping.Configuration;
-
 using Lucene.Net.Odm.Mapping;
-using Lucene.Net.Orm.Test.DocumentMapTests;
-using Lucene.Net.Orm.Test.Helpers;
+using Lucene.Net.Orm.Tests.DocumentMapTests;
+using Lucene.Net.Orm.Tests.Helpers;
 using Lucene.Net.Documents;
 using Lucene.Net.Analysis;
+using NUnit.Framework;
 
 
-namespace Lucene.Net.Orm.Test
+namespace Lucene.Net.Orm.Tests.Mapping.Configuration
 {
-    [TestClass]
-    public class FieldConfigurationTest
+    [TestFixture]
+    public class FieldConfigurationTests
     {
         private FieldConfiguration CreateFieldConfiguration()
         {
@@ -28,7 +27,7 @@ namespace Lucene.Net.Orm.Test
         }
 
 
-        [TestMethod]
+        [Test]
         public void GetMappingTest()
         {
             FieldConfiguration field = CreateFieldConfiguration();
@@ -39,7 +38,7 @@ namespace Lucene.Net.Orm.Test
             AssertHelper.FieldAssert(expected, actual);
         }
 
-        [TestMethod]
+        [Test]
         public void GetMappingTest_AsNumeric()
         {
             FieldConfiguration field = CreateFieldConfiguration().AsNumeric();
@@ -51,7 +50,7 @@ namespace Lucene.Net.Orm.Test
             AssertHelper.FieldAssert(expected, actual);
         }
 
-        [TestMethod]
+        [Test]
         public void GetMappingTest_IsOptional()
         {
             FieldConfiguration field = CreateFieldConfiguration().Optional();
@@ -63,7 +62,7 @@ namespace Lucene.Net.Orm.Test
             AssertHelper.FieldAssert(expected, actual);
         }
 
-        [TestMethod]
+        [Test]
         public void GetMappingTest_Index()
         {
             FieldConfiguration field = CreateFieldConfiguration().Index.NoNormsAnalyze();
@@ -75,7 +74,7 @@ namespace Lucene.Net.Orm.Test
             AssertHelper.FieldAssert(expected, actual);
         }
 
-        [TestMethod]
+        [Test]
         public void GetMappingTest_Store()
         {
             FieldConfiguration field = CreateFieldConfiguration().Store.Compress();
@@ -87,7 +86,7 @@ namespace Lucene.Net.Orm.Test
             AssertHelper.FieldAssert(expected, actual);
         }
 
-        [TestMethod]
+        [Test]
         public void GetMappingTest_PredefinedAnalyzer()
         {
             FieldConfiguration field = CreateFieldConfiguration().Analyzer.Keyword();
@@ -99,7 +98,7 @@ namespace Lucene.Net.Orm.Test
             AssertHelper.FieldAssert(expected, actual);
         }
 
-        [TestMethod]
+        [Test]
         public void GetMappingTest_CustomAnalyzer()
         {
             FieldConfiguration field = CreateFieldConfiguration().Analyzer.Custom<SimpleAnalyzer>();
@@ -111,7 +110,7 @@ namespace Lucene.Net.Orm.Test
             AssertHelper.FieldAssert(expected, actual);
         }
 
-        [TestMethod]
+        [Test]
         public void GetMappingTest_Boost()
         {
             FieldConfiguration field = CreateFieldConfiguration().Boost(2);
@@ -123,7 +122,7 @@ namespace Lucene.Net.Orm.Test
             AssertHelper.FieldAssert(expected, actual);
         }
 
-        [TestMethod]
+        [Test]
         public void GetMappingTest_Full()
         {
             FieldConfiguration field = CreateFieldConfiguration()
