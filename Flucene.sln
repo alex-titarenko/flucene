@@ -69,7 +69,4 @@ Global
 		{DC523A60-9474-406B-AA46-0C8D2248193F} = {AC396ACF-9442-4FB0-9581-518CA633F80D}
 		{90BAED0D-9E3F-4C49-95CC-15C027CBE22D} = {F24E86A7-F610-43CD-BA09-10A0D8732967}
 	EndGlobalSection
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = Flucene.vsmdi
-	EndGlobalSection
 EndGlobal

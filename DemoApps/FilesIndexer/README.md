@@ -1,6 +1,7 @@
 ## ﻿Demo Application Files Indexer
 
 This App demonstrates the base principles of working with Flucene:
+
 * String field mapping
 * Boosting for field
 * Collection mapping

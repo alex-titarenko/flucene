@@ -15,7 +15,7 @@ namespace Lucene.Net.Orm.Tests.Mappers
     [TestFixture]
     public class ReflectionDocumentMapperTests
     {
-        private IDocumentMapper _mapper = new ReflectionDocumentMapper();
+        protected IDocumentMapper Target = new ReflectionDocumentMapper();
         private DocumentMapping<TestModel> _mappingWithOptionalField;
         private DocumentMapping<TestModel> _mappingWithRequiredField;
         private DocumentMapping<TestModel> _mappingWithNumericField;
@@ -25,7 +25,7 @@ namespace Lucene.Net.Orm.Tests.Mappers
 
 
         [SetUp]
-        public void Initialize()
+        public void SetUp()
         {
             _mappingWithOptionalField = GetMappingBasedOnField<TestModel>(TestModel.TextFieldName);
             FieldMapping fieldMapping = _mappingWithOptionalField.Fields.First();
@@ -42,7 +42,7 @@ namespace Lucene.Net.Orm.Tests.Mappers
 
             _mappingService = new MockMappingsService()
             {
-                Mapper = _mapper,
+                Mapper = Target,
                 Mappings = new Dictionary<Type, object>() {
                     { typeof(TestSubModel), GetMappingBasedOnField<TestSubModel>(TestSubModel.IdFieldName) }
                 }
@@ -53,7 +53,7 @@ namespace Lucene.Net.Orm.Tests.Mappers
 
             _fullMappingService = new MockMappingsService()
             {
-                Mapper = _mapper,
+                Mapper = Target,
                 Mappings = new Dictionary<Type, object>() {
                     { typeof(TestSubModel), testSubModelMapping },
                     { typeof(TestSubSubModel), GetMappingBasedOnField<TestSubSubModel>(TestSubModel.IdFieldName) }
@@ -62,149 +62,108 @@ namespace Lucene.Net.Orm.Tests.Mappers
         }
 
 
+        #region GetDocument
+
         [Test]
-        public void GetDocumentTest_OptionalField()
+        public void GetDocument_OptionalField()
         {
+            //arrange
             TestModel model = new TestModel();
             model.Text = null;
 
-            Document doc = _mapper.GetDocument(_mappingWithOptionalField, model, null);
+            Document doc = Target.GetDocument(_mappingWithOptionalField, model, null);
             Assert.AreEqual(1, doc.GetFields().Count);
             Assert.AreEqual(String.Empty, doc.Get(TestModel.TextFieldName));
 
             model.Text = "Some text";
 
-            doc = _mapper.GetDocument(_mappingWithOptionalField, model, null);
+            //action
+            doc = Target.GetDocument(_mappingWithOptionalField, model, null);
+
+            //assert
             Assert.AreEqual(1, doc.GetFields().Count);
             Assert.AreEqual(model.Text, doc.Get(TestModel.TextFieldName));
         }
 
         [Test]
-        public void GetModelTest_OptionalField()
+        public void GetDocument_RequiredField()
         {
-            Document doc = new Document();
-
-            TestModel model = _mapper.GetModel<TestModel>(_mappingWithOptionalField, doc, null);
-            Assert.IsNull(model.Text);
-
-            doc.Add(new Field(TestModel.TextFieldName, "Some text", Field.Store.YES, Field.Index.ANALYZED));
-
-            model = _mapper.GetModel<TestModel>(_mappingWithOptionalField, doc, null);
-            Assert.IsNotNull(model.Text);
-        }
-
-
-        [Test]
-        public void GetDocumentTest_RequiredField()
-        {
+            //arrange
             TestModel model = new TestModel();
             model.Text = "Some string";
 
-            Document doc = _mapper.GetDocument(_mappingWithRequiredField, model, null);
+            //action
+            Document doc = Target.GetDocument(_mappingWithRequiredField, model, null);
+
+            //assert
             Assert.AreEqual(1, doc.GetFields().Count);
         }
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void GetDocumentTest_RequiredField_Fail()
+        public void GetDocument_MissedRequiredField_ThrowArgumentNullException()
         {
+            //arrange
             TestModel model = new TestModel();
             model.Text = null;
 
-            Document doc = _mapper.GetDocument(_mappingWithRequiredField, model, null);
-            Assert.AreEqual(0, doc.GetFields().Count);
+            //action
+            Document doc = Target.GetDocument(_mappingWithRequiredField, model, null);
         }
 
         [Test]
-        public void GetModelTest_RequiredField()
+        public void GetDocument_NumericField()
         {
-            Document doc = new Document();
-            doc.Add(new Field(TestModel.TextFieldName, "Some text", Field.Store.YES, Field.Index.ANALYZED));
-
-            TestModel model = _mapper.GetModel<TestModel>(_mappingWithRequiredField, doc, null);
-            Assert.IsNotNull(model.Text);
-        }
-
-        [Test]
-        [ExpectedException(typeof(ArgumentException))]
-        public void GetModelTest_RequiredField_Fail()
-        {
-            Document doc = new Document();
-
-            TestModel model = _mapper.GetModel<TestModel>(_mappingWithRequiredField, doc, null);
-            Assert.IsNull(model.Text);
-        }
-
-
-        [Test]
-        public void GetDocumentTest_NumericField()
-        {
+            //arrange
             TestModel model = new TestModel();
             model.Numeric = 3.5;
 
-            Document doc = _mapper.GetDocument(_mappingWithNumericField, model, null);
-
+            //action
+            Document doc = Target.GetDocument(_mappingWithNumericField, model, null);
             Fieldable numericField = doc.GetFieldable(TestModel.NumericFieldName);
+
+            //assert
             Assert.IsInstanceOf<NumericField>(numericField);
         }
 
         [Test]
-        public void GetDocumentTest_NumericFieldAsText()
+        public void GetDocument_NumericFieldAsText()
         {
             DocumentMapping<TestModel> mapping = GetMappingBasedOnField<TestModel>(TestModel.NumericFieldName);
 
             TestModel model = new TestModel();
             model.Numeric = 3.5;
 
-            Document doc = _mapper.GetDocument(mapping, model, null);
-
+            //action
+            Document doc = Target.GetDocument(mapping, model, null);
             Fieldable numericField = doc.GetFieldable(TestModel.NumericFieldName);
+
+            //assert
             Assert.IsNotInstanceOf<NumericField>(numericField);
         }
 
-
         [Test]
-        public void GetModelTest_NumericField()
+        public void GetDocument_DefaultPrefixForEmbedded()
         {
-            Document doc = new Document();
-            NumericField numField = new NumericField(TestModel.NumericFieldName, Field.Store.YES, true);
-            numField.SetDoubleValue(3.5);
-            doc.Add(numField);
-
-            TestModel model = _mapper.GetModel<TestModel>(_mappingWithNumericField, doc, null);
-            Assert.AreEqual(3.5, model.Numeric);
-        }
-
-        [Test]
-        public void GetModelTest_NumericFieldAsText()
-        {
-            DocumentMapping<TestModel> mapping = GetMappingBasedOnField<TestModel>(TestModel.NumericFieldName);
-            Document doc = new Document();
-            doc.Add(new Field(TestModel.NumericFieldName, "3.5", Field.Store.YES, Field.Index.ANALYZED));
-
-            TestModel model = _mapper.GetModel<TestModel>(mapping, doc, null);
-            Assert.AreEqual(3.5, model.Numeric);
-        }
-
-
-        [Test]
-        public void GetDocumentTest_DefaultPrefixForEmbedded()
-        {
+            //arrange
             DocumentMapping<TestModel> mapping = GetMappingBasedOnEmbedded<TestModel>(TestModel.SubModelFieldName);
 
             TestModel model = new TestModel();
             model.SubModel = new TestSubModel() { ID = 5 };
 
-            Document doc = _mapper.GetDocument(mapping, model, _mappingService);
+            //action
+            Document doc = Target.GetDocument(mapping, model, _mappingService);
 
+            //assert
             Assert.AreEqual(1, doc.GetFields().Count);
             Field field = doc.GetField(DefaultEmbeddedFieldName(TestModel.SubModelFieldName, TestSubModel.IdFieldName));
             Assert.IsNotNull(field);
         }
 
         [Test]
-        public void GetDocumentTest_CustomPrefixForEmbedded()
+        public void GetDocument_CustomPrefixForEmbedded()
         {
+            //arrange
             DocumentMapping<TestModel> mapping = GetMappingBasedOnEmbedded<TestModel>(TestModel.SubModelFieldName);
             EmbeddedMapping embeddedMapping = mapping.Embedded.First();
             embeddedMapping.Prefix = "CustomPrefix";
@@ -212,60 +171,30 @@ namespace Lucene.Net.Orm.Tests.Mappers
             TestModel model = new TestModel();
             model.SubModel = new TestSubModel() { ID = 5 };
 
-            Document doc = _mapper.GetDocument(mapping, model, _mappingService);
+            //action
+            Document doc = Target.GetDocument(mapping, model, _mappingService);
 
+            //assert
             Assert.AreEqual(1, doc.GetFields().Count);
             Field field = doc.GetField(embeddedMapping.Prefix + TestSubModel.IdFieldName);
             Assert.IsNotNull(field);
         }
 
-
         [Test]
-        public void GetModelTest_DefaultPrefixForEmbedded()
+        public void GetDocument_DefaultPrefixForSubEmbedded()
         {
-            DocumentMapping<TestModel> mapping = GetMappingBasedOnEmbedded<TestModel>(TestModel.SubModelFieldName);
-
-            Document doc = new Document();
-            doc.Add(new Field(DefaultEmbeddedFieldName(TestModel.SubModelFieldName, TestSubModel.IdFieldName),
-                "5", Field.Store.YES, Field.Index.ANALYZED));
-
-            TestModel model = _mapper.GetModel<TestModel>(mapping, doc, _mappingService);
-
-            Assert.IsNotNull(model);
-            Assert.IsNotNull(model.SubModel);
-            Assert.AreEqual(5, model.SubModel.ID);
-        }
-
-        [Test]
-        public void GetModelTest_CustomPrefixForEmbedded()
-        {
-            DocumentMapping<TestModel> mapping = GetMappingBasedOnEmbedded<TestModel>(TestModel.SubModelFieldName);
-            EmbeddedMapping embeddedMapping = mapping.Embedded.First();
-            embeddedMapping.Prefix = "CustomPrefix";
-
-            Document doc = new Document();
-            doc.Add(new Field(embeddedMapping.Prefix + TestSubModel.IdFieldName,
-                "5", Field.Store.YES, Field.Index.ANALYZED));
-
-            TestModel model = _mapper.GetModel<TestModel>(mapping, doc, _mappingService);
-
-            Assert.IsNotNull(model);
-            Assert.IsNotNull(model.SubModel);
-            Assert.AreEqual(5, model.SubModel.ID);
-        }
-
-        [Test]
-        public void GetDocumentTest_DefaultPrefixForSubEmbedded()
-        {
+            //arrange
             DocumentMapping<TestModel> mapping = GetMappingBasedOnEmbedded<TestModel>(TestModel.SubModelFieldName);
 
             TestModel model = new TestModel();
             model.SubModel = new TestSubModel() { ID = 5, SubSubModel = new TestSubSubModel() { ID = 9 } };
 
-            Document doc = _mapper.GetDocument(mapping, model, _fullMappingService);
+            //action
+            Document doc = Target.GetDocument(mapping, model, _fullMappingService);
 
+            //assert
             Assert.AreEqual(2, doc.GetFields().Count);
-            
+
             Field field1 = doc.GetField(DefaultEmbeddedFieldName(TestModel.SubModelFieldName, TestSubModel.IdFieldName));
             Assert.IsNotNull(field1);
             Assert.AreEqual("5", field1.StringValue());
@@ -275,9 +204,137 @@ namespace Lucene.Net.Orm.Tests.Mappers
             Assert.AreEqual("9", field2.StringValue());
         }
 
+        #endregion
+
+        #region GetModel
+
         [Test]
-        public void GetModelTest_DefaultPrefixForSubEmbedded()
+        public void GetModel_OptionalFieldMissed_Null()
         {
+            //arrange
+            Document doc = new Document();
+
+            //action
+            TestModel model = Target.GetModel<TestModel>(_mappingWithOptionalField, doc, null);
+            
+            //assert
+            Assert.IsNull(model.Text);
+        }
+
+        [Test]
+        public void GetModel_OptionalFieldPresent_NotNull()
+        {
+            //arrange
+            var doc = new Document();
+            doc.Add(new Field(TestModel.TextFieldName, "Some text", Field.Store.YES, Field.Index.ANALYZED));
+
+            //action
+            var model = Target.GetModel<TestModel>(_mappingWithOptionalField, doc, null);
+
+            //assert
+            Assert.IsNotNull(model.Text);
+        }
+
+        [Test]
+        public void GetModel_RequiredFieldPresent_NotNull()
+        {
+            //arrange
+            Document doc = new Document();
+            doc.Add(new Field(TestModel.TextFieldName, "Some text", Field.Store.YES, Field.Index.ANALYZED));
+
+            //action
+            TestModel model = Target.GetModel<TestModel>(_mappingWithRequiredField, doc, null);
+            
+            //assert
+            Assert.IsNotNull(model.Text);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void GetModel_RequiredFieldMissed_ThrowArgumentException()
+        {
+            //arrange
+            Document doc = new Document();
+
+            //action
+            Target.GetModel<TestModel>(_mappingWithRequiredField, doc, null);
+        }
+
+        [Test]
+        public void GetModel_NumericField_DoubleValue()
+        {
+            //arrange
+            Document doc = new Document();
+            NumericField numField = new NumericField(TestModel.NumericFieldName, Field.Store.YES, true);
+            numField.SetDoubleValue(3.5);
+            doc.Add(numField);
+
+            //action
+            TestModel model = Target.GetModel<TestModel>(_mappingWithNumericField, doc, null);
+            
+            //assert
+            Assert.AreEqual(3.5, model.Numeric);
+        }
+
+        [Test]
+        public void GetModel_NumericFieldAsText_DoubleValue()
+        {
+            //arrange
+            DocumentMapping<TestModel> mapping = GetMappingBasedOnField<TestModel>(TestModel.NumericFieldName);
+            Document doc = new Document();
+            doc.Add(new Field(TestModel.NumericFieldName, "3.5", Field.Store.YES, Field.Index.ANALYZED));
+
+            //action
+            TestModel model = Target.GetModel<TestModel>(mapping, doc, null);
+            
+            //assert
+            Assert.AreEqual(3.5, model.Numeric);
+        }
+
+        [Test]
+        public void GetModel_DefaultPrefixForEmbedded()
+        {
+            //arrange
+            DocumentMapping<TestModel> mapping = GetMappingBasedOnEmbedded<TestModel>(TestModel.SubModelFieldName);
+
+            Document doc = new Document();
+            doc.Add(new Field(DefaultEmbeddedFieldName(TestModel.SubModelFieldName, TestSubModel.IdFieldName),
+                "5", Field.Store.YES, Field.Index.ANALYZED));
+
+            //action
+            TestModel model = Target.GetModel<TestModel>(mapping, doc, _mappingService);
+
+            //assert
+            Assert.IsNotNull(model);
+            Assert.IsNotNull(model.SubModel);
+            Assert.AreEqual(5, model.SubModel.ID);
+        }
+
+        [Test]
+        public void GetModel_CustomPrefixForEmbedded()
+        {
+            //arrange
+            DocumentMapping<TestModel> mapping = GetMappingBasedOnEmbedded<TestModel>(TestModel.SubModelFieldName);
+            EmbeddedMapping embeddedMapping = mapping.Embedded.First();
+            embeddedMapping.Prefix = "CustomPrefix";
+
+            Document doc = new Document();
+            doc.Add(new Field(embeddedMapping.Prefix + TestSubModel.IdFieldName,
+                "5", Field.Store.YES, Field.Index.ANALYZED));
+
+            //action
+            TestModel model = Target.GetModel<TestModel>(mapping, doc, _mappingService);
+
+            //assert
+            Assert.IsNotNull(model);
+            Assert.IsNotNull(model.SubModel);
+            Assert.AreEqual(5, model.SubModel.ID);
+        }
+
+        [Test]
+        public void GetModel_DefaultPrefixForSubEmbedded()
+        {
+            //arrange
             DocumentMapping<TestModel> mapping = GetMappingBasedOnEmbedded<TestModel>(TestModel.SubModelFieldName);
 
             Document doc = new Document();
@@ -286,14 +343,18 @@ namespace Lucene.Net.Orm.Tests.Mappers
             doc.Add(new Field(DefaultEmbeddedFieldName(TestModel.SubModelFieldName, TestSubModel.SubSubModelFieldName, TestSubModel.IdFieldName),
                 "9", Field.Store.YES, Field.Index.ANALYZED));
 
-            TestModel model = _mapper.GetModel<TestModel>(mapping, doc, _fullMappingService);
+            //action
+            TestModel model = Target.GetModel<TestModel>(mapping, doc, _fullMappingService);
 
+            //assert
             Assert.IsNotNull(model);
             Assert.IsNotNull(model.SubModel);
             Assert.AreEqual(5, model.SubModel.ID);
             Assert.IsNotNull(model.SubModel.SubSubModel);
             Assert.AreEqual(9, model.SubModel.SubSubModel.ID);
         }
+
+        #endregion
 
 
         #region Helpers
@@ -322,6 +383,8 @@ namespace Lucene.Net.Orm.Tests.Mappers
 
         #endregion
 
+        #region Tests Data
+
         public class TestModel
         {
             internal const string TextFieldName = "Text";
@@ -349,5 +412,7 @@ namespace Lucene.Net.Orm.Tests.Mappers
         {
             public int ID { get; set; }
         }
+
+        #endregion
     }
 }
