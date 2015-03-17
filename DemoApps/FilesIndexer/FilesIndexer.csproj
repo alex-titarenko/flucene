@@ -90,6 +90,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Flucene\Flucene.csproj">
@@ -98,7 +99,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ReadMe.txt" />
     <Content Include="Samples\Document-orientired_database.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

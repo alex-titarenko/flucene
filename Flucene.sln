@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F24E86A7
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flucene", "Flucene\Flucene.csproj", "{3034591D-AA48-4FB4-B07B-51BCB1EB226F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flucene.Tests", "Flucene\Test\Flucene.Tests.csproj", "{90BAED0D-9E3F-4C49-95CC-15C027CBE22D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flucene.Tests", "Flucene.Tests\Flucene.Tests.csproj", "{90BAED0D-9E3F-4C49-95CC-15C027CBE22D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
