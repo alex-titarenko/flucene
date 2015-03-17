@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Flucene")]
-[assembly: AssemblyDescription("Object Document Mapping for lucene.Net")]
+[assembly: AssemblyDescription("Object Document Mapping for Lucene.Net")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Iveonik Systems Ltd.")]
 [assembly: AssemblyProduct("Flucene")]
-[assembly: AssemblyCopyright("Copyright © 2012 Iveonik Systems")]
+[assembly: AssemblyCopyright("Copyright © 2015 Iveonik Systems")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.1.0")]
-[assembly: AssemblyFileVersion("1.0.1.0")]
+[assembly: AssemblyVersion("1.0.2.0")]
+[assembly: AssemblyFileVersion("1.0.2.0")]

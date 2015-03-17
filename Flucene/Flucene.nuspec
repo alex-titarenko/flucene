@@ -7,12 +7,12 @@
     <authors>$author$</authors>
     <owners>$author$</owners>
     <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
-    <projectUrl>http://flucene.codeplex.com</projectUrl>
+    <projectUrl>https://github.com/T-Alex/Flucene</projectUrl>
     <!--<iconUrl></iconUrl>-->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Reconfigured to release version.</releaseNotes>
-    <copyright>Copyright 2012 Iveonik Systems Ltd.</copyright>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2015 Iveonik Systems Ltd.</copyright>
     <tags>Lucene Lucene.NET Fluent ODM Search Library Text Information Retrieval Index</tags>
   </metadata>
 </package>
