@@ -29,11 +29,6 @@ namespace Lucene.Net.Odm.Mapping.Configuration
             return Store(Field.Store.NO);
         }
 
-        public T Compress()
-        {
-            return Store(Field.Store.COMPRESS);
-        }
-
 
         private T Store(Field.Store store)
         {

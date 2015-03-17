@@ -89,8 +89,8 @@ namespace Lucene.Net.Orm.Tests.Mapping.Configuration
         public void GetMapping_Store()
         {
             //arrange
-            FieldConfiguration field = FieldConfiguration.Store.Compress();
-            ExpectedFieldMapping.Store = Field.Store.COMPRESS;
+            FieldConfiguration field = FieldConfiguration.Store.Yes();
+            ExpectedFieldMapping.Store = Field.Store.YES;
 
             //action
             FieldMapping actual = field.GetMapping();

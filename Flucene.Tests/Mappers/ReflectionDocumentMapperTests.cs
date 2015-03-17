@@ -120,7 +120,7 @@ namespace Lucene.Net.Orm.Tests.Mappers
 
             //action
             Document doc = Target.GetDocument(_mappingWithNumericField, model, null);
-            Fieldable numericField = doc.GetFieldable(TestModel.NumericFieldName);
+            var numericField = doc.GetFieldable(TestModel.NumericFieldName);
 
             //assert
             Assert.IsInstanceOf<NumericField>(numericField);
@@ -136,7 +136,7 @@ namespace Lucene.Net.Orm.Tests.Mappers
 
             //action
             Document doc = Target.GetDocument(mapping, model, null);
-            Fieldable numericField = doc.GetFieldable(TestModel.NumericFieldName);
+            var numericField = doc.GetFieldable(TestModel.NumericFieldName);
 
             //assert
             Assert.IsNotInstanceOf<NumericField>(numericField);
@@ -197,11 +197,11 @@ namespace Lucene.Net.Orm.Tests.Mappers
 
             Field field1 = doc.GetField(DefaultEmbeddedFieldName(TestModel.SubModelFieldName, TestSubModel.IdFieldName));
             Assert.IsNotNull(field1);
-            Assert.AreEqual("5", field1.StringValue());
+            Assert.AreEqual("5", field1.StringValue);
 
             Field field2 = doc.GetField(DefaultEmbeddedFieldName(TestModel.SubModelFieldName, TestSubModel.SubSubModelFieldName, TestSubModel.IdFieldName));
             Assert.IsNotNull(field2);
-            Assert.AreEqual("9", field2.StringValue());
+            Assert.AreEqual("9", field2.StringValue);
         }
 
         #endregion

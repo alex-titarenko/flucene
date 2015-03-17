@@ -40,7 +40,7 @@ namespace FilesIndexer
         /// <summary>
         /// Constant for some Lucene methods for preventing obsolete warnings.
         /// </summary>
-        static readonly Lucene.Net.Util.Version _usedLuceneVersion = Lucene.Net.Util.Version.LUCENE_29;
+        static readonly Lucene.Net.Util.Version _usedLuceneVersion = Lucene.Net.Util.Version.LUCENE_30;
         
         static IContainer _container;
         private static Analyzer _standardAnalizer = new StandardAnalyzer(_usedLuceneVersion);
@@ -149,7 +149,7 @@ namespace FilesIndexer
             Dir dir = _container.Resolve<Dir>();
             IndexSearcher searcher = new IndexSearcher(dir, true);
             IMappingsService mapper = _container.Resolve<IMappingsService>();
-            Console.WriteLine("Indexed {0} documents", searcher.GetIndexReader().NumDocs());
+            Console.WriteLine("Indexed {0} documents", searcher.IndexReader.NumDocs());
 
             bool exitFl = false;
             while (!exitFl)
@@ -173,7 +173,7 @@ namespace FilesIndexer
                     Console.WriteLine("Found {0} documents:", topDocs.TotalHits);
                     foreach (var scoreDoc in topDocs.ScoreDocs)
                     {
-                        Document doc = searcher.Doc(scoreDoc.doc);
+                        Document doc = searcher.Doc(scoreDoc.Doc);
                         FileItem fileItem = mapper.GetModel<FileItem>(doc);
                         Console.WriteLine("Name: " + fileItem.Filename);
                     }

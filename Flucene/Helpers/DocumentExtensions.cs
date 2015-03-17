@@ -41,12 +41,12 @@ namespace Lucene.Net.Odm.Helpers
             int count = source.ExtractItemsCount(name);
 
             IList<string> values = new List<string>(count);
-            IList fields = source.GetFields();
+            IList<IFieldable> fields = source.GetFields();
             
             for (int i = 0; i < fields.Count; i++)
             {
-                Fieldable field = fields[i] as Fieldable;
-                if (name.Equals(field.Name()))
+                var field = fields[i];
+                if (name.Equals(field.Name))
                 {
                     values.Add(field.InvariantStringValue());
                     fields.Remove(field);
@@ -65,7 +65,7 @@ namespace Lucene.Net.Odm.Helpers
         /// <returns>string representing field value for invariant culture.</returns>
         public static string GetInvariant(this Document source, string name)
         {
-            Fieldable fieldable = source.GetFieldable(name);
+            IFieldable fieldable = source.GetFieldable(name);
 
             if (fieldable != null)
                 return fieldable.InvariantStringValue();
@@ -78,16 +78,16 @@ namespace Lucene.Net.Odm.Helpers
         /// </summary>
         /// <param name="source">The target field.</param>
         /// <returns>string representing field value for invariant culture.</returns>
-        public static string InvariantStringValue(this Fieldable source)
+        public static string InvariantStringValue(this IFieldable source)
         {
             if (source is NumericField)
             {
-                return ((IFormattable)((NumericField)source).GetNumericValue())
+                return ((IFormattable)((NumericField)source).NumericValue)
                     .ToString(null, CultureInfo.InvariantCulture);
             }
             else
             {
-                return source.StringValue();
+                return source.StringValue;
             }
         }
 
@@ -122,11 +122,11 @@ namespace Lucene.Net.Odm.Helpers
         {
             string numFieldName = GetItemsCountFieldName(name);
             
-            Fieldable field = source.GetFieldable(numFieldName);
+            var field = source.GetFieldable(numFieldName);
 
             if (field != null)
             {
-                int count = int.Parse(field.StringValue());
+                int count = int.Parse(field.StringValue);
                 source.RemoveField(numFieldName);
                 return count;
             }

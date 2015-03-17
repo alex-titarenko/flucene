@@ -42,10 +42,10 @@ namespace Lucene.Net.Odm.Mappers
                 string fieldName = prefix + item.FieldName;
                 if (propertyValue != null)
                 {
-                    IEnumerable<Fieldable> fields = MappingHelper.GetFields(item, propertyValue, prefix);
+                    IEnumerable<IFieldable> fields = MappingHelper.GetFields(item, propertyValue, prefix);
                     if (fields.Count() > 1)
                         doc.AddItemsCount(fieldName, fields.Count());
-                    foreach (Fieldable field in fields)
+                    foreach (IFieldable field in fields)
                     {
                         doc.Add(field);
                     }
@@ -92,7 +92,7 @@ namespace Lucene.Net.Odm.Mappers
             // Sets the document boosting
             if (mapping.Boost != null)
             {
-                doc.SetBoost(mapping.Boost(model));
+                doc.Boost = mapping.Boost(model);
             }
             return doc;
         }
@@ -183,16 +183,16 @@ namespace Lucene.Net.Odm.Mappers
         private static void AddEmbeddedFields(Document doc, dynamic model, IMappingsService mappingService, string prefix)
         {
             Document subDoc = mappingService.GetDocument(model, prefix);
-            IList fields = subDoc.GetFields();
+            var fields = subDoc.GetFields();
             if (fields.Count == 1)
             {
-                Fieldable field = fields[0] as Fieldable;
-                field.SetBoost(subDoc.GetBoost());
+                var field = fields[0] as IFieldable;
+                field.Boost = subDoc.Boost;
                 doc.Add(field);
             }
             else
             {
-                foreach (Fieldable subField in fields)
+                foreach (IFieldable subField in fields)
                 {
                     doc.Add(subField);
                 }

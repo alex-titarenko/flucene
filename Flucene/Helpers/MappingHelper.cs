@@ -34,7 +34,7 @@ namespace Lucene.Net.Odm.Helpers
         /// <param name="value">An object for which to get a set of fields.</param>
         /// <param name="prefix">A <see cref="System.String"/> representing the prefix for the all field names.</param>
         /// <returns>set of fields for document.</returns>
-        public static IEnumerable<Fieldable> GetFields(FieldMapping mapping, Object value, string prefix)
+        public static IEnumerable<IFieldable> GetFields(FieldMapping mapping, Object value, string prefix)
         {
             if (value == null) return null;
 
@@ -44,7 +44,7 @@ namespace Lucene.Net.Odm.Helpers
             {
                 foreach (AbstractField field in fields)
                 {
-                    field.SetBoost(mapping.Boost.Value);
+                    field.Boost = mapping.Boost.Value;
                 }
             }
 
