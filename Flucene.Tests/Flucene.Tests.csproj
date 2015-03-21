@@ -43,6 +43,9 @@
       <HintPath>..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NSubstitute">
+      <HintPath>..\packages\NSubstitute.1.8.1.0\lib\net40\NSubstitute.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -57,24 +60,16 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DocumentMapTests\CustomFieldDocumentMapTests.cs" />
-    <Compile Include="DocumentMapTests\CustomMapDocumentMapTests.cs" />
-    <Compile Include="DocumentMapTests\EmbededDocumentMapTests.cs" />
-    <Compile Include="DocumentMapTests\InvalidCustomFieldDocumentMapTests.cs" />
-    <Compile Include="DocumentMapTests\MemberMock.cs" />
-    <Compile Include="DocumentMapTests\PropertyCustomNameMapDocumentMapTests.cs" />
-    <Compile Include="DocumentMapTests\PropertyMapDocumentMapTests.cs" />
-    <Compile Include="DocumentMapTests\DocumentMapTestBase.cs" />
+    <Compile Include="Mapping\DocumentMapTests.cs" />
     <Compile Include="Mapping\Configuration\FieldConfigurationTests.cs" />
-    <Compile Include="Helpers\AssertHelper.cs" />
-    <Compile Include="Mappings\ApplicationMap.cs" />
-    <Compile Include="Mappings\CategoryMap.cs" />
-    <Compile Include="Mappings\ModelWithDateMap.cs" />
-    <Compile Include="MockMappingsService.cs" />
-    <Compile Include="Models\Application.cs" />
-    <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\ModelWithDate.cs" />
-    <Compile Include="Models\PublishStatus.cs" />
+    <Compile Include="_Helpers\AssertHelper.cs" />
+    <Compile Include="_TestData\Mappings\ApplicationMap.cs" />
+    <Compile Include="_TestData\Mappings\CategoryMap.cs" />
+    <Compile Include="_TestData\Mappings\ModelWithDateMap.cs" />
+    <Compile Include="_TestData\Models\Application.cs" />
+    <Compile Include="_TestData\Models\Category.cs" />
+    <Compile Include="_TestData\Models\ModelWithDate.cs" />
+    <Compile Include="_TestData\Models\PublishStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FluentMappingsServiceTests.cs" />
     <Compile Include="Mappers\ReflectionDocumentMapperTests.cs" />

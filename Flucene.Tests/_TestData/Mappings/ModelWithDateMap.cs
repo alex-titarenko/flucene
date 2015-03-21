@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 
 using Lucene.Net.Odm.Mapping;
-using Lucene.Net.Odm.Test.Models;
+using Lucene.Net.Odm.Test.TestData.Models;
 
-namespace Lucene.Net.Odm.Test.Mappings
+namespace Lucene.Net.Odm.Test.TestData.Mappings
 {
     public class ModelWithDateMap: DocumentMap<ModelWithDate>
     {

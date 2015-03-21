@@ -9,6 +9,8 @@ using Lucene.Net.Orm.Tests.Helpers;
 using Lucene.Net.Documents;
 using Lucene.Net.Analysis;
 using NUnit.Framework;
+using Lucene.Net.Odm.Mapping.Members;
+using NSubstitute;
 
 
 namespace Lucene.Net.Orm.Tests.Mapping.Configuration
@@ -23,8 +25,16 @@ namespace Lucene.Net.Orm.Tests.Mapping.Configuration
         [SetUp]
         public virtual void SetUp()
         {
-            FieldConfiguration = new FieldConfiguration("FieldName", new MemberMock(true, typeof(string)));
-            ExpectedFieldMapping = new FieldConfiguration("FieldName", new MemberMock(true, typeof(string))).GetMapping();
+            var memberMock = Substitute.For<Member>();
+            memberMock.CanWrite.Returns(true);
+            memberMock.MemberType.Returns(typeof(string));
+
+            var extendedMemberMock = Substitute.For<Member>();
+            extendedMemberMock.CanWrite.Returns(true);
+            extendedMemberMock.MemberType.Returns(typeof(string));
+
+            FieldConfiguration = new FieldConfiguration("FieldName", memberMock);
+            ExpectedFieldMapping = new FieldConfiguration("FieldName", extendedMemberMock).GetMapping();
         }
 
 

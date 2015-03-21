@@ -15,8 +15,13 @@ namespace Lucene.Net.Odm
     {
         public IDocumentMapper Mapper { get; set; }
 
-        protected IDictionary<Type, object> Mappings { get; set; }
+        public IDictionary<Type, object> Mappings { get; set; }
 
+
+        public FluentMappingsService()
+        {
+            Mappings = new Dictionary<Type, object>();
+        }
 
         public FluentMappingsService(Assembly assembly)
             : this(new Assembly[] { assembly })

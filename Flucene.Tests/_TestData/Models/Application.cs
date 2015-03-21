@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 
-namespace Lucene.Net.Odm.Test.Models
+namespace Lucene.Net.Odm.Test.TestData.Models
 {
     public class Application
     {

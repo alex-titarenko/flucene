@@ -40,10 +40,11 @@ namespace Lucene.Net.Orm.Tests.Mappers
             fieldMapping.IsNumeric = true;
 
 
-            _mappingService = new MockMappingsService()
+            _mappingService = new FluentMappingsService
             {
                 Mapper = Target,
-                Mappings = new Dictionary<Type, object>() {
+                Mappings = new Dictionary<Type, object>
+                {
                     { typeof(TestSubModel), GetMappingBasedOnField<TestSubModel>(TestSubModel.IdFieldName) }
                 }
             };
@@ -51,10 +52,11 @@ namespace Lucene.Net.Orm.Tests.Mappers
             DocumentMapping<TestSubModel> testSubModelMapping = GetMappingBasedOnField<TestSubModel>(TestSubModel.IdFieldName);
             testSubModelMapping.Embedded.Add(new EmbeddedMapping(new PropertyMember(typeof(TestSubModel).GetProperty(TestSubModel.SubSubModelFieldName))));
 
-            _fullMappingService = new MockMappingsService()
+            _fullMappingService = new FluentMappingsService
             {
                 Mapper = Target,
-                Mappings = new Dictionary<Type, object>() {
+                Mappings = new Dictionary<Type, object>
+                {
                     { typeof(TestSubModel), testSubModelMapping },
                     { typeof(TestSubSubModel), GetMappingBasedOnField<TestSubSubModel>(TestSubModel.IdFieldName) }
                 }

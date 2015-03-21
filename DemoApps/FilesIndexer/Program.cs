@@ -186,7 +186,7 @@ namespace FilesIndexer
                     Console.WriteLine(ex);
                 }
             }
-
+            
             searcher.Close();
         }
     }
