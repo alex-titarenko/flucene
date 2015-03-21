@@ -13,7 +13,7 @@ using NSubstitute;
 namespace Lucene.Net.Orm.Tests.DocumentMapTests
 {
     [TestFixture]
-    public abstract class DocumentMapTestBase<TMap, TModel>
+    public abstract class DocumentMapTestsBase<TMap, TModel>
         where TMap : DocumentMap<TModel>, new()
         where TModel : new() 
     {
@@ -76,7 +76,7 @@ namespace Lucene.Net.Orm.Tests.DocumentMapTests
         #endregion
     }
 
-    public class PropertyMapDocumentMapTests : DocumentMapTestBase<PropertyMapDocumentMapTests.ModelMap, PropertyMapDocumentMapTests.Model>
+    public class DocumentMapTests_PropertyMap : DocumentMapTestsBase<DocumentMapTests_PropertyMap.ModelMap, DocumentMapTests_PropertyMap.Model>
     {
         protected override void BuildExpectedModelMapping(DocumentMapping<Model> mapping)
         {
@@ -97,7 +97,29 @@ namespace Lucene.Net.Orm.Tests.DocumentMapTests
         }
     }
 
-    public class CustomFieldDocumentMapTests : DocumentMapTestBase<CustomFieldDocumentMapTests.ModelMap, CustomFieldDocumentMapTests.Model>
+    public class DocumentMapTests_PropertyMapWithCustomName : DocumentMapTestsBase<DocumentMapTests_PropertyMapWithCustomName.ModelMap, DocumentMapTests_PropertyMapWithCustomName.Model>
+    {
+        protected override void BuildExpectedModelMapping(DocumentMapping<Model> mapping)
+        {
+            mapping.Fields.Add(new FieldMapping("CustomName", new PropertyMember(GetProperty("Property"))));
+        }
+
+
+        public class Model
+        {
+            public string Property { get; set; }
+        }
+
+        public class ModelMap : DocumentMap<Model>
+        {
+            public ModelMap()
+            {
+                Map(x => x.Property, "CustomName");
+            }
+        }
+    }
+
+    public class DocumentMapTests_CustomField : DocumentMapTestsBase<DocumentMapTests_CustomField.ModelMap, DocumentMapTests_CustomField.Model>
     {
         protected override void BuildExpectedModelMapping(DocumentMapping<Model> mapping)
         {
@@ -119,7 +141,7 @@ namespace Lucene.Net.Orm.Tests.DocumentMapTests
         }
     }
 
-    public class CustomMapDocumentMapTests : DocumentMapTestBase<CustomMapDocumentMapTests.ModelMap, CustomMapDocumentMapTests.Model>
+    public class DocumentMapTests_CustomMap : DocumentMapTestsBase<DocumentMapTests_CustomMap.ModelMap, DocumentMapTests_CustomMap.Model>
     {
         protected override void BuildExpectedModelMapping(DocumentMapping<Model> mapping)
         {
@@ -140,7 +162,7 @@ namespace Lucene.Net.Orm.Tests.DocumentMapTests
         }
     }
 
-    public class EmbededDocumentMapTests : DocumentMapTestBase<EmbededDocumentMapTests.ModelMap, EmbededDocumentMapTests.Model>
+    public class DocumentMapTests_EmbededDocument : DocumentMapTestsBase<DocumentMapTests_EmbededDocument.ModelMap, DocumentMapTests_EmbededDocument.Model>
     {
         protected override void BuildExpectedModelMapping(DocumentMapping<Model> mapping)
         {
@@ -169,15 +191,8 @@ namespace Lucene.Net.Orm.Tests.DocumentMapTests
         }
     }
 
-    public class InvalidCustomFieldDocumentMapTests : DocumentMapTestBase<InvalidCustomFieldDocumentMapTests.ModelMap, InvalidCustomFieldDocumentMapTests.Model>
+    public class DocumentMapTests_InvalidCustomField : DocumentMapTestsBase<DocumentMapTests_InvalidCustomField.ModelMap, DocumentMapTests_InvalidCustomField.Model>
     {
-        [Test]
-        //[ExpectedException(typeof(InvalidOperationException))]
-        public override void GetMapping()
-        {
-            base.GetMapping();
-        }
-
         protected override void BuildExpectedModelMapping(DocumentMapping<Model> mapping)
         {
             mapping.Fields.Add(new FieldMapping(null, GetCustomMember(null)));
@@ -193,28 +208,6 @@ namespace Lucene.Net.Orm.Tests.DocumentMapTests
             public ModelMap()
             {
                 Map(x => x.Title.ToUpperInvariant());
-            }
-        }
-    }
-
-    public class PropertyCustomNameMapDocumentMapTests : DocumentMapTestBase<PropertyCustomNameMapDocumentMapTests.ModelMap, PropertyCustomNameMapDocumentMapTests.Model>
-    {
-        protected override void BuildExpectedModelMapping(DocumentMapping<Model> mapping)
-        {
-            mapping.Fields.Add(new FieldMapping("CustomName", new PropertyMember(GetProperty("Property"))));
-        }
-
-
-        public class Model
-        {
-            public string Property { get; set; }
-        }
-
-        public class ModelMap : DocumentMap<Model>
-        {
-            public ModelMap()
-            {
-                Map(x => x.Property, "CustomName");
             }
         }
     }

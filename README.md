@@ -5,14 +5,8 @@
 Object Document Mapper for Lucene.Net
 
 ## Key Features
-* Property mapping
-    * string
-    * int, double, float, decimal etc...
-    * DateTime
-    * enum
-* Collection mapping
-    * array
-    * List
+* Property mapping (string, int, double, float, decimal, DateTime, enum)
+* Collection mapping (Array, List)
 
 ## Example of usage
 Simple mapping class:
