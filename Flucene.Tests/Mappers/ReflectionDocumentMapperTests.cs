@@ -102,7 +102,6 @@ namespace Lucene.Net.Orm.Tests.Mappers
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void GetDocument_MissedRequiredField_ThrowArgumentNullException()
         {
             //arrange
@@ -110,7 +109,10 @@ namespace Lucene.Net.Orm.Tests.Mappers
             model.Text = null;
 
             //action
-            Document doc = Target.GetDocument(_mappingWithRequiredField, model, null);
+            TestDelegate action = () => Target.GetDocument(_mappingWithRequiredField, model, null);
+
+            //assert
+            Assert.Throws<ArgumentNullException>(action);
         }
 
         [Test]
@@ -252,14 +254,16 @@ namespace Lucene.Net.Orm.Tests.Mappers
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
         public void GetModel_RequiredFieldMissed_ThrowArgumentException()
         {
             //arrange
             Document doc = new Document();
 
             //action
-            Target.GetModel<TestModel>(_mappingWithRequiredField, doc, null);
+            TestDelegate action = () => Target.GetModel<TestModel>(_mappingWithRequiredField, doc, null);
+
+            //assert
+            Assert.Throws<ArgumentException>(action);
         }
 
         [Test]
