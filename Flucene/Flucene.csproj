@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net451</TargetFrameworks>
+    <TargetFrameworks>net461</TargetFrameworks>
     <RootNamespace>Lucene.Net.Odm</RootNamespace>
     <AssemblyName>Flucene</AssemblyName>
     <Product>Flucene</Product>
