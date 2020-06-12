@@ -1,5 +1,5 @@
 # Flucene
-[![Build status](https://ci.appveyor.com/api/projects/status/xgy8mb7r9k6igl6i?svg=true)](https://ci.appveyor.com/project/alex-titarenko/flucene)
+![Build](https://github.com/alex-titarenko/flucene/workflows/Build/badge.svg?branch=master)
 [![NuGet Version](http://img.shields.io/nuget/v/Flucene.svg?style=flat)](https://www.nuget.org/packages/Flucene/) [![NuGet Downloads](http://img.shields.io/nuget/dt/Flucene.svg?style=flat)](https://www.nuget.org/packages/Flucene/)
 
 Object Document Mapper for Lucene.Net
