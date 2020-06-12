@@ -1,122 +1,38 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3034591D-AA48-4FB4-B07B-51BCB1EB226F}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFrameworks>net461</TargetFrameworks>
     <RootNamespace>Lucene.Net.Odm</RootNamespace>
     <AssemblyName>Flucene</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
+    <Product>Flucene</Product>
+    <Version>1.1.1</Version>
+    <Description>Object Document Mapping for Lucene.Net</Description>
+    <PackageTags>Lucene; Lucene.NET; Fluent; ODM; Search Library; Text; Information Retrieval; Index</PackageTags>
+    <Authors>Alex Titarenko</Authors>
+    <PackageProjectUrl>https://github.com/alex-titarenko/flucene</PackageProjectUrl>
+    <Copyright>Copyright © 2015 Iveonik Systems</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\Flucene.XML</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Lucene.Net, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Lucene.Net" Version="3.0.3" />
+    <PackageReference Include="SharpZipLib" Version="0.86.0" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="FluentMappingsService.cs" />
-    <Compile Include="Helpers\DataHelper.cs" />
-    <Compile Include="Helpers\DocumentExtensions.cs" />
-    <Compile Include="Helpers\ExpressionHelper.cs" />
-    <Compile Include="Helpers\MappingHelper.cs" />
-    <Compile Include="IIndexRepository.cs" />
-    <Compile Include="IIndexRepositoryFactory.cs" />
-    <Compile Include="IMappingsService.cs" />
-    <Compile Include="Mappers\IDocumentMapper.cs" />
-    <Compile Include="Mappers\ReflectionDocumentMapper.cs" />
-    <Compile Include="Mapping\Configuration\AnalyzerConfiguration.cs" />
-    <Compile Include="Mapping\Configuration\EmbeddedCollectionConfiguration.cs" />
-    <Compile Include="Mapping\Configuration\IHasAnalyzer.cs" />
-    <Compile Include="Mapping\Configuration\IHasIndex.cs" />
-    <Compile Include="Mapping\Configuration\IHasStore.cs" />
-    <Compile Include="Mapping\Configuration\IndexConfiguration.cs" />
-    <Compile Include="Mapping\Configuration\StoreConfiguration.cs" />
-    <Compile Include="Mapping\CustomAction.cs" />
-    <Compile Include="Mapping\DocumentMap.cs" />
-    <Compile Include="Mapping\DocumentMapBase.cs" />
-    <Compile Include="Mapping\DocumentMapping.cs" />
-    <Compile Include="Mapping\Configuration\FieldConfiguration.cs" />
-    <Compile Include="Mapping\EmbeddedCollectionMapping.cs" />
-    <Compile Include="Mapping\EmbeddedMapping.cs" />
-    <Compile Include="Mapping\FieldMapping.cs" />
-    <Compile Include="Mapping\MemberMapping.cs" />
-    <Compile Include="Mapping\Members\CustomMember.cs" />
-    <Compile Include="Mapping\Members\IMemberFactory.cs" />
-    <Compile Include="Mapping\Members\Member.cs" />
-    <Compile Include="Mapping\Members\MemberFactory.cs" />
-    <Compile Include="Mapping\Members\CollectionMember.cs" />
-    <Compile Include="Mapping\Members\PropertyMember.cs" />
-    <Compile Include="Mapping\Providers\IDocumentMappingProvider.cs" />
-    <Compile Include="Mapping\Configuration\EmbeddedConfiguration.cs" />
-    <Compile Include="Mapping\Providers\IEmbeddedMappingProvider.cs" />
-    <Compile Include="Mapping\Providers\IFieldMappingProvider.cs" />
-    <Compile Include="Mapping\Providers\IMappingProvider.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
+    <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
+
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

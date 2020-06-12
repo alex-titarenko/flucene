@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Reflection;
-using System.Linq.Expressions;
 
 namespace Lucene.Net.Odm.Mapping.Members
 {
@@ -13,10 +9,8 @@ namespace Lucene.Net.Odm.Mapping.Members
 
         public Delegate Setter { get; private set; }
 
-        private MethodInfo _setterInfo;
         private dynamic _dynamicGetter;
         private Type _memberType;
-        private object[] _params = new object[2];
 
 
         public CustomMember(Delegate getter, Delegate setter)
@@ -25,10 +19,6 @@ namespace Lucene.Net.Odm.Mapping.Members
             _dynamicGetter = getter;
 
             Setter = setter;
-            if (setter != null)
-            {
-                _setterInfo = setter.Method;
-            }
         }
 
         public override bool CanWrite
@@ -60,9 +50,7 @@ namespace Lucene.Net.Odm.Mapping.Members
 
         public override void SetValue<TTarget, TValue>(TTarget target, TValue value)
         {
-            _params[0] = target;
-            _params[1] = value;
-            _setterInfo.Invoke(null, _params);
+            this.Setter.DynamicInvoke(target, value);
         }
     }
 }

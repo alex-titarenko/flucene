@@ -90,7 +90,7 @@ namespace FilesIndexer
                 }
             }
             writer.Commit();
-            writer.Close();
+            writer.Dispose();
         }
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace FilesIndexer
                 }
             }
             
-            searcher.Close();
+            searcher.Dispose();
         }
     }
 }
